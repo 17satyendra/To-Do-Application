@@ -23,10 +23,6 @@ public class Team implements Serializable {
 	private String logo;
 	private String homevenue;
 	
-	public Team() {
-		System.out.println(this.getClass().getSimpleName());
-	}
-
 	public Long getId() {
 		return id;
 	}

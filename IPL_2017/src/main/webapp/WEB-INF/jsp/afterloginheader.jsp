@@ -16,11 +16,13 @@
 
 <table class=tab bgcolor="Lavender" align="right" cellpadding="10px" cellspacing="15px">
 <tr>
-<td><a href="index.jsp">Home</a></td>
-<td><a href="newAddTeam">addNewteam</a></td>
-<td><a href="newAddPlayer">addNewplayer</a></td>
-<!-- <td><a href="teamList">DisplayTeams</a></td> -->
-<td><a href="signout">Logout</a></td>
+<td><a href="index.jsp"><input type="button" value="Home"></a></td>
+<td><a href="upload"><input type="button" value="AddNewTeam"></a></td>
+<td><a href="newAddPlayer"><input type="button" value="AddNewPlayer"></a></td>
+<!-- <td><a href="teamList"><input type="button" value="DisplayTeams"></a></td> -->
+<td><a href="playerList"><input type="button" value="Players"></a></td>
+<td><a href="teamList"><input type="button" value="Teams"></a></td>
+<td><a href="signout"><input type="button" value="SignOut"></a></td>
 </tr>
 </table><br/>
 <br/>

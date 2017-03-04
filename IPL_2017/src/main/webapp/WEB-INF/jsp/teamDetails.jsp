@@ -4,17 +4,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style type="text/css">
+h1{
+text-align: center;
+font-family: serif;
+color: #696969
+}
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-	<marquee behavior="scroll" direction="left">
+	
 		<h1>${Team.name} Team Information</h1>
-	</marquee>
+
 	<table bordercolor="black" cellpadding="5px" bgcolor="WhiteSmoke "
 		cellspacing="5px" align="center">
 
-		<c:forEach var="team" items="${teamDetails}">
+		<%-- <c:forEach var="team" items="${teamDetails}"> --%>
 			<tr>
 				<th>Id:</th>
 				<td>${team.id}</td>
@@ -44,7 +51,7 @@
 					href="<c:url value="playerList"/>?teamId=${team.id}&teamName=${team.name}">Click
 						here to view all players</a></td>
 			</tr>
-		</c:forEach>
+	<%-- 	</c:forEach> --%>
 	</table>
 </body>
 </html>

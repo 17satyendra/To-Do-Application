@@ -32,16 +32,16 @@ public class SignInController {
 		return "signin";
 	}
 	@RequestMapping(value="signin", method=RequestMethod.POST)
-	public ModelAndView signin(@RequestParam("email") String email, @RequestParam("password")String password,
+	public String signin(@RequestParam("email") String email, @RequestParam("password")String password,
 			Model model){
 		System.out.println(email+" "+password);
 		User user = userservice.authUser(email, password);
 		System.out.println(user);
 		if (user==null)
 		{
-			return new ModelAndView("failure");
+			return "failure";
 		}else{
-			return new ModelAndView("ipl_info");
+			return "redirect:/teamList";
 		}
 	}
 }

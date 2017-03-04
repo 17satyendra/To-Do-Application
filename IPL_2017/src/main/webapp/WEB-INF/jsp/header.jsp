@@ -18,8 +18,7 @@ color: #696969;
 <td><a href="index.jsp"><input type="button" value="Home"></a></td>
 <td><a href="about"><input type="button" value="About"></a></td>
 <td><a href="signin"><input type="button" value="Signin"></a></td>
-<td><a href="contact"><input type="button" value="Contact"></a></td>
 <td><a href="signup"><input type="button" value="SignUp"></a></td>
-<td><a href="teamList"><input type="button" value="Teams"></a></td>
+
 </tr>
 </table>

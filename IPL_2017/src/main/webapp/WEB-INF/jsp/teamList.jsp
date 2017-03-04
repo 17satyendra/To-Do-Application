@@ -23,13 +23,25 @@
 </style>
 </head>
 <body marginheight="10%">
-	<center>
-		<h2>IPL-10 2017 TEAMS</h2>
+<div>
+<span ><img class="img" src="images/logo.jpeg" style="
+    margin-top: -40px;
+    width: 20%;
+    height: 150px;
+"alt="img not found"/></span>
+<span >
+<jsp:include page="afterloginheader.jsp"></jsp:include></span>
+</div>
+<center>
+<a href="http://www.news18.com/cricketnext/news/ipl-2017-full-schedule-date-time-of-all-the-matches-1355365.html">
+<h3>IPL-10 2017 TEAM LIST</h3></a>
+	
+		
 		<div class="div1">
-			<c:forEach var="team" items="${teamInfo}">
+			<c:forEach var="team" items="${teamList}">
 				<div class="div">
 					<a href="<c:url value="teamDetails"/>?teamName=${team.name}"><img
-						src="${team.logo}" width="280px" height="280px" /></a>
+						src="${team.logo}" width="250px" height="250px" /></a>
 				</div>
 			</c:forEach>
 		</div>

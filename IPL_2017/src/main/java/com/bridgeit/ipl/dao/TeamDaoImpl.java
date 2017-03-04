@@ -20,7 +20,11 @@ public class TeamDaoImpl implements TeamDao {
 	public void addNewTeam(Team team) {
 		
 		Session session = sessionFactory.getCurrentSession();
-		session.save(team);
+		try {
+			session.saveOrUpdate(team);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	@Override
 	public List<Team> displayAllTeam() {
@@ -38,4 +42,5 @@ public class TeamDaoImpl implements TeamDao {
 		List<Team> teamDetails = qry.list();
 		return teamDetails;
 	}
+	
 }

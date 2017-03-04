@@ -27,5 +27,5 @@ public class TeamServiceImpl implements TeamService {
 		List<Team> teamdetails=teamDao.displayTeamInfo(name);
 		return teamdetails;
 	}
-
+	
 }

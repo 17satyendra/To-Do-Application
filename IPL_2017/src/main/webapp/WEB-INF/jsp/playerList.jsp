@@ -9,6 +9,11 @@ tr {
 	float: left;
 	padding-left: 95px;
 }
+h1{
+text-align: center;
+font-family: serif;
+color: #696969
+}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -16,9 +21,9 @@ tr {
 <body>
 
 	<jsp:include page="afterloginheader.jsp"></jsp:include>
-	<marquee behavior="scroll" direction="left">
-		<h1>IPL 2016 ${teamName} Team Player List</h1>
-	</marquee>
+	
+		<h1>IPL 2017 ${teamName} Team Player List</h1>
+	
 	<table bordercolor="black" cellpadding="10px" cellspacing="10px"
 		align="left">
 		<c:forEach var="player" items="${playerInfo}">

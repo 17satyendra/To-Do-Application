@@ -8,7 +8,6 @@
 {
 	
 }
-	
 </style>
 </head>
 <div class="head" width="100%">
@@ -20,13 +19,13 @@
 <span ><jsp:include page="WEB-INF/jsp/header.jsp"></jsp:include></span></div>
 <body background="images/sydney-cricket-ground.jpg">
 
-<font color="#CD5C5C" ><center><h2>Welcome to IPL-10 2017</h2></center></font>
+<font color="black" ><center><h2>Welcome to IPL-10 2017</h2></center></font>
 
 	
-	<marquee behavior="alternate" direction="left">
-		<img class="img" src="images/IPL-2017_cover_page.jpg" width="500" height="400"
+	
+		<img class="img" src="images/ipl_cover2017.jpeg" width="600" height="400" align="right"
 			alt="img not found" />
-	</marquee>
+	
 <jsp:include page="WEB-INF/jsp/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -28,10 +28,6 @@ public class Player implements Serializable
 	private String dob;
 	private int teamId;
 	
-	public Player() {
-		System.out.println(this.getClass().getSimpleName()+" Created");
-	}
-
 	public Long getId() {
 		return id;
 	}

@@ -19,9 +19,12 @@ public class PlayerDaoImpl implements PlayerDao {
 	
 	@Override
 	public void addPlayer(Player player) {
-		System.out.println("inside doa method");
 		Session session = sessionfactory.getCurrentSession();
-		session.save(player);
+		try {
+			session.saveOrUpdate(player);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 

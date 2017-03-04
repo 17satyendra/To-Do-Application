@@ -1,8 +1,12 @@
 package com.bridgeit.ipl.controller;
 
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -23,6 +27,8 @@ import com.bridgeit.ipl.service.TeamService;
 public class TeamController {
 	@Autowired
 	TeamService teamService;
+	
+	private Logger logger = Logger.getRootLogger();
 
 	@RequestMapping(value = "/newAddTeam", method = RequestMethod.GET)
 	public String newAddTeam() {
@@ -62,7 +68,7 @@ public class TeamController {
 				Object logoObj = itemObj.get("team_img_url");
 				String logoName = (String) logoObj;
 				tem.setLogo(logoName);
-				teamService.addTeam(tem);
+				
 			}
 
 		} catch (Exception e) {
@@ -82,10 +88,11 @@ public class TeamController {
 		String fileName=file.getOriginalFilename();
 		System.out.println(fileName);
 		
-		Team tem;
+		Team tem;Reader reader =null;
 		JSONParser parser = new JSONParser();
 		try {
-			Object ob = parser.parse(new FileReader(fileName));
+			reader = new InputStreamReader(file.getInputStream());
+			Object ob = parser.parse(reader);
 			JSONObject object = (JSONObject) ob;
 
 			JSONArray data = (JSONArray) object.get("teaminfo");
@@ -117,27 +124,39 @@ public class TeamController {
 				Object logoObj = itemObj.get("team_img_url");
 				String logoName = (String) logoObj;
 				tem.setLogo(logoName);
+				
+				Team nameOfTeam =teamService.displayTeamInfo(teamName).get(0);
+				if (nameOfTeam == null)
+					teamService.addTeam(tem);
+				
 				teamService.addTeam(tem);
 			}
 
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		finally {
+			if(reader!=null)
+				try {
+					reader.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
 		return "signin";
 	}
 	
 	@RequestMapping(value="teamList", method=RequestMethod.GET)
 	public ModelAndView displayAllTeam(){
-		List<Team> teamInfo = teamService.displayAllTeam();
-		return new ModelAndView("teamList", "teamInfo", teamInfo);
+		logger.info("this is log4j");
+		List<Team> teamList = teamService.displayAllTeam();
+		return new ModelAndView("teamList", "teamList", teamList);
 	}
 	
 	@RequestMapping(value="teamDetails", method=RequestMethod.GET)
-	public ModelAndView displayTeamDetails(@RequestParam("teamName")String name, Model model){
-		
-		System.out.println(name);
-		List<Team> teamDetails = teamService.displayTeamInfo(name);
-		
-		return new ModelAndView("teamDetails","teamDetails", teamDetails);
+	public ModelAndView displayTeamDetails(@RequestParam("teamName")String name){
+		Team team = teamService.displayTeamInfo(name).get(0);
+		return new ModelAndView("teamDetails","team", team);
 	}
 }

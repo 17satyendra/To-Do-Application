@@ -17,7 +17,7 @@
     width: 20%;
     height: 150px;
 "alt="img not found"/></span>
-<span ><jsp:include page="WEB-INF/jsp/header.jsp"></jsp:include></span>
+<span ><jsp:include page="header.jsp"></jsp:include></span>
 	
 </div>
 <h2>About Us</h2>
