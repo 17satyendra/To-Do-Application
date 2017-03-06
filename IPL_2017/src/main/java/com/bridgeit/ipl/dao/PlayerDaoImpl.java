@@ -29,11 +29,11 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	@Override
-	public List<Player> getAllPlayerDetails(String name) {
+	public Player getPlayerDetails(Long playerId) {
 		Session session = sessionfactory.getCurrentSession();
-		Query qry = session.createQuery("from Player where name=:playerName");
-		qry.setParameter("playerName", name);
-		List<Player> playerDetails = qry.list();
+		Query qry = session.createQuery("from Player where id=:playerId");
+		qry.setParameter("playerId", playerId);
+		Player playerDetails = (Player) qry.uniqueResult();
 		return playerDetails;
 	}
 

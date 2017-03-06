@@ -1,22 +1,25 @@
 package com.bridgeit.ipl.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.bridgeit.ipl.model.User;
 import com.bridgeit.ipl.service.UserService;
+
 @Controller
 @RequestMapping("/")
 public class SignInController {
-	
+
 	@Autowired
 	private UserService userservice;
-	
+
 	@RequestMapping(value = "contact", method = RequestMethod.GET)
 	public String contact() {
 		return "contact";
@@ -31,17 +34,25 @@ public class SignInController {
 	public String init() {
 		return "signin";
 	}
-	@RequestMapping(value="signin", method=RequestMethod.POST)
-	public String signin(@RequestParam("email") String email, @RequestParam("password")String password,
-			Model model){
-		System.out.println(email+" "+password);
+
+	@RequestMapping(value = "signin", method = RequestMethod.POST)
+	public String signin(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
+		System.out.println(email + " " + password);
 		User user = userservice.authUser(email, password);
 		System.out.println(user);
-		if (user==null)
-		{
+		if (user == null) {
 			return "failure";
-		}else{
+		} else {
 			return "redirect:/teamList";
 		}
 	}
+
+	@RequestMapping(value = "signout", method = RequestMethod.GET)
+	public String signout(HttpServletRequest request) {
+		HttpSession sesion = request.getSession();
+		sesion.invalidate();
+		sesion = request.getSession();
+		return "/signin";
+	}
+
 }

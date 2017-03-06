@@ -6,7 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
 .tab {
-
  width:80%;
 }
 
@@ -14,7 +13,7 @@
 </head>
 <body>
 
-<table class=tab bgcolor="Lavender" align="right" cellpadding="10px" cellspacing="15px">
+<table class=tab bgcolor="#D2691E" align="right" cellpadding="10px" cellspacing="10px">
 <tr>
 <td><a href="index.jsp"><input type="button" value="Home"></a></td>
 <td><a href="upload"><input type="button" value="AddNewTeam"></a></td>

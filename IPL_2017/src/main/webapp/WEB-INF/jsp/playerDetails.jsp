@@ -8,12 +8,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<marquee behavior="scroll" direction="right">
+	<center>
 		<h1>Player Information</h1>
-	</marquee>
+	</center>
 	<table bgcolor="#ffddcc" bordercolor="black" cellpadding="10px"
 		cellspacing="10px" align="center">
-		<c:forEach var="player" items="${playerDetails}">
+		
 			<tr>
 				<th>DisplayPicture:</th>
 				<td><img alt="${player.name}" src="${player.displayPicture}"
@@ -53,11 +53,11 @@
 			</tr>
 			<tr>
 
-				<td><a href="teamList">click here to go back team list</a></td>
+				<td><a href="<c:url value="playerList"/>?teamId=${player.teamId}">
+				click here to go back Player list</a></td>
 
 			</tr>
 
-		</c:forEach>
 	</table>
 </body>
 </html>

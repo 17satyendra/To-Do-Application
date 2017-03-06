@@ -8,7 +8,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -80,20 +79,17 @@ public class PlayerController {
 		return "signin";
 	}
 	@RequestMapping(value="playerDetails", method=RequestMethod.GET)
-	public ModelAndView playerDetail(@RequestParam("playerName") String playerName, Model model)
+	public ModelAndView playerDetail(@RequestParam("playerId") Long playerId)
 	{
-		List<Player> playerDetails = playerservice.getAllPlayerDetails(playerName);
-		model.addAttribute("playerName", playerName);
-		return new ModelAndView("playerDetails", "playerDetails", playerDetails);
+		Player player = playerservice.getPlayerDetails(playerId);
+		return new ModelAndView("playerDetails", "player", player);
 		
 	}
 	
 	@RequestMapping(value = "/playerList", method = RequestMethod.GET)
-	public ModelAndView displayAllTeam(@RequestParam("teamId") int teamId, @RequestParam("teamName") String teamName,
-			Model model) {
+	public ModelAndView displayAllTeam(@RequestParam("teamId") int teamId) {
 
-		List<Player> playerInfo = playerservice.displayAllPlayer(teamId);
-		model.addAttribute("teamName", teamName);
-		return new ModelAndView("playerList", "playerInfo", playerInfo);
+		List<Player> playerList = playerservice.displayAllPlayer(teamId);
+		return new ModelAndView("playerList", "playerInfo", playerList);
 	}
 }

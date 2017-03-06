@@ -10,7 +10,6 @@
 	<tx:annotation-driven />
 	<mvc:annotation-driven />
 	<mvc:resources location="/images/" mapping="/images/**" />
-	
 
 	<!--controller and services scan -->
 	<context:component-scan base-package="com.bridgeit.ipl.controller" />
@@ -21,16 +20,16 @@
 		<property name="prefix" value="/WEB-INF/jsp/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
-	
+
 	<!-- Access resource bundles with the specified basename -->
-		<bean id="messageSource"
+	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basename" value="classpath:messages" />
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
 
 
-	
+
 	<!-- Pooled data source. -->
 	<bean id="pooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
@@ -69,20 +68,38 @@
 
 	<bean id="userservice" class="com.bridgeit.ipl.service.UserServiceImpl" />
 	<bean id="userdao" class="com.bridgeit.ipl.dao.UserDaoImpl" />
-	
-	<bean id="teamService" class="com.bridgeit.ipl.service.TeamServiceImpl"/>
-	<bean id="teamDao" class="com.bridgeit.ipl.dao.TeamDaoImpl"/>
-	
-	<bean id="playerservice" class="com.bridgeit.ipl.service.PlayerServiceImpl"/>
-	<bean id="playerdao" class="com.bridgeit.ipl.dao.PlayerDaoImpl"/>
-	
+
+	<bean id="teamService" class="com.bridgeit.ipl.service.TeamServiceImpl" />
+	<bean id="teamDao" class="com.bridgeit.ipl.dao.TeamDaoImpl" />
+
+	<bean id="playerservice" class="com.bridgeit.ipl.service.PlayerServiceImpl" />
+	<bean id="playerdao" class="com.bridgeit.ipl.dao.PlayerDaoImpl" />
+
 
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-    <property name="maxUploadSize" value="10000000"/>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10000000" />
+	</bean>
+	<!-- The java mail API injection -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="username" value="deepak.deepu2020@gmail.com" />
+		<property name="password" value="satyendra1950" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.socketFactory.port">465</prop>
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+				<prop key="mail.smtp.port">465</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="mail" class="com.bridgeit.ipl.email.MailImpl">
+		<property name="mailSender" ref="mailSender" />
 	</bean>
 </beans>

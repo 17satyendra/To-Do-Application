@@ -23,9 +23,13 @@ public class TeamServiceImpl implements TeamService {
 		return teamInfo;
 	}
 	@Override
-	public List<Team> displayTeamInfo(String name) {
-		List<Team> teamdetails=teamDao.displayTeamInfo(name);
-		return teamdetails;
+	public String getTeamName(String name) {
+		String teamName=teamDao.getTeamName(name);
+		return teamName;
+	}
+	@Override
+	public Team getTeamById(long teamId) {
+		return teamDao.getTeamById(teamId);
 	}
 	
 }

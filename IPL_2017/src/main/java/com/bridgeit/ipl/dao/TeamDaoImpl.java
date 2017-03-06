@@ -34,13 +34,22 @@ public class TeamDaoImpl implements TeamDao {
 		return teamsinfo;
 	}
 	@Override
-	public List<Team> displayTeamInfo(String name) {
+	public String getTeamName(String name) {
 		
 		Session session = sessionFactory.getCurrentSession();
 		Query qry = session.createQuery("from Team where name=:name");
 		qry.setParameter("name", name);
-		List<Team> teamDetails = qry.list();
-		return teamDetails;
+		String teamName = (String) qry.uniqueResult();
+		return teamName;
+	}
+	@Override
+	public Team getTeamById(long teamId) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		Query qry = session.createQuery("from Team where id=:teamId");
+		qry.setParameter("teamId", teamId);
+		Team team = (Team) qry.uniqueResult();
+		return team;
 	}
 	
 }

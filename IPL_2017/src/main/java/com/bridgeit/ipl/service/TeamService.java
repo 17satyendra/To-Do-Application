@@ -10,7 +10,9 @@ public interface TeamService {
 
 	List<Team> displayAllTeam();
 
-	List<Team> displayTeamInfo(String name);
+	String getTeamName(String name);
+
+	Team getTeamById(long teamId);
 
 	
 

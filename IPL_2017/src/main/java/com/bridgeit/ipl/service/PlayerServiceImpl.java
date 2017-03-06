@@ -19,8 +19,8 @@ public class PlayerServiceImpl implements PlayerService {
 		
 	}
 	@Override
-	public List<Player> getAllPlayerDetails(String name) {
-		List<Player> playerDetails = playerdao.getAllPlayerDetails(name);
+	public Player getPlayerDetails(Long playerId) {
+		Player playerDetails = playerdao.getPlayerDetails(playerId);
 		return playerDetails;
 	}
 	@Override

@@ -8,14 +8,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<spring:url value="images/static/js/main.js" var="mainJs" />
+<script src="${mainJs}"></script>
 <style type="text/css">
 body{
-    background-image: url(images/sky.jpg);
+    background-image: url(images/signinback.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     width: 100%;
     height: 100%;
+}
+font{
+color: white;
+font-style: oblique;
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -23,12 +29,11 @@ body{
 </head>
 <body>
 	<center>
-		<h1>Enter the following information</h1>
-	</center>
-
-	<form:form id="myform" method="Post" action="saveUser"
-		commandName="user">
-		<table bgcolor="teal" cellpadding="5px" cellspacing="5px"
+		<h1><font>Enter the following information</font></h1></center>
+	
+	<form:form  method="Post" action="saveUser"
+		commandName="user" onsubmit="return formValidation();">
+		<table bgcolor="9e2005" cellpadding="5px" cellspacing="5px"
 			align="center">
 
 			<form:hidden path="id" id="myid" />
@@ -39,79 +44,80 @@ body{
 					</center></td>
 			</tr>
 			<tr>
-				<td><font color="white">UserName</font></td>
+				<td><font>UserName</font></td>
 			</tr>
 			<tr>
 				<td><form:input type="text" path="firstname"
-						id="firstNameInput" placeholder="First name" required="required" />
+						id="firstNameInput" placeholder="First name" required />
 					<form:errors path="firstname" cssClass="error" /></td>
 
 				<td><form:input type="text" path="lastname" id="lastNameInput"
-						placeholder="Last name" required="required" /> <form:errors
+						placeholder="Last name" required/> <form:errors
 						path="lastname" cssClass="error" /></td>
 			</tr>
 
-
 			<tr>
-				<td>Email</td>
+				<td><font>Email</font></td>
 			</tr>
 			<tr>
 				<td><form:input type="text" path="email" id="emailInput"
-						placeholder="Email Address" required="required" /> <form:errors
+						placeholder="Email Address" required /> <form:errors
 						path="email" cssClass="error" /></td>
 			</tr>
 
 			<tr>
 			<tr>
-				<td>Password</td>
+				<td><font>Password </font></td>
 			</tr>
 			<tr>
 				<td><form:input type="password" path="password"
 						placeholder="password" id="passwordInput" required="required" />
 					<form:errors path="password" cssClass="error" /></td>
 				<td><form:input type="password" path="confirmPassword"
-						placeholder="confirm-password" id="confirmPasswordInput"
+						placeholder="Re-Enter Password" id="confirmPasswordInput"
 						required="required" /> <form:errors path="confirmPassword"
 						cssClass="error" /></td>
 			</tr>
 
 			<tr>
-				<td>Gender</td>
+				<td><font>Gender</font></td>
 			<tr>
 			<tr>
 				<td><input type="radio" name="gender" value="male" checked>
-					Male <input type="radio" name="gender" value="female">
-					Female <input type="radio" name="gender" value="other">
-					Other
+					<font>Male</font><input type="radio" name="gender" value="female">
+					<font>Female</font><input type="radio" name="gender" value="other">
+					<font>Other</font>
 			</tr>
 			<tr>
 			<tr>
-				<td>Mobile Number</td>
+				<td><font>Mobile Number</font></td>
 			</tr>
 			<tr>
 				<td><form:input type="numeric" path="mobile"
 						placeholder="your mobile number" id="mobileInput"
-						required="required" /> <form:errors path="mobile"
+						required /> <form:errors path="mobile"
 						cssClass="error" /></td>
 			</tr>
 			<tr>
 			<tr>
-				<td>Address</td>
+				<td><font>Address</font></td>
 			</tr>
 			<tr>
 				<td><form:input type="text" path="city" placeholder="city"
-						id="cityInput" required="required" /> <form:errors path="city"
+						id="cityInput" required/> <form:errors path="city"
 						cssClass="error" /></td>
 				<td><form:input type="text" path="country"
-						placeholder="country" id="countryInput" required="required" /> <form:errors
-						path="country" cssClass="error" /></td>
+						placeholder="country" id="countryInput" required/> <form:errors
+						path="country" cssClass="error" />
+											</td>
+						
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="Submit" id="submit" /></td>
 			</tr>
 		</table>
 	</form:form>
-		<a href="signin.jsp"><h4 align="right">Already Registered??Click here to sign in!</h4></a>
-	
+		<h4 align="right"><a href="signin.jsp">Already Registered??Click here to sign in!</a></h4>
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

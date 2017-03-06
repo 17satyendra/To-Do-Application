@@ -29,7 +29,7 @@ color: #696969
 		<c:forEach var="player" items="${playerInfo}">
 			<tr>
 				<td><a
-					href="<c:url value="playerDetails"/>?playerName=${player.name}"><img
+					href="<c:url value="playerDetails"/>?playerId=${player.id}"><img
 						src="${player.displayPicture}" width="250px" height="200px" /></a></td>
 
 			</tr>

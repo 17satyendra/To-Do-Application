@@ -1,6 +1,5 @@
 package com.bridgeit.ipl.controller;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -12,7 +11,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,9 +26,9 @@ public class TeamController {
 	@Autowired
 	TeamService teamService;
 	
-	private Logger logger = Logger.getRootLogger();
+	private Logger logger = Logger.getLogger(TeamController.class);
 
-	@RequestMapping(value = "/newAddTeam", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/newAddTeam", method = RequestMethod.GET)
 	public String newAddTeam() {
 
 		Team tem;
@@ -75,7 +73,7 @@ public class TeamController {
 			System.out.println(e);
 		}
 		return "signin";
-	}
+	}*/
 	
 	@RequestMapping(value="upload", method=RequestMethod.GET)
 	public String init()
@@ -125,7 +123,7 @@ public class TeamController {
 				String logoName = (String) logoObj;
 				tem.setLogo(logoName);
 				
-				Team nameOfTeam =teamService.displayTeamInfo(teamName).get(0);
+				String nameOfTeam =teamService.getTeamName(teamName);
 				if (nameOfTeam == null)
 					teamService.addTeam(tem);
 				
@@ -155,8 +153,8 @@ public class TeamController {
 	}
 	
 	@RequestMapping(value="teamDetails", method=RequestMethod.GET)
-	public ModelAndView displayTeamDetails(@RequestParam("teamName")String name){
-		Team team = teamService.displayTeamInfo(name).get(0);
+	public ModelAndView displayTeamDetails(@RequestParam("teamId")long teamId ){
+		Team team = teamService.getTeamById(teamId);
 		return new ModelAndView("teamDetails","team", team);
 	}
 }

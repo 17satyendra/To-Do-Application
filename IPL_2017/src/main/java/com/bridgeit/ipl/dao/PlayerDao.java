@@ -8,7 +8,7 @@ public interface PlayerDao {
 
 	void addPlayer(Player player);
 
-	List<Player> getAllPlayerDetails(String name);
+	Player getPlayerDetails(Long playerId);
 
 	List<Player> displayAllPlayer(int teamId);
 
