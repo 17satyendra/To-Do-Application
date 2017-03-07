@@ -11,4 +11,5 @@ public interface PlayerService {
 	Player getPlayerDetails(Long playerId);
 
 	List<Player> displayAllPlayer(int teamId);
+	List<Player> displayAllPlayer();
 }

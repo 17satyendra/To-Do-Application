@@ -92,4 +92,9 @@ public class PlayerController {
 		List<Player> playerList = playerservice.displayAllPlayer(teamId);
 		return new ModelAndView("playerList", "playerInfo", playerList);
 	}
+	@RequestMapping(value ="allplayerList")
+	public ModelAndView displayplayerList(){
+		List<Player> allplayerList = playerservice.displayAllPlayer();
+		return new ModelAndView("allplayerList","allplayerList", allplayerList);
+	}
 }

@@ -6,28 +6,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-.div {
-	display: inline-block;
-	height: 50%;
-	padding: 1%;
-}
 
-.div1 {
-	width: 100%;
-	height: 100%;
-	padding: 2%;
-	background-color: #333300;
-	text-align: center;
-}
+<link rel="stylesheet" type="text/css" href="images/static/css/main.css">
 
-</style>
 </head>
 <body bgcolor="#d4efdf">
 <div>
 <span ><img class="img" src="images/logo.jpeg" style="
     margin-top: -40px;
-    width: 20%;
+    width: 10%;
     height: 150px;
 "alt="img not found"/></span>
 <span>

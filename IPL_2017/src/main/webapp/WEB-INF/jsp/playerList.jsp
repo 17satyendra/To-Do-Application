@@ -19,10 +19,15 @@ color: #696969
 <title>Insert title here</title>
 </head>
 <body>
-
-	<jsp:include page="afterloginheader.jsp"></jsp:include>
+<div class="head" width="100%">
+<span ><img class="img" src="images/logo.jpeg" style="
+    margin-top: -40px;
+    width: 20%;
+    height: 150px;
+"alt="img not found"/></span>
+<span ><jsp:include page="afterloginheader.jsp"></jsp:include></span></div>
 	
-		<h1>IPL 2017 ${teamName} Team Player List</h1>
+		<center><h2>IPL 2017 ${teamName} Team Player List</h2></center>
 	
 	<table bordercolor="black" cellpadding="10px" cellspacing="10px"
 		align="left">

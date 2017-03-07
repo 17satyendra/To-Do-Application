@@ -46,4 +46,12 @@ public class PlayerDaoImpl implements PlayerDao {
 		return playersInfo;
 	}
 
+	@Override
+	public List<Player> displayAllPlayer() {
+		Session session = sessionfactory.getCurrentSession();
+		Query qry = session.createQuery("from Player");
+		List<Player> playersInfo = qry.list();
+		return playersInfo;
+	}
+
 }

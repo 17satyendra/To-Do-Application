@@ -28,5 +28,10 @@ public class PlayerServiceImpl implements PlayerService {
 		List<Player> playerList = playerdao.displayAllPlayer(teamId);
 		return playerList;
 	}
+	@Override
+	public List<Player> displayAllPlayer() {
+		List<Player> playerList = playerdao.displayAllPlayer();
+		return playerList;
+	}
 
 }
