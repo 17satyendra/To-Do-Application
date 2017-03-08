@@ -11,7 +11,7 @@ function formValidation() {
 
 	var fn_len = fname.value.length;
 	var passid_len = pass.value.length;
-	var numbers = /^[0-9]+$/;
+	var numbers = /^[1-9]{1}[0-9]{9}$/;
 	var ct_len = ct.value.length;
 
 	var letters = /^[A-Za-z]+$/;
@@ -37,12 +37,12 @@ function formValidation() {
 						return false;
 					}
 					if (ctry.value == "-1") {
-			            alert("Please select an option!");
-			            document.myform.country.focus();
-			            return false;
+						alert("Please select an option!");
+						document.myform.country.focus();
+						return false;
 					}
 				} else {
-					alert("Please provide numeric mobile number!");
+				     alert("Not a valid Phone Number");  
 					document.myform.mobile.focus();
 					return false;
 				}
@@ -65,3 +65,7 @@ function formValidation() {
 	}
 
 }
+function validate(obj) {
+	obj.value = obj.value.trim();
+}
+

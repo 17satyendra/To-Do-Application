@@ -9,6 +9,18 @@
 <html>
 <link rel="stylesheet" type="text/css" href="images/static/css/main.css">
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("input").focus(function(){
+        $(this).css("background-color", "#f4f6f6");
+    });
+    $("input").blur(function(){
+        $(this).css("background-color", "#ffffff");
+    });
+});
+</script>
+
 <spring:url value="images/static/js/main.js" var="mainJs" />
 <script src="${mainJs}"></script>
 
@@ -36,11 +48,11 @@
 			</tr>
 			<tr>
 				<td><form:input type="text" path="firstname"
-						id="firstNameInput" placeholder="First name" required="required" />
+						id="firstNameInput" onkeyup="validate(this)" placeholder="First name" minlength="3" required="required" />
 					<form:errors path="firstname" cssClass="error" /></td>
 
 				<td><form:input type="text" path="lastname" id="lastNameInput"
-						placeholder="Last name" required="required"/> <form:errors
+						placeholder="Last name" onkeyup="validate(this)" minlength="3"  required="required"/> <form:errors
 						path="lastname" cssClass="error" /></td>
 			</tr>
 
@@ -49,7 +61,7 @@
 			</tr>
 			<tr>
 				<td><form:input type="text" path="email" id="emailInput"
-						placeholder="Email Address" required="required" /> <form:errors
+						placeholder="Email Address"  onkeyup="validate(this)" minlength="6" required="required" /> <form:errors
 						path="email" cssClass="error" /></td>
 			</tr>
 
@@ -59,11 +71,11 @@
 			</tr>
 			<tr>
 				<td><form:input type="password" path="password"
-						placeholder="password" id="passwordInput" required="required" />
+						placeholder="password" id="passwordInput" required="required" onkeyup="validate(this)" />
 					<form:errors path="password" cssClass="error" /></td>
 				<td><form:input type="password" path="confirmPassword"
 						placeholder="Re-Enter Password" id="confirmPasswordInput"
-						required="required" /> <form:errors path="confirmPassword"
+						required="required" onkeyup="validate(this)" /> <form:errors path="confirmPassword"
 						cssClass="error" /></td>
 			</tr>
 
@@ -80,9 +92,9 @@
 				<td><font>Mobile Number</font></td>
 			</tr>
 			<tr>
-				<td><form:input type="numeric" path="mobile"
+				<td><form:input type="number" path="mobile"
 						placeholder="your mobile number" id="mobileInput"
-						required="required" /> <form:errors path="mobile"
+						required="required" size="10" onkeyup="validate(this)" /> <form:errors path="mobile"
 						cssClass="error" /></td>
 			</tr>
 			<tr>
@@ -91,7 +103,7 @@
 			</tr>
 			<tr>
 				<td><form:input tylnamepe="text" path="city" placeholder="city"
-						id="cityInput" required="required"/> <form:errors path="city"
+						id="cityInput" required="required" onkeyup="validate(this)"/> <form:errors path="city"
 						cssClass="error" /></td>
 				<td>
                   <select name="country">
@@ -104,7 +116,7 @@
 						
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="Submit" id="submit" /></td>
+				<td colspan="2"><input type="submit" value="Submit" id="submit" ></td>
 			</tr>
 		</table>
 	</form:form>

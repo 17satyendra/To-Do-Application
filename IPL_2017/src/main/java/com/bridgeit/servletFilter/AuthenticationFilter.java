@@ -19,11 +19,11 @@ public class AuthenticationFilter implements Filter {
 	
 	}
 
-	public void init(FilterConfig arg0) throws ServletException {
+	public void init(FilterConfig chain) throws ServletException {
 
 	}
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain arg2)
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
@@ -34,7 +34,7 @@ public class AuthenticationFilter implements Filter {
 			resp.sendRedirect("signin");
 			return;
 		}
-		arg2.doFilter(request, response);
+		chain.doFilter(request, response);
 	}
 
 }

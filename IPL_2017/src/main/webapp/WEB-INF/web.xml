@@ -19,6 +19,23 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<filter>
+		<filter-name>authenticationFilter</filter-name>
+		<filter-class>com.bridgeit.servletFilter.AuthenticationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>authenticationFilter</filter-name>
+		<url-pattern>/addPlayer</url-pattern>
+		<url-pattern>/addTeam</url-pattern>
+		<url-pattern>/teamList</url-pattern>
+		<url-pattern>/playerList</url-pattern>
+		<url-pattern>/playerDetails</url-pattern>
+		<url-pattern>/teamDetails</url-pattern>
+		<url-pattern>/createNewTeam</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+	</filter-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>

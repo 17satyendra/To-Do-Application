@@ -20,7 +20,7 @@ public class SignInController {
 
 	@Autowired
 	private UserService userservice;
-	
+
 	private Logger logger = Logger.getLogger(SignInController.class);
 
 	@RequestMapping(value = "contact", method = RequestMethod.GET)
@@ -39,25 +39,26 @@ public class SignInController {
 	}
 
 	@RequestMapping(value = "signin", method = RequestMethod.POST)
-	public String signin(@RequestParam("email") String email, @RequestParam("password") String password, Model model, HttpServletRequest request) {
+	public String signin(@RequestParam("email") String email, @RequestParam("password") String password, Model model,
+			HttpServletRequest request) {
 		System.out.println(email + " " + password);
 		User user = userservice.authUser(email, password);
 		System.out.println(user);
 		if (user == null) {
 			return "failure";
 		} else {
-				
-				HttpSession sesion = request.getSession();
-				sesion.invalidate(); // invalidate existing session
-				logger.debug(sesion);
-				// creating new session
-				sesion = request.getSession();
-				sesion.setAttribute("user", user);
-				// Maximum active time
-				sesion.setMaxInactiveInterval(1000);
-				
-				//model.addAttribute("userName", userName);
-				return "redirect:/teamList";
+
+			HttpSession sesion = request.getSession();
+			sesion.invalidate(); // invalidate existing session
+			logger.debug(sesion);
+			// creating new session
+			sesion = request.getSession();
+			sesion.setAttribute("user", user);
+			// Maximum active time
+			sesion.setMaxInactiveInterval(1000);
+			Integer userId = user.getId();
+			model.addAttribute("userId", userId);
+			return "redirect:/teamList";
 		}
 	}
 
