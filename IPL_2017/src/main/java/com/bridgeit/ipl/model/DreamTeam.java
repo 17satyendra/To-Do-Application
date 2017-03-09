@@ -1,11 +1,12 @@
 package com.bridgeit.ipl.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class DreamTeam 
+public class DreamTeam implements Serializable
 {
 	private int id;
-	private String name;
+	private String dreamTeamName;
 	private List<Player> list;
 	public int getId() {
 		return id;
@@ -14,10 +15,10 @@ public class DreamTeam
 		this.id = id;
 	}
 	public String getName() {
-		return name;
+		return dreamTeamName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String dreamTeamName) {
+		this.dreamTeamName = dreamTeamName;
 	}
 	public List<Player> getList() {
 		return list;

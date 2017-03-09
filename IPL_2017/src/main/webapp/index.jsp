@@ -8,6 +8,7 @@ $(document).ready(function(){
         $("#panel").slideToggle("slow");
     });
 });
+
 </script>
 <style type="text/css">
 .img {

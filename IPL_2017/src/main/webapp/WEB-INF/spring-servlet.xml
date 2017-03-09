@@ -55,6 +55,9 @@
 				<value>
 					com.bridgeit.ipl.model.Player
 				</value>
+				<value>
+					com.bridgeit.ipl.model.DreamTeam
+				</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

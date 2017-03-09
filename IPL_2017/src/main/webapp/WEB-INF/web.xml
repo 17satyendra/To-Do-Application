@@ -31,7 +31,7 @@
 		<url-pattern>/playerList</url-pattern>
 		<url-pattern>/playerDetails</url-pattern>
 		<url-pattern>/teamDetails</url-pattern>
-		<url-pattern>/createNewTeam</url-pattern>
+		<url-pattern>/createTeam</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

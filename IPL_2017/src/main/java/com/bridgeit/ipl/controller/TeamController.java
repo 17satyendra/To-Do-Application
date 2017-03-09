@@ -127,8 +127,7 @@ public class TeamController {
 				if (nameOfTeam == null)
 					teamService.addTeam(tem);
 				
-				teamService.addTeam(tem);
-			}
+				}
 
 		} catch (Exception e) {
 			System.out.println(e);
