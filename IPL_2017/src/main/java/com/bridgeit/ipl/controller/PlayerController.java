@@ -68,8 +68,10 @@ public class PlayerController {
 				Object teamIdObj = itemObj.get("team_id");
 				Integer teamIdName = Integer.valueOf((String) teamIdObj);
 				player.setTeamId(teamIdName);
-
-				playerservice.addPlayer(player);
+				
+				Player playername = playerservice.getPlayer(playerName);
+				if(playername==null)
+					playerservice.addPlayer(player);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

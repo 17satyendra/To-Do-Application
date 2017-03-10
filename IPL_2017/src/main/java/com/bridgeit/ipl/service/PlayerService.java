@@ -12,4 +12,6 @@ public interface PlayerService {
 
 	List<Player> displayAllPlayer(int teamId);
 	List<Player> displayAllPlayer();
+
+	Player getPlayer(String playerName);
 }

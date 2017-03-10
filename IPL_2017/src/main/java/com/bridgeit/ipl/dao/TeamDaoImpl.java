@@ -1,4 +1,4 @@
-package com.bridgeit.ipl.dao;
+	package com.bridgeit.ipl.dao;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bridgeit.ipl.model.DreamTeam;
 import com.bridgeit.ipl.model.Team;
 @Repository
 @Transactional
@@ -50,6 +51,15 @@ public class TeamDaoImpl implements TeamDao {
 		qry.setParameter("teamId", teamId);
 		Team team = (Team) qry.uniqueResult();
 		return team;
+	}
+	@Override
+	public void addDreamTeam(DreamTeam dt) {
+		Session session = sessionFactory.getCurrentSession();
+		try {
+			session.saveOrUpdate(dt);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

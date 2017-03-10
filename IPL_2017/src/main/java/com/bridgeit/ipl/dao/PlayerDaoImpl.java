@@ -21,7 +21,7 @@ public class PlayerDaoImpl implements PlayerDao {
 	public void addPlayer(Player player) {
 		Session session = sessionfactory.getCurrentSession();
 		try {
-			session.saveOrUpdate(player);
+			session.save(player);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -52,6 +52,15 @@ public class PlayerDaoImpl implements PlayerDao {
 		Query qry = session.createQuery("from Player");
 		List<Player> playersInfo = qry.list();
 		return playersInfo;
+	}
+
+	@Override
+	public Player getPlayer(String playerName) {
+		Session session = sessionfactory.getCurrentSession();
+		Query qry = session.createQuery("from Player where name=:name");
+		qry.setParameter("name", playerName);
+		Player player = (Player) qry.uniqueResult();
+		return player;
 	}
 
 }

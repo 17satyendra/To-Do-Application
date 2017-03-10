@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -20,7 +22,6 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name="User_details")
 public class User implements Serializable
 {
-	
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GenericGenerator(name="gen", strategy="increment")
@@ -35,6 +36,11 @@ public class User implements Serializable
 	private Long mobile;
 	private String city;
 	private String country;
+	
+	@OneToOne
+	@PrimaryKeyJoinColumn
+	private DreamTeam dreamTeam;
+	
 	
 	public User() {	}
 
@@ -117,4 +123,5 @@ public class User implements Serializable
 	public void setCountry(String country) {
 		this.country = country;
 	}
+
 }

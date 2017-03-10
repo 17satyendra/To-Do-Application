@@ -13,6 +13,8 @@ public interface PlayerDao {
 	List<Player> displayAllPlayer(int teamId);
 	
 	List<Player> displayAllPlayer();
+
+	Player getPlayer(String playerName);
 	
 
 }

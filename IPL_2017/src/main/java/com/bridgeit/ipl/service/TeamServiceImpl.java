@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bridgeit.ipl.dao.TeamDao;
+import com.bridgeit.ipl.model.DreamTeam;
 import com.bridgeit.ipl.model.Team;
 @Service
 public class TeamServiceImpl implements TeamService {
@@ -30,6 +31,11 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public Team getTeamById(long teamId) {
 		return teamDao.getTeamById(teamId);
+	}
+	@Override
+	public void addDreamTeam(DreamTeam dt) 
+	{
+		teamDao.addDreamTeam(dt);
 	}
 	
 }

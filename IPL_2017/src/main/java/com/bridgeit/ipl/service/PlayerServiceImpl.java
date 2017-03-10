@@ -33,5 +33,9 @@ public class PlayerServiceImpl implements PlayerService {
 		List<Player> playerList = playerdao.displayAllPlayer();
 		return playerList;
 	}
+	@Override
+	public Player getPlayer(String playerName) {
+		return playerdao.getPlayer(playerName);
+	}
 
 }

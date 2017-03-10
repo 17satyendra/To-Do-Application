@@ -2,6 +2,7 @@ package com.bridgeit.ipl.dao;
 
 import java.util.List;
 
+import com.bridgeit.ipl.model.DreamTeam;
 import com.bridgeit.ipl.model.Team;
 
 public interface TeamDao {
@@ -13,5 +14,7 @@ public interface TeamDao {
 	String getTeamName(String name);
 
 	Team getTeamById(long teamId);
+
+	void addDreamTeam(DreamTeam dt);
 
 }

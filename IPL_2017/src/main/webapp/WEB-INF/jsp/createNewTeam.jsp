@@ -14,9 +14,10 @@
 <spring:url value="images/static/js/main.js" var="mainJs" />
 <script src="${mainJs}"></script>
 <script type="text/javascript">
-	$(function() {
-		function moveItems(origin, dest) {
-			$(origin).find(':selected').appendTo(dest);
+	$(function() {function moveItems(origin, dest) {
+				$(origin).find(':selected').appendTo(dest);
+			
+			
 		}
 
 		function moveAllItems(origin, dest) {
@@ -24,11 +25,22 @@
 		}
 
 		$('#left').click(function() {
+
 			moveItems('#to', '#from');
 		});
 
 		$('#right').on('click', function() {
-			moveItems('#from', '#to');
+			
+			var toLength = $('select#to option').length;
+			var fromSelect = $("select#from option:selected").length;
+			
+				
+			if ((toLength+fromSelect) <= 11) {
+				moveItems('#from', '#to');
+			}else{
+				alert("Select only 11 players");
+			}
+			
 		});
 
 		$('#leftall').on('click', function() {
@@ -44,15 +56,17 @@
 		$("option").mouseenter(function() {
 			$("option").css("background-color", "#FFB533");
 		});
-
+	
 	});
+
 </script>
 <style type="text/css">
-#to,#from {
+#to, #from {
 	width: 150px;
 }
-select{
-height: 300px;
+
+select {
+	height: 250px;
 }
 
 .div1 {
@@ -60,13 +74,15 @@ height: 300px;
 	float: left;
 	margin-left: 5%;
 }
-
+/**
+	 * 
+	 */
 .div2 {
 	/* display: inline-block; */
 	float: left;
 	margin-left: 3%;
 	width: 120px;
-	margin-top: 20%;
+	margin-top: 18%;
 }
 
 .div3 {
@@ -80,55 +96,60 @@ height: 300px;
 input {
 	width: 100px;
 	margin-top: 5px;
-	
 }
-.input2{
-width: 150px;
+
+.input2 {
+	width: 150px;
 }
-.div{
-padding-left: 216px;
+
+.div {
+	padding-left: 216px;
+	margin-top: 100px;
 }
 </style>
 </head>
 
 <body bgcolor="navyblue">
+	<span id="err"></span>
+
 	<div class="div">
-	<h2>Dream Team</h2></div>
+		<h2>Dream Team</h2>
+	</div>
 	<div class="div1">
 		<h4>Player List</h4>
 		<select id="from" multiple="multiple" size="35px">
 			<c:forEach var="player" items="${playerList}">
-				<option>${player.name}</option>
+				<option value="${player.id}">${player.name}</option>
 			</c:forEach>
 		</select>
 
 	</div>
 	<div class="div2">
 		<input type="button" id="right" value="select" /><br> <input
-			type="button" id="left" value="clear" />
-			
-
+			type="button" id="left" value="Remove" /><br>
+			<input type="button" id="leftall" value="RemoveAll" />
 
 	</div>
 	<form:form name="myteam" action="saveDreamTeam" method="Post">
 		<div class="div3">
 			<h4>Selected Player</h4>
 
-			
+
 			<div>
 				<select id="to" name="Player" multiple="multiple" size="35px">
 
 				</select>
 			</div>
-
+   
 		</div>
 		<div class="div2">
-		<div>
+			<div>
 				<input class="input2" id="dreamTeamNameInput" name="dreamTeamName"
 					onkeyup="validate(this)" minlength="3" placeholder="Team Name"
 					type="text" required="required" value="" />
 			</div>
-		<input class="input2" type="submit" value="Confirm"></div>
+			<input class="input2" type="submit" value="CreateTeam">
+		</div>
 	</form:form>
 </body>
 </html>
