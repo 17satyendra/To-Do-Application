@@ -31,15 +31,18 @@ body{
 </head>
 <body>
 <%-- <h3>${Message}</h3> --%>
-	<form name="formSignup" method="post" action="signin">
+	<form name="formSignin" method="post" action="signin" onsubmit="return validatesign()">
 <table  bgcolor="FloralWhite" cellpadding="5px" cellspacing="5px" align="center">
 			<tr>
 				<td>Email</td>
-				<td><input type="text" name="email" placeholder="Enter Your Email" required/>
+				<td><input type="text" name="email" placeholder="Enter Your Email">
+				<br/><span id="emailErr" style="color: red;"></span>
+				</td>
 			</tr>
 			<tr>
 				<td>Password</td>
-				<td><input type="password" name="password" placeholder="Enter Your Password" required />
+				<td><input type="password" name="password" placeholder="Enter Your Password" >
+				<br/><span id="passwordErr" style="color: red;"></span></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="Signin" /></td>

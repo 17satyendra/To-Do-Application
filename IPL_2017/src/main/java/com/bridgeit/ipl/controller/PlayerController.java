@@ -84,6 +84,8 @@ public class PlayerController {
 	public ModelAndView playerDetail(@RequestParam("playerId") Long playerId)
 	{
 		Player player = playerservice.getPlayerDetails(playerId);
+		int view=player.getView();
+		player.setView(++view);
 		return new ModelAndView("playerDetails", "player", player);
 		
 	}

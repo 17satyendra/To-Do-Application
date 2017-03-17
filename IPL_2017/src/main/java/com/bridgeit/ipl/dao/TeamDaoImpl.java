@@ -2,6 +2,7 @@
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -60,6 +61,14 @@ public class TeamDaoImpl implements TeamDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	@Override
+	public List<DreamTeam> getDreamTeamList() 
+	{
+		Session session = sessionFactory.getCurrentSession();
+		Criteria ctr = session.createCriteria(DreamTeam.class);
+		List<DreamTeam> list = ctr.list();
+		return list;
 	}
 	
 }

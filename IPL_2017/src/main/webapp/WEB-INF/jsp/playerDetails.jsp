@@ -52,6 +52,10 @@
 				<td>${player.teamId}</td>
 			</tr>
 			<tr>
+				<th>NoOfViews:</th>
+				<td>${player.views}</td>
+			</tr>
+			<tr>
 
 				<td><a href="<c:url value="playerList"/>?teamId=${player.teamId}">
 				click here to go back Player list</a></td>

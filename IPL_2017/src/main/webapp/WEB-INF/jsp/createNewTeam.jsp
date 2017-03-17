@@ -58,6 +58,11 @@
 		});
 	
 	});
+	
+	function createTeam() {
+		alert("Team created....");
+		
+	}
 
 </script>
 <style type="text/css">
@@ -119,7 +124,7 @@ input {
 		<h4>Player List</h4>
 		<select id="from" multiple="multiple" size="35px">
 			<c:forEach var="player" items="${playerList}">
-				<option value="${player.id}">${player.name}</option>
+				<option value="${player.name}">${player.name}</option>
 			</c:forEach>
 		</select>
 
@@ -148,7 +153,7 @@ input {
 					onkeyup="validate(this)" minlength="3" placeholder="Team Name"
 					type="text" required="required" value="" />
 			</div>
-			<input class="input2" type="submit" value="CreateTeam">
+			<input class="input2" type="submit" value="CreateTeam" onclick="createTeam()">
 		</div>
 	</form:form>
 </body>

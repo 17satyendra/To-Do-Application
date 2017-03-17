@@ -37,5 +37,9 @@ public class PlayerServiceImpl implements PlayerService {
 	public Player getPlayer(String playerName) {
 		return playerdao.getPlayer(playerName);
 	}
+	@Override
+	public List getPlayerList(String[] player) {
+		return playerdao.getPlayerList(player);
+	}
 
 }

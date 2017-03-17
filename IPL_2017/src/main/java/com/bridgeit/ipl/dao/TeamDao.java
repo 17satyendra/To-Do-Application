@@ -17,4 +17,6 @@ public interface TeamDao {
 
 	void addDreamTeam(DreamTeam dt);
 
+	List<DreamTeam> getDreamTeamList();
+
 }

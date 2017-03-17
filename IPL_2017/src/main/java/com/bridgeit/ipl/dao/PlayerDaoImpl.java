@@ -63,4 +63,15 @@ public class PlayerDaoImpl implements PlayerDao {
 		return player;
 	}
 
+	@Override
+	public List<Player> getPlayerList(String[] player) {
+		Session session = sessionfactory.getCurrentSession();
+		 Query q = session.createQuery("SELECT p FROM Player p WHERE p.name IN (:player)");
+		    q.setParameterList("player", player);
+		    @SuppressWarnings("rawtypes")
+			List list = q.list();
+		
+		return list;
+	}
+
 }

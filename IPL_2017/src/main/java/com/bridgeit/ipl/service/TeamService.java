@@ -17,6 +17,8 @@ public interface TeamService {
 
 	void addDreamTeam(DreamTeam dt);
 
+	List<DreamTeam> getDreamTeamList();
+
 	
 
 }

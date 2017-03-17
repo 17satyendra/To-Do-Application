@@ -15,6 +15,8 @@ public interface PlayerDao {
 	List<Player> displayAllPlayer();
 
 	Player getPlayer(String playerName);
+
+	List getPlayerList(String[] player);
 	
 
 }

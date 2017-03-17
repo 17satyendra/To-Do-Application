@@ -27,6 +27,7 @@ public class Player implements Serializable
 	private String nationality;
 	private String dob;
 	private int teamId;
+	private int view;
 	
 	public Long getId() {
 		return id;
@@ -98,5 +99,13 @@ public class Player implements Serializable
 
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
+	}
+
+	public int getView() {
+		return view;
+	}
+
+	public void setView(int view) {
+		this.view = view;
 	}
 }

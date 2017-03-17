@@ -14,4 +14,6 @@ public interface PlayerService {
 	List<Player> displayAllPlayer();
 
 	Player getPlayer(String playerName);
+
+	List getPlayerList(String[] player);
 }

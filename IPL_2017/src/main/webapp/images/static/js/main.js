@@ -68,4 +68,21 @@ function formValidation() {
 function validate(obj) {
 	obj.value = obj.value.trim();
 }
+function validatesign(){
+var email=document.formSignin.email.value;
+var password=document.formSignin.password.value;
+
+console.log(email);
+console.log(password);
+
+if (email==null || email==""){
+	document.getElementById("emailErr").innerHTML = "Name can't be blank";
+  return false;
+}else if(password.length<6){
+	document.getElementById("passwordErr").innerHTML = "Password must be at least 6 characters long.";
+  return false;
+  }
+
+return true;
+}
 

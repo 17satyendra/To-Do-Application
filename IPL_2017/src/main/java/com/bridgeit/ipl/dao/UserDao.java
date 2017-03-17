@@ -8,4 +8,6 @@ public interface UserDao {
 
 	User authUser(String email, String password);
 
+	boolean isPresentId(int id);
+
 }

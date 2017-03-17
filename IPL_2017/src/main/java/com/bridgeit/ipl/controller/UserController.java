@@ -1,5 +1,8 @@
 package com.bridgeit.ipl.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,5 +44,17 @@ public class UserController {
 		
 		String message="Your data successfully saved and confiramtion mail sent to your registred E-mail.";
 		return new ModelAndView("signin", "message",message);
+	}
+	@RequestMapping(value="/userDetails")
+	public ModelAndView getUserDetail(HttpServletRequest request){
+		System.out.println("Inside getUser");
+		HttpSession session = request.getSession();
+		User user=(User) session.getAttribute("user");
+		 
+		System.out.println(user.getId());
+		System.out.println(user.getFirstname());
+		return new ModelAndView("userDetail", "user", user);
+		
+		
 	}
 }

@@ -1,6 +1,7 @@
 package com.bridgeit.ipl.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -28,7 +31,11 @@ public class DreamTeam implements Serializable
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="user_Id")
 	private User user;
-	  private int userId;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "DreamTeam_Players", joinColumns = { @JoinColumn(name = "Team_id") }, inverseJoinColumns = { @JoinColumn(name = "player_id") })
+	private List<Player> playerList;
+	
 	  
 	public int getId() {
 		return id;
@@ -48,10 +55,11 @@ public class DreamTeam implements Serializable
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public int getUserId() {
-		return userId;
+	public List<Player> getPlayerList() {
+		return playerList;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setPlayerList(List<Player> playerList) {
+		this.playerList = playerList;
 	}
+	
 }

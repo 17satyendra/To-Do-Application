@@ -56,8 +56,8 @@ public class SignInController {
 			sesion.setAttribute("user", user);
 			// Maximum active time
 			sesion.setMaxInactiveInterval(1000);
-			Integer userId = user.getId();
-			model.addAttribute("userId", userId);
+			/*Integer userId = user.getId();
+			model.addAttribute("userId", userId);*/ 
 			return "redirect:/teamList";
 		}
 	}

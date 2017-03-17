@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bridgeit.ipl.model.DreamTeam;
 import com.bridgeit.ipl.model.User;
 
 @Repository
@@ -29,18 +30,29 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User authUser(String email, String password) 
-	{
+	public User authUser(String email, String password) {
 		Session session = factory.getCurrentSession();
 		try {
-			Criteria ctr=session.createCriteria(User.class);
+			Criteria ctr = session.createCriteria(User.class);
 			User user = (User) ctr.add(Restrictions.conjunction().add(Restrictions.eq("email", email))
 					.add(Restrictions.eq("password", password))).uniqueResult();
 			return user;
-		}catch(HibernateException he)
-		{
+		} catch (HibernateException he) {
 			he.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public boolean isPresentId(int id) {
+		Session session = factory.getCurrentSession();
+
+		DreamTeam user = (DreamTeam) session.load(DreamTeam.class, id);
+
+		if (user != null) {
+			return true;
+		} else
+
+			return false;
 	}
 }

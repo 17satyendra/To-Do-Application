@@ -22,4 +22,9 @@ public class UserServiceImpl implements UserService {
 		return userdao.authUser(email, password);
 	}
 
+	@Override
+	public boolean isUserIdPresent(int id) {
+		return userdao.isPresentId(id);
+	}
+
 }

@@ -14,10 +14,10 @@
 <div>
 <span ><img class="img" src="images/logo.jpeg" style="
     margin-top: -40px;
-    width: 10%;
+    width: 20%;
     height: 150px;
-"alt="img not found"/></span>
-<span>
+    float: left;
+"alt="img not found"/>
 <jsp:include page="afterloginheader.jsp"></jsp:include></span>
 </div>
 <center>
