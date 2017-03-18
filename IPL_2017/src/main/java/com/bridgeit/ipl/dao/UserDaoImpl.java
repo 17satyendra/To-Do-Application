@@ -2,6 +2,7 @@ package com.bridgeit.ipl.dao;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -44,15 +45,16 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean isPresentId(int id) {
+	public boolean isPresentTeam(int userId) {
 		Session session = factory.getCurrentSession();
-
-		DreamTeam user = (DreamTeam) session.load(DreamTeam.class, id);
-
-		if (user != null) {
-			return true;
-		} else
-
+		Criteria ctr = session.createCriteria(DreamTeam.class);
+		DreamTeam dream = (DreamTeam) ctr.add(Restrictions.eq("user.id", userId)).uniqueResult();
+		
+		//Query qry = session.createQuery("from DreamTeam where name=:name")
+		if(dream==null)
 			return false;
+		else{
+			return true;
+		}
 	}
 }

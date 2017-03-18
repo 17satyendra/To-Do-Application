@@ -53,7 +53,7 @@
 			</tr>
 			<tr>
 				<th>NoOfViews:</th>
-				<td>${player.views}</td>
+				<td>${player.view}</td>
 			</tr>
 			<tr>
 

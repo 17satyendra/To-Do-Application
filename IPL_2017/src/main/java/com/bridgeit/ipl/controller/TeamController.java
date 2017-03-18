@@ -28,53 +28,6 @@ public class TeamController {
 	
 	private Logger logger = Logger.getLogger(TeamController.class);
 
-	/*@RequestMapping(value = "/newAddTeam", method = RequestMethod.GET)
-	public String newAddTeam() {
-
-		Team tem;
-		JSONParser parser = new JSONParser();
-		try {
-			Object ob = parser.parse(new FileReader("/home/bridgeit/newTeamInfo.json"));
-			JSONObject object = (JSONObject) ob;
-
-			JSONArray data = (JSONArray) object.get("teaminfo");
-
-			for (int i = 0; i < data.size(); i++) {
-				tem = new Team();
-				JSONObject itemObj = (JSONObject) data.get(i);
-
-				Object nameObj = itemObj.get("team_name");
-				String teamName = (String) nameObj;
-				tem.setName(teamName);
-
-				Object coachObj = itemObj.get("team_coach");
-				String coachName = (String) coachObj;
-				tem.setCoach(coachName);
-
-				Object capatainObj = itemObj.get("team_captain");
-				String capatainName = (String) capatainObj;
-				tem.setCaptain(capatainName);
-
-				Object venueObj = itemObj.get("team_home_venue");
-				String venueName = (String) venueObj;
-				tem.setHomevenue(venueName);
-
-				Object ownerObj = itemObj.get("team_owner");
-				String ownerName = (String) ownerObj;
-				tem.setOwner(ownerName);
-
-				Object logoObj = itemObj.get("team_img_url");
-				String logoName = (String) logoObj;
-				tem.setLogo(logoName);
-				
-			}
-
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return "signin";
-	}*/
-	
 	@RequestMapping(value="upload", method=RequestMethod.GET)
 	public String init()
 	{
@@ -154,6 +107,7 @@ public class TeamController {
 	@RequestMapping(value="teamDetails", method=RequestMethod.GET)
 	public ModelAndView displayTeamDetails(@RequestParam("teamId")long teamId ){
 		Team team = teamService.getTeamById(teamId);
-		return new ModelAndView("teamDetails","team", team);
+		ModelAndView mav=new ModelAndView("teamDetails","team", team);
+		return mav;
 	}
 }

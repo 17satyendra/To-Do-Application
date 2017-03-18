@@ -7,6 +7,6 @@ public interface UserService {
 
 	User authUser(String email, String password);
 
-	boolean isUserIdPresent(int id);
+	boolean ispresentTeam(int id);
 
 }

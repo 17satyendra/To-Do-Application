@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean isUserIdPresent(int id) {
-		return userdao.isPresentId(id);
+	public boolean ispresentTeam(int id) {
+		return userdao.isPresentTeam(id);
 	}
 
 }

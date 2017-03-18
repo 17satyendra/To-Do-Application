@@ -19,4 +19,6 @@ public interface TeamDao {
 
 	List<DreamTeam> getDreamTeamList();
 
+	DreamTeam getDreamTeamDetail(int dreamteamId);
+
 }

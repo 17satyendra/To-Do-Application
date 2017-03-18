@@ -32,9 +32,8 @@ public class DreamTeamController
 	
 	@RequestMapping(value="createTeam")
 	public ModelAndView createTeam(HttpServletRequest request){
-		
 		HttpSession session = request.getSession();
-		if(userservice.isUserIdPresent(((User) session.getAttribute("user")).getId())==false){
+		if(userservice.ispresentTeam(((User) session.getAttribute("user")).getId())==false){
 			List<Player> playerList = playerservice.displayAllPlayer();
 			return new ModelAndView("createNewTeam", "playerList", playerList);
 		}
@@ -42,9 +41,6 @@ public class DreamTeamController
 			System.out.println("A Dream Team is Already Exist of User...");
 			return new ModelAndView();
 		}
-			
-		
-		
 	}
 	@RequestMapping(value="saveDreamTeam", method=RequestMethod.POST)
 	public String addNewTeam(@RequestParam("Player") String[] player, @RequestParam("dreamTeamName")
@@ -66,10 +62,19 @@ public class DreamTeamController
 	}
 	@RequestMapping(value ="viewDreamList")
 	public ModelAndView getDreamTeam(){
-		System.out.println("inside getDreamTeam");
 		List<DreamTeam> dreamList=teamService.getDreamTeamList();
 		return new ModelAndView("viewDreamTeamList", "dreamList", dreamList);
 	}
-	
+	@RequestMapping(value = "dreamTeamDetails")
+	public ModelAndView showDreamTeamDetail(@RequestParam("dreamteamId") int id, HttpServletRequest request ){
+		
+		HttpSession session = request.getSession();
+		User user=(User) session.getAttribute("user");
+		DreamTeam team = teamService.getDreamTeamDetail(id);
+		ModelAndView mvc = new ModelAndView("dreamTeamDetail", "team", team);
+		mvc.addObject("user", user);
+		return null;
+		
+	}
 	
 }

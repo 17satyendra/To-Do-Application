@@ -19,6 +19,6 @@ public interface TeamService {
 
 	List<DreamTeam> getDreamTeamList();
 
-	
+	DreamTeam getDreamTeamDetail(int dreamteamId);
 
 }

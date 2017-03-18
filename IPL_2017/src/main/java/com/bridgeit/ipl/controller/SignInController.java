@@ -41,7 +41,6 @@ public class SignInController {
 	@RequestMapping(value = "signin", method = RequestMethod.POST)
 	public String signin(@RequestParam("email") String email, @RequestParam("password") String password, Model model,
 			HttpServletRequest request) {
-		System.out.println(email + " " + password);
 		User user = userservice.authUser(email, password);
 		System.out.println(user);
 		if (user == null) {
@@ -56,8 +55,9 @@ public class SignInController {
 			sesion.setAttribute("user", user);
 			// Maximum active time
 			sesion.setMaxInactiveInterval(1000);
-			/*Integer userId = user.getId();
-			model.addAttribute("userId", userId);*/ 
+			boolean isCreated = userservice.ispresentTeam(user.getId());
+			System.out.println(isCreated);
+			sesion.setAttribute("isCreated", isCreated);
 			return "redirect:/teamList";
 		}
 	}

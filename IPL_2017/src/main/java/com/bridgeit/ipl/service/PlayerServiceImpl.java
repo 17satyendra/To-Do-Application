@@ -38,8 +38,12 @@ public class PlayerServiceImpl implements PlayerService {
 		return playerdao.getPlayer(playerName);
 	}
 	@Override
-	public List getPlayerList(String[] player) {
+	public List<Player> getPlayerList(String[] player) {
 		return playerdao.getPlayerList(player);
+	}
+	@Override
+	public int viewUpdate(int view, Long playerId) {
+		return playerdao.updateView(view, playerId);
 	}
 
 }

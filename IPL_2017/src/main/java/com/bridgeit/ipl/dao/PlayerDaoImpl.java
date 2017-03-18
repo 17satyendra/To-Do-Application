@@ -10,13 +10,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bridgeit.ipl.model.Player;
+
 @Repository
 @Transactional
 public class PlayerDaoImpl implements PlayerDao {
 
 	@Autowired
 	SessionFactory sessionfactory;
-	
+
 	@Override
 	public void addPlayer(Player player) {
 		Session session = sessionfactory.getCurrentSession();
@@ -66,12 +67,23 @@ public class PlayerDaoImpl implements PlayerDao {
 	@Override
 	public List<Player> getPlayerList(String[] player) {
 		Session session = sessionfactory.getCurrentSession();
-		 Query q = session.createQuery("SELECT p FROM Player p WHERE p.name IN (:player)");
-		    q.setParameterList("player", player);
-		    @SuppressWarnings("rawtypes")
-			List list = q.list();
-		
+		Query q = session.createQuery("SELECT p FROM Player p WHERE p.name IN (:player)");
+		q.setParameterList("player", player);
+		@SuppressWarnings("rawtypes")
+		List list = q.list();
+
 		return list;
+	}
+
+	@Override
+	public int updateView(int view, Long playerId) {
+		Session session = sessionfactory.getCurrentSession();
+
+		Query qry = session.createQuery("update Player set view = :view where id=:playerId");
+		qry.setParameter("view", view);
+		qry.setParameter("playerId", playerId);
+		int rowCount = qry.executeUpdate();
+		return rowCount;
 	}
 
 }

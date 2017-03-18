@@ -47,12 +47,9 @@ public class UserController {
 	}
 	@RequestMapping(value="/userDetails")
 	public ModelAndView getUserDetail(HttpServletRequest request){
-		System.out.println("Inside getUser");
 		HttpSession session = request.getSession();
 		User user=(User) session.getAttribute("user");
 		 
-		System.out.println(user.getId());
-		System.out.println(user.getFirstname());
 		return new ModelAndView("userDetail", "user", user);
 		
 		

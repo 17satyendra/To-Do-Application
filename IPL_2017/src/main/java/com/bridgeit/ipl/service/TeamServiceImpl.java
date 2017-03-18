@@ -41,5 +41,9 @@ public class TeamServiceImpl implements TeamService {
 	public List<DreamTeam> getDreamTeamList() {
 		return teamDao.getDreamTeamList();
 	}
+	@Override
+	public DreamTeam getDreamTeamDetail(int dreamteamId) {
+		return teamDao.getDreamTeamDetail(dreamteamId);
+	}
 	
 }

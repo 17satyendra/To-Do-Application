@@ -11,9 +11,12 @@ public interface PlayerService {
 	Player getPlayerDetails(Long playerId);
 
 	List<Player> displayAllPlayer(int teamId);
+	
 	List<Player> displayAllPlayer();
 
 	Player getPlayer(String playerName);
 
 	List getPlayerList(String[] player);
+
+	int viewUpdate(int view, Long playerId);
 }

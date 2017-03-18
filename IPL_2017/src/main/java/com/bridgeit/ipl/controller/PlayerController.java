@@ -69,6 +69,8 @@ public class PlayerController {
 				Integer teamIdName = Integer.valueOf((String) teamIdObj);
 				player.setTeamId(teamIdName);
 				
+				player.setView(0);
+				
 				Player playername = playerservice.getPlayer(playerName);
 				if(playername==null)
 					playerservice.addPlayer(player);
@@ -85,7 +87,9 @@ public class PlayerController {
 	{
 		Player player = playerservice.getPlayerDetails(playerId);
 		int view=player.getView();
-		player.setView(++view);
+		view++;
+		//player.setView(++view);
+		int rowCount=playerservice.viewUpdate(view, playerId);
 		return new ModelAndView("playerDetails", "player", player);
 		
 	}

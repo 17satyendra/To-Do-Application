@@ -16,8 +16,6 @@
 <script type="text/javascript">
 	$(function() {function moveItems(origin, dest) {
 				$(origin).find(':selected').appendTo(dest);
-			
-			
 		}
 
 		function moveAllItems(origin, dest) {

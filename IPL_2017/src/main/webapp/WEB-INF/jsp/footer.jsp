@@ -9,8 +9,8 @@
 }
 </style>
 
-<table class ="footertab" bgcolor="#D2691E" bordercolor="black" cellpadding="10px" cellspacing="10px" align="right">
+<table class ="footertab" bgcolor="#f2f2f2" bordercolor="black" cellpadding="8px" cellspacing="10px" align="right">
 <tr>
-<td>&copybridgelabz.com,2016</td>
+<td>&copybridgelabz.com,2017</td>
 </tr>
 </table>

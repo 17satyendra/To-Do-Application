@@ -20,8 +20,8 @@
 		</div>
 		<div class="div1">
 			<c:forEach var="dream" items="${dreamList}">
-				<div class="div">
-					<a href="<c:url value="dreamTeamDetails"/>?teamId=${dream.id}">${dream.dreamTeamName}</a>
+				<div class="divDream">
+					<a class="aDream" href="<c:url value="dreamTeamDetails"/>?dreamteamId=${dream.id}">${dream.dreamTeamName}</a>
 				</div>
 			</c:forEach>
 		</div>

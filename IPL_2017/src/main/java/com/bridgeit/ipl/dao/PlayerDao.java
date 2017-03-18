@@ -16,7 +16,8 @@ public interface PlayerDao {
 
 	Player getPlayer(String playerName);
 
-	List getPlayerList(String[] player);
-	
+	List<Player> getPlayerList(String[] player);
 
+	int updateView(int view, Long playerId);
+	
 }

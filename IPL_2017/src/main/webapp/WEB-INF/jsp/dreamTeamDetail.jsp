@@ -1,16 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<style type="text/css">
-h1{
-text-align: center;
-font-family: serif;
-color: #696969
-}
-</style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
@@ -27,24 +19,14 @@ color: #696969
 			</tr>
 			<tr>
 				<th>Name:</th>
-				<td>${team.name}</td>
+				<td>${team.dreamTeamName}</td>
 			</tr>
-			<tr>
-				<th>Coach:</th>
-				<td>${team.coach}</td>
-			</tr>
+			
 			<tr>
 				<th>Owner</th>
-				<td>${team.owner}</td>
+				<td>${user.name}</td>
 			</tr>
-			<tr>
-				<th>Captain</th>
-				<td>${team.captain}</td>
-			</tr>
-			<tr>
-				<th>Home Venue:</th>
-				<td>${team.homevenue}</td>
-			</tr>
+			
 			<tr>
 				<td><a
 					href="<c:url value="playerList"/>?teamId=${team.id}&teamName=${team.name}">Click
