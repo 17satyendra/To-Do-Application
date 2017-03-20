@@ -23,6 +23,10 @@ public class SignInController {
 
 	private Logger logger = Logger.getLogger(SignInController.class);
 
+	/**
+	 * 
+	 * @return contact.jsp
+	 */
 	@RequestMapping(value = "contact", method = RequestMethod.GET)
 	public String contact() {
 		return "contact";

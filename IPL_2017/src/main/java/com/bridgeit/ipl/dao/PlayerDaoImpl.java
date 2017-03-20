@@ -43,6 +43,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		Session session = sessionfactory.getCurrentSession();
 		Query qry = session.createQuery("from Player where teamId=:id");
 		qry.setParameter("id", teamId);
+		@SuppressWarnings("unchecked")
 		List<Player> playersInfo = qry.list();
 		return playersInfo;
 	}
@@ -51,6 +52,7 @@ public class PlayerDaoImpl implements PlayerDao {
 	public List<Player> displayAllPlayer() {
 		Session session = sessionfactory.getCurrentSession();
 		Query qry = session.createQuery("from Player");
+		@SuppressWarnings("unchecked")
 		List<Player> playersInfo = qry.list();
 		return playersInfo;
 	}
@@ -69,8 +71,8 @@ public class PlayerDaoImpl implements PlayerDao {
 		Session session = sessionfactory.getCurrentSession();
 		Query q = session.createQuery("SELECT p FROM Player p WHERE p.name IN (:player)");
 		q.setParameterList("player", player);
-		@SuppressWarnings("rawtypes")
-		List list = q.list();
+		@SuppressWarnings("unchecked")
+		List<Player> list = q.list();
 
 		return list;
 	}
@@ -84,6 +86,34 @@ public class PlayerDaoImpl implements PlayerDao {
 		qry.setParameter("playerId", playerId);
 		int rowCount = qry.executeUpdate();
 		return rowCount;
+	}
+
+	@Override
+	public List<Player> getDreamPlayerList(int dreamId) {
+		Session session = sessionfactory.getCurrentSession();
+		/*
+		Criteria crit = session.createCriteria(DreamTeam.class);
+		List<Player> list=crit.createAlias("playerList", "d").
+		add(Restrictions.eq("d.name", dreamId)).list();
+		
+		return list;*/
+		
+		/*DetachedCriteria uCrit = DetachedCriteria.forClass(DreamTeam.class, "user");
+		uCrit.add(Restrictions.eq("user.id", dreamId));
+		uCrit.setProjection(Projections.property("user.id"));
+		DetachedCriteria criteria = DetachedCriteria.forClass(Player.class, "role");
+		criteria.add(Property.forName("role.name").in(uCrit));
+		List lt1 = criteria.getExecutableCriteria(session).list();
+		
+		System.out.println(lt1);
+		return lt1;*/
+		
+		Query qry = session.createQuery("select a from DreamTeam b join b.playerList a where b.id = :dreamId");
+		qry.setParameter("dreamId", dreamId);
+		@SuppressWarnings("unchecked")
+		List<Player> list= qry.list();
+		System.out.println(list.size());
+		return list;
 	}
 
 }

@@ -105,4 +105,15 @@ public class PlayerController {
 		List<Player> allplayerList = playerservice.displayAllPlayer();
 		return new ModelAndView("allplayerList","allplayerList", allplayerList);
 	}
+	
+	@RequestMapping(value="dreamPlayerList")
+	public ModelAndView displayDreamPlayerList(@RequestParam("dreamId") int dreamId){
+		
+
+		List<Player> dreamPlayerList = playerservice.getDreamPlayerList(dreamId);
+		
+		ModelAndView mvc = new ModelAndView("DreamPlayerDetails","dreamPlayerList",dreamPlayerList);
+		return mvc;
+		
+	}
 }

@@ -13,7 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 /**
  * This is a simple pojo or DTO class.
- * In this class User attribute about his information with one default constructor &
+ * In this class User about his information with one default constructor &
  * getter/setter 
  * with mapped database using Annotation. 
  * @author bridgeit Satyendra Singh.

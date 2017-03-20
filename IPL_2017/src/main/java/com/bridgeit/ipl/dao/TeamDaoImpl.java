@@ -63,14 +63,7 @@ public class TeamDaoImpl implements TeamDao {
 			e.printStackTrace();
 		}
 	}
-	@Override
-	public List<DreamTeam> getDreamTeamList() 
-	{
-		Session session = sessionFactory.getCurrentSession();
-		Criteria ctr = session.createCriteria(DreamTeam.class);
-		List<DreamTeam> list = ctr.list();
-		return list;
-	}
+	
 	@Override
 	public DreamTeam getDreamTeamDetail(int dreamteamId) {
 		

@@ -45,5 +45,10 @@ public class PlayerServiceImpl implements PlayerService {
 	public int viewUpdate(int view, Long playerId) {
 		return playerdao.updateView(view, playerId);
 	}
+	@Override
+	public List<Player> getDreamPlayerList(int dreamId) {
+		
+		return playerdao.getDreamPlayerList(dreamId);
+	}
 
 }

@@ -16,14 +16,12 @@
 				alt="img not found" /> <jsp:include page="afterloginheader.jsp"></jsp:include></span>
 		</div>
 		<div class="div">
-			<h3>IPL-10 2017 DREAM TEAM LIST</h3>
+			<h3>IPL-10 2017 DREAM TEAM </h3>
 		</div>
 		<div class="div1">
-			<c:forEach var="dream" items="${dreamList}">
 				<div class="divDream">
-					<a class="aDream" href="<c:url value="dreamTeamDetails"/>?dreamteamId=${dream.id}">${dream.dreamTeamName}</a>
+					<a class="aDream" href="<c:url value="dreamTeamDetails"/>?dreamteamId=${dreamTeam.id}">${dreamTeam.dreamTeamName}</a>
 				</div>
-			</c:forEach>
 		</div>
 	</center>
 

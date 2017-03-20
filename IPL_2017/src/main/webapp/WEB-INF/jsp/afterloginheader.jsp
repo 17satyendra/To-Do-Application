@@ -104,7 +104,7 @@ ul li ul.dropdown-menu li {
 				</c:choose>
 
 
-				<li><a href="viewDreamList">ViewDreamTeam</a></li>
+				<li><a href="viewDreamTeam">ViewDreamTeam</a></li>
 				<li><a href="signout">SignOut</a></li>
 			</ul></li>
 		<li class="dropdown"><a href="#">Contact &#9662;</a>

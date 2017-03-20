@@ -57,4 +57,12 @@ public class UserDaoImpl implements UserDao {
 			return true;
 		}
 	}
+
+	@Override
+	public DreamTeam getDreamTeam(int userId) {
+		Session session = factory.getCurrentSession();
+		Criteria ctr = session.createCriteria(DreamTeam.class);
+		DreamTeam dream = (DreamTeam) ctr.add(Restrictions.eq("user.id", userId)).uniqueResult();
+		return dream;
+	}
 }

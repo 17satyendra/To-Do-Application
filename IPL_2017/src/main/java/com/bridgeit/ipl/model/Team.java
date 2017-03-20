@@ -8,10 +8,21 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+/**
+ * This is a simple pojo or DTO class.
+ * In this class Team about his information with one default constructor &
+ * getter/setter 
+ * with mapped database using Annotation. 
+ * @author bridgeit
+ * @version 1.8
+ * @since 2017-03-01
+ */
 @Entity
 @Table(name="Team_Details")
 public class Team implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GenericGenerator(name="gen", strategy="increment")
 	@GeneratedValue(generator="gen")
@@ -78,5 +89,4 @@ public class Team implements Serializable {
 	public void setHomevenue(String homevenue) {
 		this.homevenue = homevenue;
 	}
-	
 }

@@ -19,5 +19,7 @@ public interface PlayerDao {
 	List<Player> getPlayerList(String[] player);
 
 	int updateView(int view, Long playerId);
+
+	List<Player> getDreamPlayerList(int dreamId);
 	
 }

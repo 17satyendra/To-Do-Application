@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>dreamTeamDetails</title>
 </head>
 <body>
-	
-		<h1>${team.name} Team Information</h1>
+	<center>
+		<h1>${team.dreamTeamName} Team Information</h1>
 
 	<table bordercolor="black" cellpadding="5px" bgcolor="WhiteSmoke "
 		cellspacing="5px" align="center">
@@ -24,14 +24,15 @@
 			
 			<tr>
 				<th>Owner</th>
-				<td>${user.name}</td>
+				<td>${user.firstname} ${user.lastname}</td>
 			</tr>
 			
 			<tr>
 				<td><a
-					href="<c:url value="playerList"/>?teamId=${team.id}&teamName=${team.name}">Click
+					href="dreamPlayerList?dreamId=${team.id}">Click
 						here to view all players</a></td>
 			</tr>
 	</table>
+	</center>
 </body>
 </html>

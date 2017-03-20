@@ -16,7 +16,9 @@ public interface PlayerService {
 
 	Player getPlayer(String playerName);
 
-	List getPlayerList(String[] player);
+	List<Player> getPlayerList(String[] player);
 
 	int viewUpdate(int view, Long playerId);
+
+	List<Player> getDreamPlayerList(int dreamId);
 }

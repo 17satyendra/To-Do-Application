@@ -8,11 +8,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+/**
+ * This is a simple pojo or DTO class.
+ * In this class Player about his information with one default constructor &
+ * getter/setter 
+ * with mapped database using Annotation. 
+ * @author bridgeit Satyendra Singh.
+ * @version 1.8
+ * @since 2017-03-01
+ */
 @Entity
 @Table(name="Player_Details")
 public class Player implements Serializable 
 {
-	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
