@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="bower_components/angular/angular.min.js" charset="utf-8"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js" charset="utf-8"></script>
+
+    <script src="bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
+
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  </head>
+  <body>
+<div ng-app="todoApp">
+  <!-- NAVIGATION -->
+<nav class="navbar navbar-inverse" role="navigation">
+    <!--<div class="navbar-header">
+        <a class="navbar-brand" ui-sref="#">AngularUI Router</a>
+    </div>-->
+    <ul class="nav navbar-nav">
+        <li><a ui-sref="home">Home</a></li>
+        <li><a ui-sref="about">About</a></li>
+        <li><a ui-sref="login">Login</a></li>
+        <li><a ui-sref="signUp">SignUp</a></li>
+    </ul>
+
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+    <!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
+
+  <ui-view></ui-view>
+</div>
+</div>
+  </body>
+<script src="app.js" charset="utf-8"></script>
+<script src="controller/loginController.js" charset="utf-8"></script>
+<script src="controller/signUpController.js" charset="utf-8"></script>
+
+</html>

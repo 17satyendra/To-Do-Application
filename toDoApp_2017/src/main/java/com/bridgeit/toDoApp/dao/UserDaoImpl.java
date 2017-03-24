@@ -28,46 +28,56 @@ import com.bridgeit.toDoApp.model.User;
 @Repository
 @Transactional
 public class UserDaoImpl implements UserDao {
-	
-	@Autowired
-	 SessionFactory sessionFactory;
 
-	 Session session = null;
+	@Autowired
+	SessionFactory sessionFactory;
+
+	Session session = null;
 
 	@Override
 	public void addEntity(User user) throws Exception {
-		session=sessionFactory.getCurrentSession();
+		session = sessionFactory.getCurrentSession();
 		session.saveOrUpdate(user);
 	}
 
 	@Override
 	public User getEntityById(int id) throws Exception {
-		
-		session=sessionFactory.getCurrentSession();
+
+		session = sessionFactory.getCurrentSession();
 		Criteria ctr = session.createCriteria(User.class);
 		ctr.add(Restrictions.eq("id", id));
-		User user=(User) ctr.uniqueResult();
+		User user = (User) ctr.uniqueResult();
 		return user;
 	}
 
 	@Override
 	public List<User> getUserList() throws Exception {
-		session=sessionFactory.getCurrentSession();
+		session = sessionFactory.getCurrentSession();
 		Criteria ctr = session.createCriteria(User.class);
-		
+
 		@SuppressWarnings("unchecked")
 		List<User> list = ctr.list();
-		
+
 		return list;
 	}
 
 	@Override
 	public void deleteEntity(int id) throws Exception {
-		session=sessionFactory.getCurrentSession();
+		session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("delete from User where id = :id");
 		query.setParameter("id", id);
-		int rowCount = query.executeUpdate(); 
-		System.out.println(rowCount+" Data Deleted");
+		int rowCount = query.executeUpdate();
+		System.out.println(rowCount + " Data Deleted");
 	}
-	
+
+	@Override
+	public User authUser(String email, String password) {
+		session = sessionFactory.getCurrentSession();
+
+		Criteria ctr = session.createCriteria(User.class);
+		User user = (User) ctr.add(Restrictions.conjunction().add(Restrictions.eq("email", email))
+				.add(Restrictions.eq("password", password))).uniqueResult();
+		return user;
+	}
+
 }

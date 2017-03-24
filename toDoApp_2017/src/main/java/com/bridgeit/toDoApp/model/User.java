@@ -22,6 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;

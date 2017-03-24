@@ -14,4 +14,6 @@ public interface UserDao {
 
 	void deleteEntity(int id) throws Exception;
 
+	User authUser(String email, String password);
+
 }

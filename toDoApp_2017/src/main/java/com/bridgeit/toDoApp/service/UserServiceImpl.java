@@ -47,4 +47,9 @@ public class UserServiceImpl implements UserService {
 		dao.deleteEntity(id);
 	}
 
+	@Override
+	public User authUser(String email, String password) {
+		return dao.authUser(email, password);
+	}
+
 }

@@ -43,7 +43,6 @@ public class UserController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Status addUser(@RequestBody User user) {
 		try {
-
 			userservice.addEntity(user);
 
 			return new Status(1, "User added Successfully !");
