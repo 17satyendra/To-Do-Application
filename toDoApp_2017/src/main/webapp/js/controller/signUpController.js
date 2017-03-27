@@ -1,8 +1,8 @@
-//var myApp = angular.module('todoApp')
+var myApp = angular.module('todoApp')
 myApp.controller('signupController', function($scope, $state, signUpService) {
     this.signUp = function() {
-        //console.log($scope.user);
-        var httpObj = signUpService.signup(user)
+        // console.log($scope.user);
+        var httpObj = signUpService.signup($scope.user)
         
         httpObj.then(function(data) {
             console.log(data);
@@ -32,11 +32,11 @@ myApp.controller('signupController', function($scope, $state, signUpService) {
 });
 
 myApp.service('signUpService',function($http){
-	this.login = function(user){ 
+	this.signup = function(user){ 
 		return $http({
 			url:"http://localhost:8080/toDoApp_2017/create",
 			method:"post",
 			data:user
 		});
 	}
-});
+	});
