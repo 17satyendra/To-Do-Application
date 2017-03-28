@@ -1,9 +1,14 @@
 package com.bridgeit.toDoApp.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bridgeit.toDoApp.json.ErrorResponse;
 import com.bridgeit.toDoApp.json.LoginResponse;
 import com.bridgeit.toDoApp.json.Response;
+import com.bridgeit.toDoApp.json.TokenResponse;
+import com.bridgeit.toDoApp.model.Token;
 import com.bridgeit.toDoApp.model.User;
+import com.bridgeit.toDoApp.service.TokenService;
 import com.bridgeit.toDoApp.service.UserService;
 
 /**
@@ -41,15 +49,23 @@ public class LoginController {
 
 	@Autowired
 	private UserService userservice;
+	
+	@Autowired
+	private TokenService tokenservice;
 
 	static final Logger log = Logger.getLogger(LoginController.class);
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public @ResponseBody Response getEmployeeById(@RequestBody Map<String, String> loginMap, HttpServletResponse response) {
+	public @ResponseBody Response getEmployeeById(@RequestBody Map<String, String> loginMap, HttpServletRequest request,
+			HttpServletResponse response) {
 		User user = null;
+		String accessToken = UUID.randomUUID().toString().replaceAll("-", "");
+		String refreshToken = UUID.randomUUID().toString().replaceAll("-", "");
+
+		HttpSession session = request.getSession();
 		try {
 			user = userservice.authUser(loginMap.get("email"), loginMap.get("password"));
-
+			
 		} catch (Exception e) {
 			log.error("login exception", e);
 			ErrorResponse er = new ErrorResponse();
@@ -57,20 +73,32 @@ public class LoginController {
 			er.setMessage("Internal server error, please try again.");
 			return er;
 		}
-		
+
 		if (user == null) {
-			/*
-			 * try { response.sendError(401); } catch (IOException e) {}
-			 */
+
 			ErrorResponse er = new ErrorResponse();
 			er.setStatus(-1);
 			er.setMessage("Invalid credential, Please check email or password");
 			return er;
 		}
-
+		Token token = new Token();
+		token.setCreatedOn(new Date());
+		token.setAccessToken(accessToken);
+		token.setRefreshToken(refreshToken);
+		token.setId(user.getId());
+		tokenservice.addToken(token);
+		//session.setAttribute("user", user);
 		LoginResponse lr = new LoginResponse();
 		lr.setStatus(1);
 		lr.setMessage("User logged succesfully");
-		return lr;
+		TokenResponse tr = new TokenResponse();
+		tr.getAccessToken();
+		tr.getRefreshToken();
+		tr.setStatus(1);
+
+		Cookie ck = new Cookie("access_token", token.getAccessToken());
+		response.addCookie(ck);
+		System.out.println(ck.getValue());
+		return tr;
 	}
 }

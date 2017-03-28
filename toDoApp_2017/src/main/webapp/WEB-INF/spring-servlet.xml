@@ -48,6 +48,9 @@
 				<value>
 					com.bridgeit.toDoApp.model.User
 				</value>
+				<value>
+					com.bridgeit.toDoApp.model.Token
+				</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -68,4 +71,7 @@
 	<bean id="userservice" class="com.bridgeit.toDoApp.service.UserServiceImpl" />
 	<bean id="dao" class="com.bridgeit.toDoApp.dao.UserDaoImpl" />
 	<bean id="userValidatation" class="com.bridgeit.toDoApp.validator.UserValidatation" />
+	<bean id="tokenservice" class="com.bridgeit.toDoApp.service.TokenServiceImpl" />
+	<bean id="tokendao" class="com.bridgeit.toDoApp.dao.TokenDaoImpl"></bean>
+	
 	</beans>
