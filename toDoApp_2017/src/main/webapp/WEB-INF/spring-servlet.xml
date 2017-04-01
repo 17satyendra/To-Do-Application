@@ -7,7 +7,7 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<tx:annotation-driven />
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 	<mvc:annotation-driven />
 	
 	<!--controller and services scan -->
@@ -20,6 +20,9 @@
 	<mvc:resources location="/images/" mapping="/images/**"/>
 	<mvc:resources location="/js/" mapping="/js/**"/>
 	<mvc:resources location="/template/" mapping="/template/**"/>
+	
+	
+	<mvc:resources location="/css/" mapping="/css/**"/>
 	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -51,6 +54,9 @@
 				<value>
 					com.bridgeit.toDoApp.model.Token
 				</value>
+				<value>
+					com.bridgeit.toDoApp.model.ToDoTask
+				</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -58,6 +64,7 @@
 				<prop key="hibernate.dialect"> org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="current_session_context_class">thread</prop>
 			</props>
 		</property>
 	</bean>
@@ -73,5 +80,7 @@
 	<bean id="userValidatation" class="com.bridgeit.toDoApp.validator.UserValidatation" />
 	<bean id="tokenservice" class="com.bridgeit.toDoApp.service.TokenServiceImpl" />
 	<bean id="tokendao" class="com.bridgeit.toDoApp.dao.TokenDaoImpl"></bean>
+	<bean id="toDoService" class="com.bridgeit.toDoApp.service.ToDoServiceImpl" />
+	<bean id="tododao" class="com.bridgeit.toDoApp.dao.ToDoDaoImpl"></bean>
 	
 	</beans>

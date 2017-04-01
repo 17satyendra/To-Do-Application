@@ -2,9 +2,12 @@ package com.bridgeit.toDoApp.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -36,7 +39,7 @@ public class User implements Serializable {
 	private String email;
 	private String mobileNumber;
 	private String password;
-
+	
 	public User() {
 	}
 

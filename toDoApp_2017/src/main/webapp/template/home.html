@@ -1,12 +1,34 @@
-<nav class="navbar navbar-inverse" role="navigation">
-    <!--<div class="navbar-header">
-        <a class="navbar-brand" ui-sref="#">AngularUI Router</a>
-    </div>-->
-    <ul class="nav navbar-nav">
-        <li><a ui-sref="home">Home</a></li>
-        <li><a ui-sref="about">About</a></li>
-        <li><a ui-sref="login">Login</a></li>
-        <li><a ui-sref="signUp">SignUp</a></li>
-    </ul>
+<div name="home" data-ng-controller="homeController as hc">
 
-</nav>
+	<nav class="navbar navbar-inverse, nav" role="navigation"
+		style="background-color: #FFBB00">
+
+		<div class="navbar-header">
+			<a class="navbar-brand" data-ui-sref="#" style="color: black"><b>TODO
+					Manager</b></a>
+		</div>
+	</nav>
+
+	<div class='test' data-ng-click="hc.ShowHide()">
+		<span class="glyphicon glyphicon-plus"></span>
+	</div>
+	<span class="glyphicon-class"></span>
+
+	<div data-ng-show="todoDisplay" class="container-fluid,box">
+		<div class="row">
+			<input type="text" name="title" data-ng-model="todo.title"
+				placeholder="Title">
+		</div>
+		<div class="row">
+			<textarea name="description" data-ng-model="todo.description"
+				placeholder="Description"></textarea>
+		</div>
+		<div class="row">
+			<button class="button" type="button" data-ng-click="hc.save()"
+				name="button">Save</button>
+		</div>
+	</div>
+	<div>
+		<div ng-repeat="i in result">{{i.title }}</div>
+	</div>
+</div>

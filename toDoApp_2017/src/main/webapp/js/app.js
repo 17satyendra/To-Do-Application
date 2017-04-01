@@ -4,7 +4,6 @@ var myApp = angular.module('todoApp', ['ui.router'])
   .state("home",{
     url:"/home",
     templateUrl:"template/home.html"
-    // controller:""
   })
   .state("about",{
     url:"/about",
@@ -23,3 +22,5 @@ var myApp = angular.module('todoApp', ['ui.router'])
   $urlRouterProvider.otherwise('/login');
 
 });
+
+

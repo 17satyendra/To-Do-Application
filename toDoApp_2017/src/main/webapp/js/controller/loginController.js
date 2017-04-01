@@ -8,7 +8,6 @@ myApp.controller("loginController",function ($scope,  $state, loginService ) {
 		var httpObje = loginService.login(user);
 		
 		httpObje.then(function (data) {
-			console.log(data);
 			if( data.data.status == 1 ){
 				
 				$state.go("home");

@@ -13,9 +13,7 @@
 
 </head>
 <body data-ng-app="todoApp">
-	<div class="container">
 	<ui-view></ui-view>
-</div>
 </body>
 <script src="js/app.js" charset="utf-8"></script>
 <script src="js/controller/loginController.js" charset="utf-8"></script>

@@ -1,6 +1,5 @@
 package com.bridgeit.toDoApp.controller;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
@@ -13,15 +12,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bridgeit.toDoApp.json.ErrorResponse;
-import com.bridgeit.toDoApp.json.LoginResponse;
 import com.bridgeit.toDoApp.json.Response;
 import com.bridgeit.toDoApp.json.TokenResponse;
 import com.bridgeit.toDoApp.model.Token;
@@ -65,7 +61,8 @@ public class LoginController {
 		HttpSession session = request.getSession();
 		try {
 			user = userservice.authUser(loginMap.get("email"), loginMap.get("password"));
-			
+			System.out.println(user.getFirstName());
+		
 		} catch (Exception e) {
 			log.error("login exception", e);
 			ErrorResponse er = new ErrorResponse();
@@ -75,22 +72,29 @@ public class LoginController {
 		}
 
 		if (user == null) {
-
+			
 			ErrorResponse er = new ErrorResponse();
 			er.setStatus(-1);
 			er.setMessage("Invalid credential, Please check email or password");
 			return er;
 		}
+		else{
+		
 		Token token = new Token();
 		token.setCreatedOn(new Date());
 		token.setAccessToken(accessToken);
 		token.setRefreshToken(refreshToken);
 		token.setId(user.getId());
+		
 		tokenservice.addToken(token);
-		//session.setAttribute("user", user);
+		
+		session.setAttribute("user", user);
+		
+		/*
 		LoginResponse lr = new LoginResponse();
 		lr.setStatus(1);
 		lr.setMessage("User logged succesfully");
+		*/
 		TokenResponse tr = new TokenResponse();
 		tr.getAccessToken();
 		tr.getRefreshToken();
@@ -100,5 +104,6 @@ public class LoginController {
 		response.addCookie(ck);
 		System.out.println(ck.getValue());
 		return tr;
+		}
 	}
 }

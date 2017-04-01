@@ -1,12 +1,9 @@
 package com.bridgeit.toDoApp.controller;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.internal.FetchingScrollableResultsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -35,9 +32,9 @@ import com.bridgeit.toDoApp.validator.UserValidatation;
  * form and @ResponseBody is used to return JSON as response to incoming
  * request.
  * 
- * @author bridgeit Satyendra Singh.
  * @version 1.8jdk
- * @since 2017-03-23.
+ * @since 2017-03-23
+ * @author bridgeit Satyendra Singh.
  */
 @Controller
 public class UserController {
@@ -52,24 +49,26 @@ public class UserController {
 
 	/* Submit form in Spring Restful Services */
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public @ResponseBody Response addUser(@RequestBody User user,  BindingResult bindingResult) {
+	public @ResponseBody Response addUser(@RequestBody User user, BindingResult bindingResult) {
 		userValidatation.validate(user, bindingResult);
 
-		SignupErrorResponse ser = new SignupErrorResponse();
+		SignupErrorResponse ser = null;
 		if (bindingResult.hasErrors()) {
 			List<FieldError> list = bindingResult.getFieldErrors();
+			ser = new SignupErrorResponse();
 			ser.setStatus(-1);
 			ser.setErrorlist(list);
 			return ser;
 		}
-		
+
 		try {
 			userservice.addEntity(user);
+			ser= new SignupErrorResponse();
 			ser.setStatus(1);
 			ser.setMessage("User add successfully");
 			return ser;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error("signUp exception", e);
 			ErrorResponse er = new ErrorResponse();
 			er.setStatus(-1);
@@ -82,18 +81,17 @@ public class UserController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public @ResponseBody Response getEmployeeById(@PathVariable("id") int id) {
 		User user = null;
-		ErrorResponse er= null;
+		ErrorResponse er = null;
 		try {
 			user = userservice.getEntityById(id);
 
-		} catch (Exception e) 
-		{
+		} catch (Exception e) {
 			er = new ErrorResponse();
 			er.setStatus(-1);
 			er.setMessage("Internal server error, please try again.");
 			return er;
 		}
-		
+
 		UserResponse ur = new UserResponse();
 		ur.setUser(user);
 		return ur;
@@ -102,7 +100,7 @@ public class UserController {
 	/* Getting List of objects in Json format in Spring Restful Services */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody Response getEmployee() {
-		ErrorResponse er= null;
+		ErrorResponse er = null;
 		List<User> userList = null;
 		try {
 			userList = userservice.getEntityList();
@@ -114,7 +112,7 @@ public class UserController {
 			er.setMessage("Internal server error, please try again.");
 			return er;
 		}
-		
+
 		UserResponse ur = new UserResponse();
 		ur.setList(userList);
 		return ur;
@@ -126,7 +124,7 @@ public class UserController {
 
 		try {
 			userservice.deleteEntity(id);
-			return new Status(1, "Employee deleted Successfully !");
+			return new Status(1, "User deleted Successfully !");
 		} catch (Exception e) {
 			return new Status(0, e.toString());
 		}
