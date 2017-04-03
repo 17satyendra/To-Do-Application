@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="css/main.css">
 
 </head>
-<body data-ng-app="todoApp">
+<body class="body" data-ng-app="todoApp">
 	<div class="container">
 	<ui-view></ui-view>
 </div>

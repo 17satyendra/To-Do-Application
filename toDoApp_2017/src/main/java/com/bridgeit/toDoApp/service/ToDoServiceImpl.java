@@ -36,4 +36,9 @@ public class ToDoServiceImpl implements ToDoService{
 		return tododao.getToDoListByUserId(id);
 	}
 
+	@Override
+	public void deleteTaskByToDoId(int taskId) throws Exception {
+		tododao.deleteTaskByTODoId(taskId);
+	}
+
 }

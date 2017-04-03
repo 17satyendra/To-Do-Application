@@ -12,4 +12,6 @@ public interface ToDoDao {
 
 	List<ToDoTask> getToDoListByUserId(int id) throws Exception;
 
+	void deleteTaskByTODoId(int taskId) throws Exception;
+
 }

@@ -14,21 +14,37 @@
 	</div>
 	<span class="glyphicon-class"></span>
 
-	<div data-ng-show="todoDisplay" class="container-fluid,box">
-		<div class="row">
+	<div data-ng-show="todoDisplay">
+		<div>
 			<input type="text" name="title" data-ng-model="todo.title"
 				placeholder="Title">
 		</div>
-		<div class="row">
+		<div>
 			<textarea name="description" data-ng-model="todo.description"
 				placeholder="Description"></textarea>
 		</div>
-		<div class="row">
+		<div>
 			<button class="button" type="button" data-ng-click="hc.save()"
 				name="button">Save</button>
 		</div>
 	</div>
-	<div>
-		<div ng-repeat="i in result">{{i.title }}</div>
+	<div class="outerList">
+		<div class="taskList" ng-repeat="i in result">
+			<div ng-hide="i.update">{{i.title }}</div>
+			<div ng-show="i.update">
+				<input type="text" data-ng-model="i.title" />
+			</div>
+			<br>
+			<div ng-hide="i.update">{{i.description}}</div>
+			<div ng-show="i.update">
+				<textarea type="text" data-ng-model="i.description"></textarea>
+			</div>
+			<div style="padding-top: 10px">
+				<button ng-hide="i.update" type="button"
+					data-ng-click="hc.deleteTask(i.id)">delete</button>
+				<button type="button" data-ng-click="hc.updateTask($index, i.id)">update</button>
+			</div>
+			<span></span>
+		</div>
 	</div>
 </div>

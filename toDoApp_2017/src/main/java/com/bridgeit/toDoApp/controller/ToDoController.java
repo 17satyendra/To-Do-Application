@@ -9,10 +9,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitterReturnValueHandler;
 
 import com.bridgeit.toDoApp.json.ErrorResponse;
 import com.bridgeit.toDoApp.json.Response;
@@ -56,21 +58,19 @@ public class ToDoController {
 
 		ErrorResponse er = null;
 		TaskResponse tr = null;
-		HttpSession sess=request.getSession();
-		User user=(User) sess.getAttribute("user");
+		HttpSession sess = request.getSession();
+		User user = (User) sess.getAttribute("user");
 		todo.setUser(user);
-		System.out.println("vhdfkjghvl"+user.getFirstName());
 		todo.setDate(new Date());
 		try {
-			
+
 			toDoService.addToDoTask(todo);
-			tr= new TaskResponse();
+			tr = new TaskResponse();
 			tr.setDoTask(todo);
 			tr.setStatus(1);
 			tr.setMessage("Task added successfully");
 			return tr;
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			logger.error("ToDoTask Add exception", e);
 			er = new ErrorResponse();
 			er.setStatus(-1);
@@ -78,25 +78,72 @@ public class ToDoController {
 			return er;
 		}
 	}
-	
-	@RequestMapping(value="/todoList")
-	public @ResponseBody Response getToDoList(HttpServletRequest request){
+
+	@RequestMapping(value = "/todoList")
+	public @ResponseBody Response getToDoList(HttpServletRequest request) {
 		System.out.println("getToDOList");
-		HttpSession sess=request.getSession();
-		User user=(User) sess.getAttribute("user");
-		ErrorResponse er =null;
+		HttpSession sess = request.getSession();
+		User user = (User) sess.getAttribute("user");
+		ErrorResponse er = null;
 		List<ToDoTask> toDoList;
 		try {
 			toDoList = toDoService.getToDoList(user.getId());
-			
+
 			TaskResponse tr = new TaskResponse();
 			tr.setStatus(1);
 			tr.setMessage("Data fetched sccessfully");
 			tr.setList(toDoList);
 			return tr;
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			er = new ErrorResponse();
+			er.setStatus(-1);
+			er.setMessage("Internal server error, please try again.");
+			return er;
+		}
+	}
+
+	@RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
+	public @ResponseBody Response deleteTask(@PathVariable("id") int taskId) {
+		System.out.println(taskId);
+		Response res = null;
+		ErrorResponse er = null;
+		try {
+			toDoService.deleteTaskByToDoId(taskId);
+			res = new Response();
+			res.setStatus(1);
+			res.setMessage("data delete scuessfully");
+			return res;
+		} catch (Exception e) {
+			e.printStackTrace();
+			er.setStatus(-1);
+			er.setMessage("Internal server error, please try again");
+			return er;
+		}
+	}
+
+	@RequestMapping(value = "update/{id}", method = RequestMethod.POST)
+	public @ResponseBody Response updateTask(@RequestBody ToDoTask todo, @PathVariable("id") int taskId, HttpServletRequest request) {
+
+		ErrorResponse er = null;
+		TaskResponse tr = null;
+		HttpSession sess = request.getSession();
+		User user = (User) sess.getAttribute("user");
+		todo.setUser(user);
+		todo.setId(taskId);
+		todo.setDate(new Date());
+		
+		System.out.println("inside update");
+
+		try {
+			toDoService.addToDoTask(todo);
+			tr = new TaskResponse();
+			tr.setDoTask(todo);
+			tr.setStatus(1);
+			tr.setMessage("Task updated successfully");
+			return tr;
+		} catch (Exception e) {
+			//logger.error("ToDoTask update exception", e);
 			er = new ErrorResponse();
 			er.setStatus(-1);
 			er.setMessage("Internal server error, please try again.");

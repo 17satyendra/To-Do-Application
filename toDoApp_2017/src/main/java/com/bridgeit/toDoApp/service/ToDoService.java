@@ -12,4 +12,6 @@ public interface ToDoService {
 
 	List<ToDoTask> getToDoList(int id)throws Exception;
 
+	void deleteTaskByToDoId(int taskId)throws Exception;
+
 }
