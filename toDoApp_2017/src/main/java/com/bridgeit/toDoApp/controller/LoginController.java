@@ -49,6 +49,9 @@ public class LoginController {
 	@Autowired
 	private TokenService tokenservice;
 
+	ErrorResponse er =null;
+	TokenResponse tr =null;
+	Response resp=null;
 	static final Logger log = Logger.getLogger(LoginController.class);
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -65,7 +68,7 @@ public class LoginController {
 		
 		} catch (Exception e) {
 			log.error("login exception", e);
-			ErrorResponse er = new ErrorResponse();
+			er = new ErrorResponse();
 			er.setStatus(-1);
 			er.setMessage("Internal server error, please try again.");
 			return er;
@@ -73,7 +76,7 @@ public class LoginController {
 
 		if (user == null) {
 			
-			ErrorResponse er = new ErrorResponse();
+			ErrorResponse esignoutUserr = new ErrorResponse();
 			er.setStatus(-1);
 			er.setMessage("Invalid credential, Please check email or password");
 			return er;
@@ -89,13 +92,12 @@ public class LoginController {
 		tokenservice.addToken(token);
 		
 		session.setAttribute("user", user);
-		
 		/*
 		LoginResponse lr = new LoginResponse();
 		lr.setStatus(1);
 		lr.setMessage("User logged succesfully");
 		*/
-		TokenResponse tr = new TokenResponse();
+		tr = new TokenResponse();
 		tr.getAccessToken();
 		tr.getRefreshToken();
 		tr.setStatus(1);
@@ -104,6 +106,26 @@ public class LoginController {
 		response.addCookie(ck);
 		System.out.println(ck.getValue());
 		return tr;
+		}
+	}
+	
+	@RequestMapping(value="signout")
+	public @ResponseBody Response signOut(HttpServletRequest request){
+		
+		try{
+		HttpSession sesion = request.getSession();
+		sesion.invalidate();
+		sesion = request.getSession();
+		resp=new Response();
+		resp.setStatus(1);
+		resp.setMessage("User signOut successfully");
+		return resp;
+		}catch (Exception e) {
+			e.printStackTrace();
+			er=new ErrorResponse();
+			er.setStatus(-1);
+			er.setMessage("Internal Server Error please try again");
+			return er;
 		}
 	}
 }

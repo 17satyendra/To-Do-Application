@@ -31,3 +31,4 @@ app.controller('MyController', function ($scope) {
         $scope.IsVisible = $scope.IsVisible ? false : true;
     }
 });
+

@@ -10,16 +10,16 @@
 <link rel="stylesheet"
 	href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
 
 </head>
 <body class="body" data-ng-app="todoApp">
-	<div class="container">
 	<ui-view></ui-view>
-</div>
 </body>
 <script src="js/app.js" charset="utf-8"></script>
 <script src="js/controller/loginController.js" charset="utf-8"></script>
 <script src="js/controller/signUpController.js" charset="utf-8"></script>
 <script src="js/controller/homeController.js" charset="utf-8"></script>
+<script src="js/controller/Note.js" charset="utf-8"></script>
 
 </html>

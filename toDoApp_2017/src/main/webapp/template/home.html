@@ -2,49 +2,85 @@
 
 	<nav class="navbar navbar-inverse, nav" role="navigation"
 		style="background-color: #FFBB00">
-
+		<div class="mainmenu">
+		</div>
 		<div class="navbar-header">
 			<a class="navbar-brand" data-ui-sref="#" style="color: black"><b>TODO
 					Manager</b></a>
 		</div>
+
+		<div style="background-color: #FFBB00"
+			class="well well-sm, listDisplay">
+
+			<div class="btn-group">
+				<button class="btn btn-default btn-sm"
+					ng-click="hc.listView($event)">
+					<span class="glyphicon glyphicon-th-list"> </span>List
+				</button>
+				<button class="btn btn-default btn-sm"
+					ng-click="hc.gridView($event)">
+					<span class="glyphicon glyphicon-th"> </span>Grid
+				</button>
+				<div style="display: inline-block;">
+					<button data-ng-click="hc.signout()">logout</button>
+				</div>
+			</div>
+		</div>
 	</nav>
+	<div class="container">
+		<div class='test' data-ng-click="hc.ShowHide()">
+			<span style="font-size: 1.5em;" class="glyphicon glyphicon-plus-sign"></span>
+		</div>
+		<span class="glyphicon-class"></span>
 
-	<div class='test' data-ng-click="hc.ShowHide()">
-		<span class="glyphicon glyphicon-plus"></span>
-	</div>
-	<span class="glyphicon-class"></span>
+		<div class="panel panel-default" data-ng-show="todoDisplay">
+			<div class="panel-body ,inputText">
+				<input style="width: 100%" type="text" name="title"
+					data-ng-model="todo.title" placeholder="Title" />
+			</div>
+			<div class="panel-body">
 
-	<div data-ng-show="todoDisplay">
-		<div>
-			<input type="text" name="title" data-ng-model="todo.title"
-				placeholder="Title">
-		</div>
-		<div>
-			<textarea name="description" data-ng-model="todo.description"
-				placeholder="Description"></textarea>
-		</div>
-		<div>
-			<button class="button" type="button" data-ng-click="hc.save()"
-				name="button">Save</button>
-		</div>
-	</div>
-	<div class="outerList">
-		<div class="taskList" ng-repeat="i in result">
-			<div ng-hide="i.update">{{i.title }}</div>
-			<div ng-show="i.update">
-				<input type="text" data-ng-model="i.title" />
+				<textarea style="width: 100%" name="description"
+					data-ng-model="todo.description" placeholder="Description"></textarea>
 			</div>
-			<br>
-			<div ng-hide="i.update">{{i.description}}</div>
-			<div ng-show="i.update">
-				<textarea type="text" data-ng-model="i.description"></textarea>
+
+			<div class="panel-body">
+				<button class="button" type="button" data-ng-click="hc.save()"
+					name="button">Done</button>
 			</div>
-			<div style="padding-top: 10px">
-				<button ng-hide="i.update" type="button"
-					data-ng-click="hc.deleteTask(i.id)">delete</button>
-				<button type="button" data-ng-click="hc.updateTask($index, i.id)">update</button>
+		</div>
+		<div class="outer list-group ,panel panel-default" id="products">
+			<div class="row">
+				<div class="item  col-xs-12 col-sm-6 col-md-4 col-lg-4"
+					ng-repeat="i in result track by $index">
+					<div class="thumbnail">
+						<div>
+							<div ng-hide="i.update">{{i.title}}</div>
+							<div ng-show="i.update" class="group list-group-image"
+								class="group inner list-group-item-heading">
+								<input type="text" data-ng-model="i.title" />
+							</div>
+							<div ng-hide="i.update">{{i.description}}</div>
+							<div class="group list-group-image" ng-show="i.update">
+								<textarea type="text" data-ng-model="i.description"></textarea>
+							</div>
+						</div>
+						<div class="btn-group button pull-right">
+							<button type="button" ng-show="i.update"
+								data-ng-click="hc.updateTask($index, i.id)">Done</button>
+							<button type="button" ng-hide="i.update"
+								class="btn btn-default btn"
+								data-ng-click="hc.updateEnable($index)">
+								<i class="glyphicon glyphicon-pencil"></i>
+							</button>
+							<button ng-hide="i.update" type="button" type="button"
+								class="btn btn-default btn" data-ng-click="hc.deleteTask(i.id)">
+								<i class="glyphicon glyphicon-trash"></i>
+							</button>
+						</div>
+					</div>
+				</div>
 			</div>
-			<span></span>
 		</div>
 	</div>
 </div>
