@@ -21,5 +21,7 @@
 <script src="js/controller/signUpController.js" charset="utf-8"></script>
 <script src="js/controller/homeController.js" charset="utf-8"></script>
 <script src="js/controller/Note.js" charset="utf-8"></script>
+<script src="js/controller/profileController.js" charset="utf-8"></script>
+
 
 </html>

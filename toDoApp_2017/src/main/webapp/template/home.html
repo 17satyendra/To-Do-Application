@@ -1,12 +1,14 @@
 <div name="home" data-ng-controller="homeController as hc">
 
+
 	<nav class="navbar navbar-inverse, nav" role="navigation"
 		style="background-color: #FFBB00">
-		<div class="mainmenu">
-		</div>
 		<div class="navbar-header">
-			<a class="navbar-brand" data-ui-sref="#" style="color: black"><b>TODO
-					Manager</b></a>
+			<span style="font-size: 20px; margin-left: 6px; cursor: pointer"
+				onclick="openNav()">&#9776; </span> <span class="navbar-brand"
+				data-ui-sref="#"
+				style="color: black; display: inline-block; float: none;"><b>TODO
+					Manager</b></span>
 		</div>
 
 		<div style="background-color: #FFBB00"
@@ -21,13 +23,31 @@
 					ng-click="hc.gridView($event)">
 					<span class="glyphicon glyphicon-th"> </span>Grid
 				</button>
-				<div style="display: inline-block;">
-					<button data-ng-click="hc.signout()">logout</button>
-				</div>
+
+				<ul class="nav navbar-right top-nav">
+					<li class="dropdown"><a href="" class="dropdown-toggle"
+						data-toggle="dropdown"><i class="fa fa-user"></i> <b
+							class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a ui-sref="profile"><i
+									class="fa fa-fw fa-user"></i> Profile</a></li>
+							<li class="divider"></li>
+							<li><a data-ng-click="hc.signout()"><i
+									class="fa fa-fw fa-power-off"></i> Log Out</a></li>
+						</ul></li>
+				</ul>
 			</div>
 		</div>
 	</nav>
+
 	<div class="container">
+
+		<div id="mySidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a>
+			<a href="#">Contact</a>
+		</div>
+
 		<div class='test' data-ng-click="hc.ShowHide()">
 			<span style="font-size: 1.5em;" class="glyphicon glyphicon-plus-sign"></span>
 		</div>
@@ -46,35 +66,49 @@
 
 			<div class="panel-body">
 				<button class="button" type="button" data-ng-click="hc.save()"
-					name="button">Done</button>
+					name="button">Done</button color: red;n>
 			</div>
 		</div>
-		<div class="outer list-group ,panel panel-default" id="products">
+		
+	
+ 	<!-- <div class="dropdown">
+    <input class="btn btn-primary dropdown-toggle" type="text" data-toggle="dropdown" placeholder="take a note...">
+    </input>
+    <ul class="dropdown-menu">
+      <input type="text" placeholder="dis"></input>
+     </ul>
+    </div> -->
+ 
+ 	<div class="outer list-group ,panel panel-default" id="products">
 			<div class="row">
-				<div class="item  col-xs-12 col-sm-6 col-md-4 col-lg-4"
+				<div class="item col-xs-12 col-sm-6 col-md-4 col-lg-3 todoDiv"
 					ng-repeat="i in result track by $index">
-					<div class="thumbnail">
+					<div style="border: 1px solid grey; width: 220px; height: 140px;"
+						class="thumbnail">
 						<div>
-							<div ng-hide="i.update">{{i.title}}</div>
-							<div ng-show="i.update" class="group list-group-image"
-								class="group inner list-group-item-heading">
-								<input type="text" data-ng-model="i.title" />
+							<div style="font-weight: bolder;" ng-hide="i.update">{{i.title}}</div>
+							<div ng-show="i.update"
+								class="group list-group-image group inner list-group-item-heading titlediv">
+								<input style="border: none;" type="text" data-ng-model="i.title" />
 							</div>
-							<div ng-hide="i.update">{{i.description}}</div>
-							<div class="group list-group-image" ng-show="i.update">
-								<textarea type="text" data-ng-model="i.description"></textarea>
+							<p style="font-size: 22px;" ng-hide="i.update">{{i.description}}</p>
+							<div class="group list-group-image titlediv" ng-show="i.update">
+								<textarea style="border: none;" type="text"
+									data-ng-model="i.description"></textarea>
 							</div>
 						</div>
-						<div class="btn-group button pull-right">
+						<div class="btn-group button">
 							<button type="button" ng-show="i.update"
 								data-ng-click="hc.updateTask($index, i.id)">Done</button>
-							<button type="button" ng-hide="i.update"
+							<button style="border: none;" type="button" ng-hide="i.update"
 								class="btn btn-default btn"
 								data-ng-click="hc.updateEnable($index)">
+
 								<i class="glyphicon glyphicon-pencil"></i>
 							</button>
-							<button ng-hide="i.update" type="button" type="button"
-								class="btn btn-default btn" data-ng-click="hc.deleteTask(i.id)">
+							<button style="border: none; color: red;" ng-hide="i.update"
+								type="button" type="button" class="btn btn-default btn"
+								data-ng-click="hc.deleteTask(i.id)">
 								<i class="glyphicon glyphicon-trash"></i>
 							</button>
 						</div>

@@ -43,7 +43,7 @@
 
 .outer {
 	padding-bottom: 10px;
-	margin-top: 78px
+	margin-top: 78px;
 }
 
 .icon {
@@ -66,7 +66,7 @@
 
 .thumbnail {
 	margin-bottom: 20px;
-	padding: 0px;
+	padding: 10px;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
 	border-radius: 0px;
@@ -124,8 +124,61 @@
 
 .button {
 	float: right;
+	margin-top: 25px;
+	margin-left: 0px;
 }
-.mainmenu{
+
+.mainmenu {
 	
 }
+
+.todoDiv {
+	padding-left: 14px;
+	padding-top: 10px;
+}
+
+.sidenav {
+	margin-top: 52px;
+	height: 100%;
+	width: 0;
+	position: fixed;
+	/* z-index: 1; */
+	top: 0;
+	left: 0;
+	background-color: #111;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 60px;
+}
+
+.sidenav a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 25px;
+	color: #818181;
+	display: block;
+	transition: 0.3s;
+}
+
+.sidenav a:hover, .offcanvas a:focus {
+	color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+	position: absolute;
+	top: 10px;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+	.sidenav {
+		padding-top: 15px;
+	}
+	.sidenav a {
+		font-size: 18px;
+	}
+}    margin-left: 6px;
+
 

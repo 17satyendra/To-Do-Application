@@ -1,6 +1,10 @@
 var myApp = angular.module('todoApp', ['ui.router'])
 .config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider
+  .state("profile",{
+	  url:"/profile",
+	  templateUrl:"template/profile.html"
+  })
   .state("home",{
     url:"/home",
     templateUrl:"template/home.html"
