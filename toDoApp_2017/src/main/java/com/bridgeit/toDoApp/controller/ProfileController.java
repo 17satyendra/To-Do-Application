@@ -13,7 +13,7 @@ import com.bridgeit.toDoApp.model.User;
 @Controller
 public class ProfileController {
 	
-	@RequestMapping(value="getUser")
+	@RequestMapping(value="getProfile")
 	public @ResponseBody Response getUser(HttpServletRequest request){
 		HttpSession sess = request.getSession();
 		User user = (User) sess.getAttribute("user");
@@ -23,8 +23,9 @@ public class ProfileController {
 		pr.setFirstName(user.getFirstName());
 		pr.setLastName(user.getLastName());
 		pr.setEmail(user.getEmail());
+		pr.setMobile(user.getMobileNumber());
 		
-		return null;
+		return pr;
 		
 	}
 

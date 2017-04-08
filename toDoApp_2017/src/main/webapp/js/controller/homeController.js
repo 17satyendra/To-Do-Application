@@ -1,8 +1,32 @@
-myApp.controller('homeController', function($scope, $state, taskService,$timeout){
+myApp.controller('homeController', function($scope,$uibModal, $state, taskService,$timeout, $uibModalInstanceProvider){
 	$scope.todoDisplay= false;
-	$scope.result = []; //Http call Then server kal ka data
+	$scope.result = []; // Http call Then server kal ka data
 	
-	
+	 $scope.load_modal_sms = function (data) {
+		 console.log(data);
+	        var modal = $uibModal.open({
+	          templateUrl: "template/popup.html",
+	          ariaLabelledBy: 'modal-title-bottom',
+	          ariaDescribedBy: 'modal-body-bottom',
+	          size: 'sm',
+	          controller:function(){
+	        	  this.title=data.title;
+	        	  this.description = data.description;
+	        	  
+	          },
+	          
+	          controllerAs:"$ctrl"
+//	          scope: data
+	        });
+	        modal.result.catch(function(error){
+	        	console.log(error);   	
+	        })
+	        
+	    };
+	    this.cancel = function () {
+      	  console.log('called')
+      	    $uibModalInstanceProvider.dismiss('cancel');
+      	  };
 	this.signout=function(){
 		console.log('signout');
 		var httpobj=taskService.signoutUser().then(function(data){
@@ -30,9 +54,9 @@ myApp.controller('homeController', function($scope, $state, taskService,$timeout
 		$scope.result=$scope.result.map(function(ret){
 			ret.update=false
 			return ret;
-		}); //Reset To all update
+		}); // Reset To all update
 		
-		$scope.result[index].update=true; //set only one field
+		$scope.result[index].update=true; // set only one field
 	}
 	this.updateTask=function(index , id){
 		
@@ -55,16 +79,16 @@ myApp.controller('homeController', function($scope, $state, taskService,$timeout
 		if(data.data.status == 1)
 		{
 			$scope.result = data.data.list;
-//			 console.log(todos);signoutUser
-//			 if( todos )
-//			 {
-//				 for(var i=0; i<todos.length; i++ )
-//				 {
-//					 $scope.result.push(todos[i]);
+// console.log(todos);signoutUser
+// if( todos )
+// {
+// for(var i=0; i<todos.length; i++ )
+// {
+// $scope.result.push(todos[i]);
 //					 
-//					 console.log(todos[i]);
-//				 }
-//			 }
+// console.log(todos[i]);
+// }
+// }
 		}
 		else{
 			$state.go("login");
@@ -79,6 +103,26 @@ myApp.controller('homeController', function($scope, $state, taskService,$timeout
 				 delete $scope.todo;
 				 $scope.result.push( data.data.doTask );
 				 $scope.todoDisplay= fasignoutUserlse;
+					console.log(data);
+					if(data.data.status == 1)
+					{
+						$scope.result = data.data.list;
+// console.log(todos);signoutUser
+// if( todos )
+// {
+// for(var i=0; i<todos.length; i++ )
+// {
+// $scope.result.push(todos[i]);
+//								 
+// console.log(todos[i]);
+// }
+// }
+					}
+					else{
+						$state.go("login");
+					}
+					jqueryFunction();
+				
 				 	//
 			 }else{
 					 // Not action Remain in same page or error page
@@ -89,12 +133,12 @@ myApp.controller('homeController', function($scope, $state, taskService,$timeout
 	this.ShowHide = function(){
 		$scope.todoDisplay= true;
 	}
-	//for list and grid view 
+	// for list and grid view
 	this.listView=function(event){
 		event.preventDefault();
 		console.log('list view ');
 		console.log(event);
-		$('#products .item').addClass('list-group-item');
+		$('#products .item').addClas$uibModalInstances('list-group-item');
 	};
 	this.gridView=function(event){
 		event.preventDefault();
@@ -132,10 +176,9 @@ myApp.service('taskService',function($http){
 	}
 });
 function jqueryFunction(){
-	/*$('#products').mouseenter(function() {
-		$('#products')
-		  $('#ButtonChange').show();
-		}).mouseout(function() {
-		  $('#ButtonChange').hide();
-		})*/
+	/*
+	 * $('#products').mouseenter(function() { $('#products')
+	 * $('#ButtonChange').show(); }).mouseout(function() {
+	 * $('#ButtonChange').hide(); })
+	 */
 }

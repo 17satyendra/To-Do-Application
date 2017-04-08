@@ -57,7 +57,7 @@
 	padding-top: 0px;
 	margin-top: 7px;
 	margin-bottom: 0px;
-	border: #FFBB00;
+	border: #FFBB00;/*POPUP BOX START*/
 }
 /*css for list and grid view */
 .glyphicon {
@@ -137,48 +137,165 @@
 	padding-top: 10px;
 }
 
+
+
+/* popup click css*/
+.popclick {
+    position: relative;
+    display: inline-block;
+}
+
+.popclick .popuptext {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    font-size: 10px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.popclick:hover .popuptext {
+    visibility: visible;
+}
+
+
+/*Side Menu Start*/
 .sidenav {
-	margin-top: 52px;
-	height: 100%;
-	width: 0;
-	position: fixed;
-	/* z-index: 1; */
-	top: 0;
-	left: 0;
-	background-color: #111;
-	overflow-x: hidden;
-	transition: 0.5s;
-	padding-top: 60px;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    /*padding-top: 60px;*/
+        margin-top: 52px;
 }
 
 .sidenav a {
-	padding: 8px 8px 8px 32px;
-	text-decoration: none;
-	font-size: 25px;
-	color: #818181;
-	display: block;
-	transition: 0.3s;
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
 }
 
-.sidenav a:hover, .offcanvas a:focus {
-	color: #f1f1f1;
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
 }
 
 .sidenav .closebtn {
-	position: absolute;
-	top: 10px;
-	right: 25px;
-	font-size: 36px;
-	margin-left: 50px;
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
 }
 
 @media screen and (max-height: 450px) {
-	.sidenav {
-		padding-top: 15px;
-	}
-	.sidenav a {
-		font-size: 18px;
-	}
-}    margin-left: 6px;
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+/*Side Menu End*/
+
+
+/*POPUP BOX START*/
+.button:hover {
+background: #06D85F;
+}
+
+.overlay {
+position: fixed;
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;
+background: rgba(0, 0, 0, 0.7);
+transition: opacity 500ms;
+visibility: hidden;
+opacity: 0;
+}
+.overlay:target {
+visibility: visible;
+opacity: 1;
+}
+
+.popup {
+margin: 70px auto;
+padding: 20px;
+background: #fff;
+border-radius: 5px;
+width: 30%;
+position: relative;
+transition: all 5s ease-in-out;
+}
+
+.popup .close {
+position: absolute;
+top: 20px;
+right: 30px;
+transition: all 200ms;
+font-size: 30px;
+font-weight: bold;
+text-decoration: none;
+color: #333;
+}
+.popup .close:hover {
+color: #06D85F;
+}
+.popup .content {
+max-height: 30%;
+overflow: auto;
+}
+
+p
+{
+  width: 220px;
+  height:auto;
+white-space: nowrap;
+overflow:hidden;
+position: relative;
+text-overflow: ellipsis;
+}
+@media screen and (max-width: 700px){
+.box{
+  width: 70%;
+}.box {
+width: 40%;
+margin: 0 auto;
+background: rgba(255,255,255,0.2);
+padding: 35px;
+border: 2px solid #fff;Let me Pop up
+text-align: center;
+}
+
+.popup{
+  width: 70%;
+}
+
+.box {
+width: 40%;
+margin: 0 auto;
+background: rgba(255,255,255,0.2);
+padding: 35px;
+border: 2px solid #fff;Let me Pop up
+text-align: center;
+}
+
+/*POPUP BOX START*/
+
 
 
