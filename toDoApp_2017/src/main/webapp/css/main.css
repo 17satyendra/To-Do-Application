@@ -1,7 +1,58 @@
 @CHARSET "UTF-8";
+input,textarea{
+	outline: none;
+}
 
-#cointainer-note1, #cointainer-note2 {
-	display: none;
+.refreshbutton{
+	margin-right: 18px;
+    height: 40px;
+    width: 40px;
+    background-color: #FFBB00;
+    border: none;
+}
+/*Search bar start*/
+
+.searchback{
+	background-color: white;
+}
+.input1 {
+	width: 87%;
+	height: 100%;
+	font-size: 16px;
+	background-color: #f5B400;
+	background-position: 10px 10px;
+	margin-top: 4px;
+	border-width: 0px;
+}
+.searchbutton{
+	background-color: #f5B400;
+	border: none;
+	/* border-radius: 0px; */
+	border-bottom-left-radius: 5px;
+	height: 40px;
+	width: 40pxx;
+	outline: none
+}
+.searchdiv{
+	width: 50%;
+	margin-left: 20%;
+	background-color: #f5B400;
+	margin-top: 3px;
+	border-radius: 5px;
+	
+}
+./*Ends*/
+body {
+	overflow-y: scroll;
+}
+
+.item {
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+.container {
+	width: 800px;
 }
 
 .test {
@@ -10,7 +61,6 @@
 	height: 50px;
 	font-size: 1.8em;
 	margin-bottom: 10px;
-	padi
 }
 
 .button:active:after {
@@ -25,7 +75,7 @@
 }
 
 .boby {
-	background-color: #428bca;;
+	background-color: #428bca;
 }
 
 .taskList {
@@ -43,7 +93,7 @@
 
 .outer {
 	padding-bottom: 10px;
-	margin-top: 78px;
+	margin-top: 20px;
 }
 
 .icon {
@@ -55,71 +105,9 @@
 	display: inline;
 	padding-bottom: 0px;
 	padding-top: 0px;
-	margin-top: 7px;
+	margin-top: -40px;
 	margin-bottom: 0px;
-	border: #FFBB00;/*POPUP BOX START*/
-}
-/*css for list and grid view */
-.glyphicon {
-	margin-right: 5px;
-}
-
-.thumbnail {
-	margin-bottom: 20px;
-	padding: 10px;
-	-webkit-border-radius: 0px;
-	-moz-border-radius: 0px;
-	border-radius: 0px;
-}
-
-.item.list-group-item {
-	float: inherit;
-	width: 100%;
-	background-color: #fff;
-	margin-bottom: 10px;
-}
-
-.item.list-group-item:nth-of-type(odd):hover, .item.list-group-item:hover
-	{
-	background: #428bca;
-}
-
-.item.list-group-item .list-group-image {
-	margin-right: 10px;
-}
-
-.item.list-group-item .thumbnail {
-	margin-bottom: 0px;
-}
-
-.item.list-group-item .caption {
-	padding: 9px 9px 0px 9px;
-}
-
-.item.list-group-item:nth-of-type(odd) {
-	background: #eeeeee;
-}
-
-.item.list-group-item:before, .item.list-group-item:after {
-	display: table;
-	content: " ";
-}
-
-.item.list-group-item img {
-	float: left;
-}
-
-.item.list-group-item:after {
-	clear: both;
-}
-
-.list-group-item-text {
-	margin: 0 0 11px;
-	padding: 2px 2px;
-}
-
-.list-group-item {
-	padding: 2px 2px;
+	border: #FFBB00;
 }
 
 .button {
@@ -128,174 +116,270 @@
 	margin-left: 0px;
 }
 
-.mainmenu {
-	
-}
-
 .todoDiv {
-	padding-left: 14px;
 	padding-top: 10px;
+	margin: 10px;
 }
-
-
-
 /* popup click css*/
 .popclick {
-    position: relative;
-    display: inline-block;
+	position: relative;
+	display: inline-block;
 }
 
 .popclick .popuptext {
-    visibility: hidden;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    font-size: 10px;
-
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
+	visibility: hidden;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	font-size: 10px;
+	position: absolute;
+	z-index: 1;
 }
 
 .popclick:hover .popuptext {
-    visibility: visible;
+	visibility: visible;
 }
-
-
+/*PopUp Css Ends*/
 /*Side Menu Start*/
 .sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    /*padding-top: 60px;*/
-        margin-top: 52px;
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: #E8E8E8;
+	overflow-x: hidden;
+	transition: 0.2s;
+	/*padding-top: 60px;*/
+	margin-top: 52px;
 }
-
+.sidenav:hover{
+	overflow-y:scroll; 
+	 border-radius: 15pt;
+}
 .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 25px;
+	color: #818181;
+	display: block;
+	transition: 0.3s;
+	margin-bottom: 1px gray;
 }
+hr{
 
-.sidenav a:hover, .offcanvas a:focus{
-    color: #f1f1f1;
+	margin-bottom: 1px gray;
+}
+.sidenav a:hover, .offcanvas a:focus {
+	color: black;
 }
 
 .sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
 }
 
 #main {
-    transition: margin-left .5s;
-    padding: 16px;
+	transition: margin-left .1s;
+	padding: 16px;
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+	.sidenav {
+		padding-top: 15px;
+	}
+	.sidenav a {
+		font-size: 18px;
+	}
 }
 /*Side Menu End*/
 
-
 /*POPUP BOX START*/
 .button:hover {
-background: #06D85F;
+	background: #06D85F;
 }
 
-.overlay {
-position: fixed;
-top: 0;
-bottom: 0;
-left: 0;
-right: 0;
-background: rgba(0, 0, 0, 0.7);
-transition: opacity 500ms;
-visibility: hidden;
-opacity: 0;
-}
-.overlay:target {
-visibility: visible;
-opacity: 1;
+.card {
+	background: #fff;
+	border-radius: 2px;
+	display: inline-block;
+	height: 300px;
+	margin: 1rem;
+	position: relative;
 }
 
-.popup {
-margin: 70px auto;
-padding: 20px;
-background: #fff;
-border-radius: 5px;
-width: 30%;
-position: relative;
-transition: all 5s ease-in-out;
+.card-1 {
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+	transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 }
 
-.popup .close {
-position: absolute;
-top: 20px;
-right: 30px;
-transition: all 200ms;
-font-size: 30px;
-font-weight: bold;
-text-decoration: none;
-color: #333;
-}
-.popup .close:hover {
-color: #06D85F;
-}
-.popup .content {
-max-height: 30%;
-overflow: auto;
+.card-1:hover {
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px
+		rgba(0, 0, 0, 0.22);
 }
 
-p
-{
-  width: 220px;
-  height:auto;
-white-space: nowrap;
-overflow:hidden;
-position: relative;
-text-overflow: ellipsis;
-}
-@media screen and (max-width: 700px){
-.box{
-  width: 70%;
-}.box {
-width: 40%;
-margin: 0 auto;
-background: rgba(255,255,255,0.2);
-padding: 35px;
-border: 2px solid #fff;Let me Pop up
-text-align: center;
+p {
+	width: 220px;
+	height: auto;
+	white-space: nowrap;
+	overflow: hidden;
+	position: relative;
+	text-overflow: ellipsis;
 }
 
-.popup{
-  width: 70%;
+/*LIstAnd Grid View Start*/
+.app {
+	background: #000;
+	width: 980px;
+	padding: 20px;
+	margin: 0 auto;
 }
 
-.box {
-width: 40%;
-margin: 0 auto;
-background: rgba(255,255,255,0.2);
-padding: 35px;
-border: 2px solid #fff;Let me Pop up
-text-align: center;
+.cont .cardRow {
+	display: table;
+	width: 80%;
+	padding: 20px 0;
 }
 
-/*POPUP BOX START*/
+.cont.list .card {
+	display: table-row;
+	background: #fff;
+}
 
+.cont.list .card>div {
+	display: table-cell;
+	vertical-align: middle;
+	padding: 10px;
+	border-bottom: 2px solid #000;
+}
 
+.cont.list .card .imgBox .img {
+	display: inline-block;
+	vertical-align: middle;
+	margin: -4px;
+	width: 80px;
+	height: 80px;
+	background-size: cover;
+	background-position: 50% 50%;
+}
 
+.cont.list .card .title h2 {
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+}
+
+.cont.list .card .title span {
+	text-transform: uppercase;
+}
+
+.cont.list .card .stakes h3 {
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+}
+
+.cont.list .card .stakes span {
+	text-transform: uppercase;
+}
+
+.cont.list .card .jackpot h4 {
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+}
+
+.cont.list .card .jackpot span {
+	text-transform: uppercase;
+}
+
+.cont.list .card .buttons {
+	text-align: right;
+}
+
+.cont.list .card .buttons button {
+	margin-bottom: 10px;
+}
+
+.cont.grid {
+	margin-right: -20px;
+}
+
+.cont.grid .card {
+	display: table-cell;
+	background: #fff;
+	padding: 6px;
+	border-right: 20px solid #000;
+}
+
+.cont.grid .card>div {
+	position: relative;
+}
+
+.cont.grid .card .imgBox {
+	border-bottom: 5px solid #444;
+}
+
+.cont.grid .card .imgBox .img {
+	padding: 100% 0 0;
+	background-size: cover;
+	background-position: 50% 50%;
+}
+
+.cont.grid .card .title h2 {
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+}
+
+.cont.grid .card .title span {
+	display: block;
+	padding: 0 5px;
+	width: 80%;
+	position: absolute;
+	top: -150%;
+	background: #777;
+	color: #fff;
+	text-transform: uppercase;
+}
+
+.cont.grid .card .stakes {
+	display: none;
+}
+
+.cont.grid .card .jackpot h4 {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+}
+
+.cont.grid .card .jackpot span {
+	display: inline;
+	text-transform: uppercase;
+}
+/*List and Grid view End*/
+
+/*Title and Description*/
+.cardTitle {
+	background: #fff;
+	border-radius: 2px;
+	height: auto;
+	margin: 1rem;
+	width: 500px;
+	margin: 0 auto;
+}
+
+.card-2 {
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+/*Ends*/
+/* .row{
+	display:inline;
+} */

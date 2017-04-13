@@ -3342,7 +3342,7 @@ fieldset[disabled] .btn-warning.focus {
   background-color: #fff;
 }
 .btn-danger {
-  color: #fff;
+  color: black;
   background-color: #d9534f;
   border-color: #d43f3a;
 }
@@ -3353,7 +3353,7 @@ fieldset[disabled] .btn-warning.focus {
   border-color: #761c19;
 }
 .btn-danger:hover {
-  color: #fff;
+  color: black;
   background-color: #c9302c;
   border-color: #ac2925;
 }

@@ -1,8 +1,11 @@
 myApp.controller("profileController",function($scope, profileService){
 	$scope.getProfile=function(){
 		console.log("profile loading..");
+		var userDetails="";
 		var httpobj=profileService.profile().then(function(data){
 			console.log(data);
+			console.log(data.data.email)
+			$scope.userDetails=data.data;
 			
 		})
 	}

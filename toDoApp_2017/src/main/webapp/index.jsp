@@ -15,9 +15,15 @@
 	href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
-
+<style>
+/* @media (min-width: 1200px) {
+  .container {
+    width: 1000px;
+  }
+} */
+</style>
 </head>
-<body class="body" data-ng-app="todoApp">
+<body class="body" data-ng-app="todoApp" style="background: #E8E8E8;">
 	<ui-view></ui-view>
 </body>
 <script src="js/app.js" charset="utf-8"></script>

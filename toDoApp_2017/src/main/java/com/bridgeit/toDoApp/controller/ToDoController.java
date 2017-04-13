@@ -86,6 +86,7 @@ public class ToDoController {
 		User user = (User) sess.getAttribute("user");
 		ErrorResponse er = null;
 		List<ToDoTask> toDoList;
+		System.out.println();
 		try {
 			toDoList = toDoService.getToDoList(user.getId());
 

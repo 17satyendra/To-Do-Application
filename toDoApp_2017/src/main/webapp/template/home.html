@@ -1,32 +1,31 @@
 <div name="home" data-ng-controller="homeController as hc">
-
-
 	<nav class="navbar navbar-inverse, nav" role="navigation"
-		style="background-color: #FFBB00">
+		style="background-color: #FFBB00; width: 100%; z-index: 999; position: fixed;">
 		<div class="navbar-header">
 			<div style="font-size: 20px; display: inline-block; cursor: pointer">
 
-				<span onclick="openNav()">&#9776;</span>
+				<span style="font-size: 20px; margin-left: 10px; cursor: pointer;"
+					onclick="openNav()">&#9776;</span>
 			</div>
-			<!-- <span style="font-size: 20px; margin-left: 6px; cursor: pointer"
-				onclick="openNav()">&#9776; </span> -->
 			<span class="navbar-brand" data-ui-sref="#"
-				style="color: black; display: inline-block; float: none;"><b>TODO
+				style="color: black; display: inline-block; float: none;"><b>ToDo
 					Manager</b></span>
 		</div>
-
+		<div class="searchdiv searchtab" style="width: 50%; margin-left: 18%;">
+			<button class="searchbutton searchtab" type="button" class="btn btn-default">
+				<span class="glyphicon glyphicon-search"></span>
+			</button>
+			<input class="input1 searchtab" id="i" type="text" name="search"
+				placeholder="Search" ng-model="searchtext">
+		</div>
 		<div style="background-color: #FFBB00"
 			class="well well-sm, listDisplay">
-
-			<div class="btn-group">
-				<button class="btn btn-default btn-sm"
-					ng-click="hc.listView($event)">
-					<span class="glyphicon glyphicon-th-list"> </span>List
-				</button>
-				<button class="btn btn-default btn-sm"
-					ng-click="hc.gridView($event)">
-					<span class="glyphicon glyphicon-th"> </span>Grid
-				</button>
+			<button class="refreshbutton" data-ng-click=hc.refresh()><i class="glyphicon glyphicon-repeat"></i></button>
+			<div class="btn-group btndenger1">
+				<button type="button" class="btn btn-danger glyphicon"
+					ng-click="isList = !isList"
+					ng-class="{'glyphicon-list': !isList, 'glyphicon-th-large': isList}"
+					style="background-color: #ffbb00; border: none;"></button>
 
 				<ul class="nav navbar-right top-nav">
 					<li class="dropdown"><a href="" class="dropdown-toggle"
@@ -43,114 +42,82 @@
 			</div>
 		</div>
 	</nav>
+	<div id="main">
+		<div class="container">
 
-	<div class="container">
-
-		<div id="mySidenav" class="sidenav">
-			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-			<a href="#">About</a> <a href="#">Services</a> <a href="#">Clients</a>
-			<a href="#">Contact</a>
-		</div>
-		<div id="main">
-			<div class='test' data-ng-click="hc.ShowHide()">
-				<span style="font-size: 1.5em;"
-					class="glyphicon glyphicon-plus-sign"></span>
+			<div id="mySidenav" class="sidenav">
+				<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+				<a data-ui-sref="home"><i class="glyphicon glyphicon-grain"></i>
+					Notes</a>
+				<hr>
+				<a ui-sref="profile"><i class="glyphicon glyphicon-user"></i>
+					Profile</a>
+				<hr>
+				<a data-ui-sref="about"><i class="glyphicon glyphicon-asterisk"></i>
+					About</a>
+				<hr>
+				<a data-ui-sref="contact"><i
+					class="glyphicon glyphicon-phone-alt"></i> Contact</a>
+				<hr>
+				<a data-ng-click="hc.signout()"><i
+					class="glyphicon glyphicon-log-out"></i> Logout</a>
 			</div>
-			<span class="glyphicon-class"></span>
-
-			<div class="panel panel-default" data-ng-show="todoDisplay">
-				<div class="panel-body ,inputText">
-					<input style="width: 100%" type="text" name="title"
-						data-ng-model="todo.title" placeholder="Title" />
-				</div>
-				<div class="panel-body">
-
-					<textarea style="width: 100%" name="description"
-						data-ng-model="todo.description" placeholder="Description"></textarea>
-				</div>
-
-				<div class="panel-body">
-					<button class="button" type="button" data-ng-click="hc.save()"
-						name="button">Done</button color: red;n>
-				</div>
-			</div>
-
-
-			<!-- <div class="dropdown">
-    <input class="btn btn-primary dropdown-toggle" type="text" data-toggle="dropdown" placeholder="take a note...">
-    </input>
-    <ul class="dropdown-menu">
-      <input type="text" placeholder="dis"></input>
-     </ul>
-    </div> -->
-
-			<div class="outer list-group ,panel panel-default" id="products">
-				<div class="row">
-					<div class="item col-xs-12 col-sm-6 col-md-4 col-lg-3 todoDiv"
-						ng-repeat="i in result track by $index">
-						<div style="border: 1px solid red; width: 220px; height: 140px;"
-							class="thumbnail">
-							<div class="">
-
+			<div>
+				<div class="row" style="margin-top: 10%;">
+					<div class="cardTitle card-2">
+						<div>
+							<input style="width: 100%; border: none; display: none;"
+								id="selectPeriodRangePanel" type="text" name="title"
+								placeholder="title" data-ng-model="todo.title" />
+						</div>
+						<div>
+							<textarea cols="60" maxlength="300" style="border: none;"
+								id="period_select_range_btn" type="text" name="description"
+								data-ng-model="todo.description" placeholder="Take a note..."></textarea>
+						</div>
+						<div id="selectPeriodRangePanel2" style="display: none">
+							<button type="button" value="Done" data-ng-click="hc.save()">Done</button>
+						</div>
+					</div>
+					<div class="outer row ng-class="{list:isList, grid: !isList}" >
+						<div class="item"
+							ng-class="{'col-xs-12':!isList, 'col-md-6':!isList, 'col-sm-6':!isList,'col-lg-4':!isList}"
+							ng-repeat="i in result |filter :searchtext track by $index ">
+							<div class="card card-1 thumbnail"
+								style="height: auto; width: 100%;">
 								<div style="font-weight: bolder;" ng-hide="i.update">{{i.title}}</div>
 								<div ng-show="i.update"
 									class="group list-group-image group inner list-group-item-heading titlediv">
 									<input style="border: none;" type="text"
 										data-ng-model="i.title" />
 								</div>
-								<div class="popclick " style="font-size: 22px;"
+								<div class="popclick" style="font-size: 22px; width: 100%;"
 									ng-hide="i.update" ng-click="load_modal_sms(i)">
 									<p>{{i.description}}</p>
 									<div class="popuptext">click to see</div>
 								</div>
-
-								<!-- <div class="box">
-									<a class="button" href="#popup1" style="text-decoration: none;">
-									</a>
-								</div>
-
-								<div id="popup1" class="overlay">
-									<div class="popup">
-										<a class="close" href="#">&times;</a>
-										<div class="content">{{i.description}}</div>
-									</div>
-								</div> -->
-
 								<div class="group list-group-image titlediv" ng-show="i.update">
 
-									<textarea style="border: none;" type="text"
+									<textarea style="border: none; overflow-y: hidden;" type="text"
 										data-ng-model="i.description"></textarea>
 								</div>
-									<button type="button" ng-show="i.update"
+								<div align="right">
+									<h6>Edited on {{i.date | date }}</h6>
+								</div>
+								<button class="popuptext" type="button" ng-show="i.update"
 									data-ng-click="hc.updateTask($index, i.id)">Done</button>
-								<button style="border: none; margin-left: 110px" type="button" ng-hide="i.update"
-									class="btn btn-default btn"
+								<button style="border: none; float: right;" type="button"
+									ng-hide="i.update" class="btn btn-default btn"
 									data-ng-click="hc.updateEnable($index)">
-
 									<i class="glyphicon glyphicon-pencil"></i>
 								</button>
-								<button style="border: none; color: red;float: right;" ng-hide="i.update"
-									type="button" type="button" class="btn btn-default btn"
+								<button style="border: none; float: right;" type="button"
+									type="button" class="btn btn-default btn" ng-hide="i.update"
 									data-ng-click="hc.deleteTask(i.id)">
 									<i class="glyphicon glyphicon-trash"></i>
 								</button>
+								<div style="clear: both;"></div>
 							</div>
-
-							<!-- <div class="btn-group button">
-								<button type="button" ng-show="i.update"
-									data-ng-click="hc.updateTask($index, i.id)">Done</button>
-								<button style="border: none;" type="button" ng-hide="i.update"
-									class="btn btn-default btn"
-									data-ng-click="hc.updateEnable($index)">
-
-									<i class="glyphicon glyphicon-pencil"></i>
-								</button>
-								<button style="border: none; color: red;" ng-hide="i.update"
-									type="button" type="button" class="btn btn-default btn"
-									data-ng-click="hc.deleteTask(i.id)">
-									<i class="glyphicon glyphicon-trash"></i>
-								</button>
-							</div> -->
 						</div>
 					</div>
 				</div>
