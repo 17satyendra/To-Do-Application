@@ -3,24 +3,26 @@
 		style="background-color: #FFBB00; width: 100%; z-index: 999; position: fixed;">
 		<div class="navbar-header">
 			<div style="font-size: 20px; display: inline-block; cursor: pointer">
-
-				<span style="font-size: 20px; margin-left: 10px; cursor: pointer;"
+				<span class="sidebutton"
+					style="font-size: 20px; margin-left: 10px; cursor: pointer;"
 					onclick="openNav()">&#9776;</span>
 			</div>
 			<span class="navbar-brand" data-ui-sref="#"
-				style="color: black; display: inline-block; float: none;"><b>ToDo
-					Manager</b></span>
+				style="color: black; display: inline-block; float: none;"><b>To
+					Do Manager</b></span>
 		</div>
-		<div class="searchdiv searchtab" style="width: 50%; margin-left: 18%;">
-			<button class="searchbutton searchtab" type="button" class="btn btn-default">
-				<span class="glyphicon glyphicon-search"></span>
-			</button>
-			<input class="input1 searchtab" id="i" type="text" name="search"
-				placeholder="Search" ng-model="searchtext">
+		<div class="form-group searchdiv" >
+			<div class="icon-addon addon-md" >
+				<input type="text" placeholder="Search" class="form-control search"
+					id="search"  ng-model="searchtext"> <label for="email"
+					class="glyphicon glyphicon-search" rel="tooltip" title="Search"></label>
+			</div>
 		</div>
 		<div style="background-color: #FFBB00"
 			class="well well-sm, listDisplay">
-			<button class="refreshbutton" data-ng-click=hc.refresh()><i class="glyphicon glyphicon-repeat"></i></button>
+			<button class="refreshbutton" data-ng-click=hc.refresh()>
+				<i class="glyphicon glyphicon-repeat"></i>
+			</button>
 			<div class="btn-group btndenger1">
 				<button type="button" class="btn btn-danger glyphicon"
 					ng-click="isList = !isList"
@@ -68,15 +70,15 @@
 						<div>
 							<input style="width: 100%; border: none; display: none;"
 								id="selectPeriodRangePanel" type="text" name="title"
-								placeholder="title" data-ng-model="todo.title" />
+								placeholder="Title" data-ng-model="todo.title" />
 						</div>
 						<div>
 							<textarea cols="60" maxlength="300" style="border: none;"
 								id="period_select_range_btn" type="text" name="description"
 								data-ng-model="todo.description" placeholder="Take a note..."></textarea>
 						</div>
-						<div id="selectPeriodRangePanel2" style="display: none">
-							<button type="button" value="Done" data-ng-click="hc.save()">Done</button>
+						<div id="selectPeriodRangePanel2" style="display: none; margin-left: 88%;">
+							<button class="btn btn-default btn-sm" style="border: none; margin-top: -35px; "type="button" value="Done" data-ng-click="hc.save()">Done</button>
 						</div>
 					</div>
 					<div class="outer row ng-class="{list:isList, grid: !isList}" >
@@ -84,7 +86,7 @@
 							ng-class="{'col-xs-12':!isList, 'col-md-6':!isList, 'col-sm-6':!isList,'col-lg-4':!isList}"
 							ng-repeat="i in result |filter :searchtext track by $index ">
 							<div class="card card-1 thumbnail"
-								style="height: auto; width: 100%;">
+								style="height: 120px; width: 100%;">
 								<div style="font-weight: bolder;" ng-hide="i.update">{{i.title}}</div>
 								<div ng-show="i.update"
 									class="group list-group-image group inner list-group-item-heading titlediv">
@@ -98,13 +100,14 @@
 								</div>
 								<div class="group list-group-image titlediv" ng-show="i.update">
 
-									<textarea style="border: none; overflow-y: hidden;" type="text"
-										data-ng-model="i.description"></textarea>
+									<textarea style="border: none; overflow-y: hidden; width: 100%"
+										type="text" data-ng-model="i.description"></textarea>
 								</div>
-								<div align="right">
+								<span align="left" style="position:absolute;bottom:0px;">
 									<h6>Edited on {{i.date | date }}</h6>
-								</div>
-								<button class="popuptext" type="button" ng-show="i.update"
+								</span>
+								<span style="position:absolute;bottom:0px; right:0px;">
+								<button class="popuptext btn btn-default btn-sm" type="button" ng-show="i.update"
 									data-ng-click="hc.updateTask($index, i.id)">Done</button>
 								<button style="border: none; float: right;" type="button"
 									ng-hide="i.update" class="btn btn-default btn"
@@ -113,10 +116,11 @@
 								</button>
 								<button style="border: none; float: right;" type="button"
 									type="button" class="btn btn-default btn" ng-hide="i.update"
-									data-ng-click="hc.deleteTask(i.id)">
+									data-ng-click="hc.deleteTask(i.id)" >
 									<i class="glyphicon glyphicon-trash"></i>
 								</button>
 								<div style="clear: both;"></div>
+								</span>
 							</div>
 						</div>
 					</div>

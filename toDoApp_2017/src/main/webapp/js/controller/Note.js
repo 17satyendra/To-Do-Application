@@ -50,7 +50,7 @@ $(document).on("click", function(e) {
 
 		} else {
 			$("#selectPeriodRangePanel").hide();
-			$("#selectPeriodRangePanel2").hide();
+			$("#selectPeriodRangePanel2").hide();	
 			doubleClick = !doubleClick;
 			console.log(doubleClick)
 		}
