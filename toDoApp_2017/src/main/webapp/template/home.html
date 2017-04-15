@@ -28,7 +28,8 @@
 					ng-click="isList = !isList"
 					ng-class="{'glyphicon-list': !isList, 'glyphicon-th-large': isList}"
 					style="background-color: #ffbb00; border: none;"></button>
-
+<button class="popuptext btn btn-default btn-sm" type="button" ng-show="i.update"
+									data-ng-click="hc.updateTask($index, i.id)">Done</button>
 				<ul class="nav navbar-right top-nav">
 					<li class="dropdown"><a href="" class="dropdown-toggle"
 						data-toggle="dropdown"><i class="fa fa-user"></i> <b
@@ -82,40 +83,40 @@
 						</div>
 					</div>
 					<div class="outer row ng-class="{list:isList, grid: !isList}" >
-						<div class="item"
+						<div class="item "
 							ng-class="{'col-xs-12':!isList, 'col-md-6':!isList, 'col-sm-6':!isList,'col-lg-4':!isList}"
-							ng-repeat="i in result |filter :searchtext track by $index ">
+							ng-repeat="i in result |filter :searchtext track by $index " ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
 							<div class="card card-1 thumbnail"
 								style="height: 120px; width: 100%;">
 								<div style="font-weight: bolder;" ng-hide="i.update">{{i.title}}</div>
-								<div ng-show="i.update"
+								<!-- <div ng-show="i.update"
 									class="group list-group-image group inner list-group-item-heading titlediv">
 									<input style="border: none;" type="text"
 										data-ng-model="i.title" />
-								</div>
+								</div> -->
 								<div class="popclick" style="font-size: 22px; width: 100%;"
-									ng-hide="i.update" ng-click="load_modal_sms(i)">
+									ng-hide="i.update" ng-click="load_modal_sms(i, $index)">
 									<p>{{i.description}}</p>
 									<div class="popuptext">click to see</div>
 								</div>
-								<div class="group list-group-image titlediv" ng-show="i.update">
+								<!-- <div class="group list-group-image titlediv" ng-show="i.update">
 
 									<textarea style="border: none; overflow-y: hidden; width: 100%"
 										type="text" data-ng-model="i.description"></textarea>
-								</div>
-								<span align="left" style="position:absolute;bottom:0px;">
+								</div> -->
+								<span ng-show="hoverEdit"  align="left" style="position:absolute;bottom:0px; font-style: italic;">
 									<h6>Edited on {{i.date | date }}</h6>
 								</span>
 								<span style="position:absolute;bottom:0px; right:0px;">
-								<button class="popuptext btn btn-default btn-sm" type="button" ng-show="i.update"
+								<!-- <button class="popuptext btn btn-default btn-sm" type="button" ng-show="i.update"
 									data-ng-click="hc.updateTask($index, i.id)">Done</button>
-								<button style="border: none; float: right;" type="button"
+								 <button style="border: none; float: right;" type="button"
 									ng-hide="i.update" class="btn btn-default btn"
 									data-ng-click="hc.updateEnable($index)">
 									<i class="glyphicon glyphicon-pencil"></i>
-								</button>
+								</button> -->
 								<button style="border: none; float: right;" type="button"
-									type="button" class="btn btn-default btn" ng-hide="i.update"
+									type="button" class="btn btn-default btn" ng-show="hoverEdit" 
 									data-ng-click="hc.deleteTask(i.id)" >
 									<i class="glyphicon glyphicon-trash"></i>
 								</button>

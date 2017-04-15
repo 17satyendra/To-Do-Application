@@ -40,27 +40,27 @@ function closeNav() {
 }
 var doubleClick = true;
 $(document).on("click", function(e) {
-	console.log(doubleClick)
+	//console.log(doubleClick)
 	if (doubleClick) {
 		if ($(e.target).is("#period_select_range_btn")) {
 			$("#selectPeriodRangePanel").show();
 			$("#selectPeriodRangePanel2").show();
 			doubleClick = !doubleClick;
-			console.log(doubleClick);
+			//console.log(doubleClick);
 
 		} else {
 			$("#selectPeriodRangePanel").hide();
 			$("#selectPeriodRangePanel2").hide();	
 			doubleClick = !doubleClick;
-			console.log(doubleClick)
+			//console.log(doubleClick)
 		}
 	} else {
 		if ($(e.target).is("#period_select_range_btn")) {
 			doubleClick = !doubleClick;
-			console.log(doubleClick)
+		//	console.log(doubleClick)
 		} else {
 			doubleClick = !doubleClick;
-			console.log(doubleClick)
+			//console.log(doubleClick)
 
 		}
 	}
