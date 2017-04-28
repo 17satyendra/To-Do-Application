@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 
+import com.bridgeit.toDoApp.model.Reminder;
 import com.bridgeit.toDoApp.model.ToDoTask;
 
 public interface ToDoService {
@@ -13,5 +14,7 @@ public interface ToDoService {
 	List<ToDoTask> getToDoList(int id)throws Exception;
 
 	void deleteTaskByToDoId(int taskId)throws Exception;
+
+	void addReminder(Reminder reminder)throws HibernateException;
 
 }

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitterReturnValueHandler;
 
 import com.bridgeit.toDoApp.json.ErrorResponse;
+import com.bridgeit.toDoApp.json.RemindResponse;
 import com.bridgeit.toDoApp.json.Response;
 import com.bridgeit.toDoApp.json.TaskResponse;
+import com.bridgeit.toDoApp.model.Reminder;
 import com.bridgeit.toDoApp.model.ToDoTask;
 import com.bridgeit.toDoApp.model.User;
 import com.bridgeit.toDoApp.service.ToDoService;
@@ -150,5 +152,22 @@ public class ToDoController {
 			er.setMessage("Internal server error, please try again.");
 			return er;
 		}
+	}
+	@RequestMapping(value="/remindme", method=RequestMethod.POST)
+	public @ResponseBody Response doRemind(@RequestBody Reminder remind){
+		System.out.println("Reminder .....");
+		System.out.println(remind.toString());
+		ErrorResponse er =null;
+		RemindResponse re =  null;
+		Reminder reminder = new Reminder();
+		try{
+			toDoService.addReminder(reminder);
+			
+		}catch(HibernateException he){
+			
+			
+		}
+		return null;
+		
 	}
 }

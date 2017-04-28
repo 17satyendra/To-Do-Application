@@ -14,32 +14,33 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
- * This is simple POJO to represent User entity in our application, we will
- * be dealing with User entity to save, retrieve and delete data using
- * Spring Restful Web Services. We have annotated the class with Hibernate
- * annotations to make hibernate aware of the entity.
- * @author bridgeit Satyendra Singh.
+ * This is simple POJO to represent User entity in our application, we will be
+ * dealing with User entity to save, retrieve and delete data using Spring
+ * Restful Web Services. We have annotated the class with Hibernate annotations
+ * to make hibernate aware of the entity.
+ * 
  * @version 1.8Jdk
  * @since 2017-03-23.
+ * @author bridgeit Satyendra Singh.
  */
 
 @Entity
 @Table
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GenericGenerator(name="any", strategy="increment")
-	@GeneratedValue(generator="any")
+	@GenericGenerator(name = "any", strategy = "increment")
+	@GeneratedValue(generator = "any")
 	private int id;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String mobileNumber;
 	private String password;
-	
+
 	public User() {
 	}
 

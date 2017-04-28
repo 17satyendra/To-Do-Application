@@ -1,9 +1,10 @@
-<div name="home" data-ng-controller="homeController as hc">
+<div data-ng-controller="homeController as hc">
 	<nav class="navbar navbar-inverse, nav" role="navigation"
 		style="background-color: #FFBB00; width: 100%; z-index: 999; position: fixed;">
 		<div class="navbar-header">
 			<div style="font-size: 20px; display: inline-block; cursor: pointer">
-				<span class="sidebutton"
+				<span data-toggle="tooltip" data-placement="bottom" title="menu"
+					class="sidebutton"
 					style="font-size: 20px; margin-left: 10px; cursor: pointer;"
 					onclick="openNav()">&#9776;</span>
 			</div>
@@ -11,26 +12,30 @@
 				style="color: black; display: inline-block; float: none;"><b>To
 					Do Manager</b></span>
 		</div>
-		<div class="form-group searchdiv" >
-			<div class="icon-addon addon-md" >
+		<div class="form-group searchdiv">
+			<div class="icon-addon addon-md">
 				<input type="text" placeholder="Search" class="form-control search"
-					id="search"  ng-model="searchtext"> <label for="email"
-					class="glyphicon glyphicon-search" rel="tooltip" title="Search"></label>
+					id="search" data-ng-model="searchtext"> <label for="email"
+					class="glyphicon glyphicon-search" title="Search"></label>
 			</div>
 		</div>
 		<div style="background-color: #FFBB00"
 			class="well well-sm, listDisplay">
-			<button class="refreshbutton" data-ng-click=hc.refresh()>
-				<i class="glyphicon glyphicon-repeat"></i>
-			</button>
+			<span data-toggle="tooltip" data-placement="bottom" title="Refresh">
+				<button class="refreshbutton" data-ng-click=hc.refresh()>
+					<i class="glyphicon glyphicon-repeat"></i>
+				</button>
+			</span>
 			<div class="btn-group btndenger1">
-				<button type="button" class="btn btn-danger glyphicon"
-					ng-click="isList = !isList"
-					ng-class="{'glyphicon-list': !isList, 'glyphicon-th-large': isList}"
-					style="background-color: #ffbb00; border: none;"></button>
-<button class="popuptext btn btn-default btn-sm" type="button" ng-show="i.update"
-									data-ng-click="hc.updateTask($index, i.id)">Done</button>
-				<ul class="nav navbar-right top-nav">
+				<span data-toggle="tooltip" data-placement="bottom" title="view">
+					<button type="button" class="btn btn-danger glyphicon"
+						data-ng-click="isList = !isList"
+						data-ng-class="{'glyphicon-list': !isList, 'glyphicon-th-large': isList}"
+						style="background-color: #ffbb00; border: none; padding: 5px 30px 7px 19px;"></button>
+				</span>
+				<!-- 	<button class="popuptext btn btn-default btn-sm" type="button"
+					ng-show="i.update" data-ng-click="hc.updateTask($index, i.id)">Done</button> -->
+				<!-- 
 					<li class="dropdown"><a href="" class="dropdown-toggle"
 						data-toggle="dropdown"><i class="fa fa-user"></i> <b
 							class="caret"></b></a>
@@ -41,7 +46,50 @@
 							<li><a data-ng-click="hc.signout()"><i
 									class="fa fa-fw fa-power-off"></i> Log Out</a></li>
 						</ul></li>
-				</ul>
+				</ul> -->
+				<div class="nav navbar-right top-nav ">
+					<a href="" class="dropdown-toggle" data-toggle="dropdown"><img
+						id="menu" class="user margint10 round-border"
+						src="images/1464761441441.jpg"></a>
+					<div style="width: 325px; height: 180px; margin-right: -18px;"
+						class="dropdown-menu">
+						<div>
+
+							<span><img class="user1" src="images/1464761441441.jpg"></span>
+
+							<span
+								style="position: absolute; padding: 14px 0px 0px 32px; font-size: 1.00em; font-weight: bold;">{{userData.firstName}}
+								{{userData.lastName}}</span> <span> <span
+								style="position: absolute; padding: 28px 0px 0px 32px; font-size: 0.85em;">{{userData.email}}</span>
+								<button class="btn btn-default btn-sm accBtn" type="button"
+									value="My Account" data-ng-click="hc.signout()">My
+									Account</button>
+							</span>
+						</div>
+						<hr>
+						<div style="background: #E8E8E8;">
+							<div>
+								<button class="btn btn-default btn-sm"
+									style="margin: -9px 20px 0px 0px; float: right; border: 1px solid #c6c6c6;"
+									type="button" value="signout" data-ng-click="hc.signout()">Sign
+									out</button>
+							</div>
+							<div>
+								<button class="btn btn-default btn-sm"
+									style="margin: -9px 20px 0px 19px; float: left; border: 1px solid #c6c6c6;"
+									type="button" value="Add Account" data-ng-click="hc.signout()">Add
+									account</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="flyout hidden">
+					<div class="hoverfont1">ToDo Account</div>
+					<div class="hoverfont">{{userData.firstName}}
+						{{userData.lastName}}</div>
+					<div class="hoverfont">{{userData.email}}</div>
+				</div>
+
 			</div>
 		</div>
 	</nav>
@@ -53,7 +101,7 @@
 				<a data-ui-sref="home"><i class="glyphicon glyphicon-grain"></i>
 					Notes</a>
 				<hr>
-				<a ui-sref="profile"><i class="glyphicon glyphicon-user"></i>
+				<a data-ui-sref="profile"><i class="glyphicon glyphicon-user"></i>
 					Profile</a>
 				<hr>
 				<a data-ui-sref="about"><i class="glyphicon glyphicon-asterisk"></i>
@@ -73,55 +121,135 @@
 								id="selectPeriodRangePanel" type="text" name="title"
 								placeholder="Title" data-ng-model="todo.title" />
 						</div>
-						<div>
+						<div style="margin-bottom: 20px;">
 							<textarea cols="60" maxlength="300" style="border: none;"
-								id="period_select_range_btn" type="text" name="description"
+								id="period_select_range_btn" name="description"
 								data-ng-model="todo.description" placeholder="Take a note..."></textarea>
 						</div>
-						<div id="selectPeriodRangePanel2" style="display: none; margin-left: 88%;">
-							<button class="btn btn-default btn-sm" style="border: none; margin-top: -35px; "type="button" value="Done" data-ng-click="hc.save()">Done</button>
+						<div id="selectPeriodRangePanel3"
+							style=" display: none; position: relative;">
+							<button data-toggle="dropdown" id="d" style="border: none; margin: 0px 0px 0px 10px;"
+								class="btn btn-default btn dropdown-toggle" type="button"
+								type="button">
+								<i class="glyphicon glyphicon-hand-up"></i>
+							</button>
+							<div style="width: 273px; height: auto;" class="dropdown-menu">
+								<div style="padding: 13px 10px 0px 10px;">Reminder:</div>
+								<hr>
+								<div style="padding: 0px 10px 0px 10px;"
+									data-ng-click="hc.doReminder(i.id,$index,'Today','8:00PM')">
+									<span style="left: 0px;">Later Today</span> <span
+										style="float: right;">8:00PM</span>
+								</div>
+								<div style="padding: 13px 10px 0px 10px;"
+									data-ng-click="hc.doReminder(i.id,$index,'Tomorrow','8:00AM')">
+									<span style="left: 0px;">Tomorrow</span> <span
+										style="float: right;">8:00AM</span>
+								</div>
+								<div style="padding: 13px 10px 0px 10px;"
+									data-ng-click="hc.doReminder(i.id,$index,'Next week','8:00AM')">
+									<span style="left: 0px;">Next Week</span> <span
+										style="float: right;">8:00AM</span>
+								</div>
+								<div style="padding: 8px 10px 0px 7px;"
+									data-ng-click="hc.doReminder(i.id,'Tomorrow','8:00AM')">
+									<i class="glyphicon glyphicon-time"></i> <span>Pick date
+										& time</span>
+									<!-- <div data-ng-show=""></div> -->
+								</div>
+							</div>
+						</div>
+						<div id="selectPeriodRangePanel2"
+							style="display: none; margin-left: 88%;">
+							<button class="btn btn-default btn-sm"
+								style="border: none; margin-top: -35px;" type="button"
+								value="Done" data-ng-click="hc.save()">Done</button>
 						</div>
 					</div>
-					<div class="outer row ng-class="{list:isList, grid: !isList}" >
-						<div class="item "
-							ng-class="{'col-xs-12':!isList, 'col-md-6':!isList, 'col-sm-6':!isList,'col-lg-4':!isList}"
-							ng-repeat="i in result |filter :searchtext track by $index " ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
-							<div class="card card-1 thumbnail"
-								style="height: 120px; width: 100%;">
-								<div style="font-weight: bolder;" ng-hide="i.update">{{i.title}}</div>
+					<div class="outer slides  ng-class="{list:isList, grid: !isList}" >
+						<div class="item"
+							data-ng-class="{'col-xs-12':!isList, 'col-md-6':!isList, 'col-sm-6':!isList,'col-lg-4':!isList}"
+							data-ng-repeat="i in result | orderBy:'-' |filter :searchtext track by $index "
+							data-ng-mouseover="hoverIn()" data-ng-mouseleave="hoverOut()">
+							<div class="card card-1 thumbnail " style="width: 100%;">
+								<div
+									style="word-break: break-word; font-weight: 600; font-family: Roboto Slab, Times New Roman, serif; margin: 0px 10px 16px 9px;"
+									data-ng-hide="i.update">{{i.title}}</div>
 								<!-- <div ng-show="i.update"
 									class="group list-group-image group inner list-group-item-heading titlediv">
 									<input style="border: none;" type="text"
 										data-ng-model="i.title" />
 								</div> -->
-								<div class="popclick" style="font-size: 22px; width: 100%;"
-									ng-hide="i.update" ng-click="load_modal_sms(i, $index)">
+								<div class="popclick"
+									style="font-size: 20px; width: 100%; word-break: break-word;"
+									data-ng-hide="i.update"
+									data-ng-click="load_modal_sms(i, $index)">
 									<p>{{i.description}}</p>
-									<div class="popuptext">click to see</div>
+									<!-- <div class="popuptext">click to see</div> -->
 								</div>
 								<!-- <div class="group list-group-image titlediv" ng-show="i.update">
 
 									<textarea style="border: none; overflow-y: hidden; width: 100%"
 										type="text" data-ng-model="i.description"></textarea>
 								</div> -->
-								<span ng-show="hoverEdit"  align="left" style="position:absolute;bottom:0px; font-style: italic;">
-									<h6>Edited on {{i.date | date }}</h6>
-								</span>
-								<span style="position:absolute;bottom:0px; right:0px;">
-								<!-- <button class="popuptext btn btn-default btn-sm" type="button" ng-show="i.update"
+								<div style="margin-top: 12px;">
+									<span
+										style="left: 0px; position: absolute; bottom: 0px; right: 0px;"
+										data-toggle="tooltip" data-placement="bottom"
+										title="Remind me">
+										<button data-toggle="dropdown" id="d" style="border: none;"
+											class="btn btn-default btn dropdown-toggle" type="button"
+											type="button" data-ng-show="hoverEdit">
+											<i class="glyphicon glyphicon-hand-up"></i>
+										</button>
+										<div style="width: 273px; height: auto;"
+											class="dropdown-menu">
+											<div style="padding: 13px 10px 0px 10px;">Reminder:</div>
+											<hr>
+											<div style="padding: 0px 10px 0px 10px;"
+												data-ng-click="hc.doReminder(i.id,$index,'Today','8:00PM')">
+												<span style="left: 0px;">Later Today</span> <span
+													style="float: right;">8:00PM</span>
+											</div>
+											<div style="padding: 13px 10px 0px 10px;"
+												data-ng-click="hc.doReminder(i.id,$index,'Tomorrow','8:00AM')">
+												<span style="left: 0px;">Tomorrow</span> <span
+													style="float: right;">8:00AM</span>
+											</div>
+											<div style="padding: 13px 10px 0px 10px;"
+												data-ng-click="hc.doReminder(i.id,$index,'Next week','8:00AM')">
+												<span style="left: 0px;">Next Week</span> <span
+													style="float: right;">8:00AM</span>
+											</div>
+											<div style="padding: 8px 10px 0px 7px;" 
+												data-ng-click="hc.doReminder(i.id,'Tomorrow','8:00AM')">
+												<i class="glyphicon glyphicon-time"></i> <span>Pick
+													date & time</span>
+												<!-- <div data-ng-show=""></div> -->
+											</div>
+										</div>
+									</span> <span data-toggle="tooltip" data-placement="bottom"
+										title="Edit on" data-ng-show="hoverEdit" align="left"
+										style="right: 55px; position: absolute; bottom: 0px; font-style: italic; font-size: 0.85em;">
+										<h6>Edited on {{i.date | date }}</h6>
+									</span> <span style="position: absolute; bottom: 0px; right: 0px;">
+										<!-- <button class="popuptext btn btn-default btn-sm" type="button" ng-show="i.update"
 									data-ng-click="hc.updateTask($index, i.id)">Done</button>
 								 <button style="border: none; float: right;" type="button"
 									ng-hide="i.update" class="btn btn-default btn"
 									data-ng-click="hc.updateEnable($index)">
 									<i class="glyphicon glyphicon-pencil"></i>
 								</button> -->
-								<button style="border: none; float: right;" type="button"
-									type="button" class="btn btn-default btn" ng-show="hoverEdit" 
-									data-ng-click="hc.deleteTask(i.id)" >
-									<i class="glyphicon glyphicon-trash"></i>
-								</button>
-								<div style="clear: both;"></div>
-								</span>
+
+										<button id="d" style="border: none; float: right;"
+											type="button" type="button" class="btn btn-default btn"
+											data-ng-show="hoverEdit" data-ng-click="hc.deleteTask(i.id)">
+											<i class="glyphicon glyphicon-trash"></i>
+										</button>
+									</span>
+
+								</div>
+
 							</div>
 						</div>
 					</div>

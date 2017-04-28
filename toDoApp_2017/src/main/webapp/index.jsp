@@ -4,6 +4,7 @@
 <script src="bower_components/angular/angular.min.js" charset="utf-8"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"charset="utf-8"></script>
 <script src="bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+<script src="bower_components/jquery/dist/jquery-ui.js" charset="utf-8"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"charset="utf-8"></script>
 <!-- <script src="bower_components/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>-->
 <script src="bower_components/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
@@ -11,9 +12,9 @@
 <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 
  <link rel="stylesheet" href="bower_components/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
-<link rel="stylesheet"
-	href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/slide.css">
 <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
 <style>
 /* @media (min-width: 1200px) {

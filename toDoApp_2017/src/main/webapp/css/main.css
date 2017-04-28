@@ -1,5 +1,33 @@
 @CHARSET "UTF-8";
+.user {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+.user1 {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  margin: 20px 0px 0px 20px;
+}
 
+
+
+.del {
+    display: none;
+}
+    
+#d:hover + .del  {
+    display: block;
+}
 .search{
 	background-color: #f5B400;
 }
@@ -78,35 +106,12 @@ input, textarea {
 }
 
 .refreshbutton {
-	margin-right: 18px;
-	height: 40px;
+	
 	width: 40px;
 	background-color: #FFBB00;
 	border: none;
 }
-/*Search bar start*/
 
-/* .searchback{
-	background-color: white;
-}
-.input1 {
-	width: 87%;
-	height: 100%;
-	font-size: 16px;
-	background-color: #f5B400;
-	background-position: 10px 10px;
-	margin-top: 4px;
-	border-width: 0px;
-}
-.searchbutton{
-	background-color: #f5B400;
-	border: none;
-	border-radius: 0px;
-	border-bottom-left-radius: 5px;
-	height: 40px;
-	width: 40pxx;
-	outline: none
-} */
 .searchdiv {
 	width: 50%;
 	margin-left: 20%;
@@ -286,8 +291,7 @@ hr {
 	background: #fff;
 	border-radius: 2px;
 	display: inline-block;
-	height: 300px;
-	margin: 1rem;
+	/* margin: 1rem; */
 	position: relative;
 }
 
@@ -302,12 +306,14 @@ hr {
 }
 
 p {
-	width: 220px;
-	height: auto;
-	white-space: nowrap;
+	width: 100%;
+	min-height: 38px;
 	overflow: hidden;
 	position: relative;
-	text-overflow: ellipsis;
+	margin: 0px 16px 16px 6px;
+    font-weight: inherit;
+    font-family: 'Roboto Slab','Times New Roman',serif;
+ 
 }
 
 /*LIstAnd Grid View Start*/

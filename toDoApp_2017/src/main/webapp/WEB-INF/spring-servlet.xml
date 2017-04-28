@@ -57,6 +57,9 @@
 				<value>
 					com.bridgeit.toDoApp.model.ToDoTask
 				</value>
+				<value>
+					com.bridgeit.toDoApp.model.Reminder
+				</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -68,6 +71,7 @@
 			</props>
 		</property>
 	</bean>
+	
 	
 	<!-- Transaction Mapping -->
 	<bean id="transactionManager"

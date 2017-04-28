@@ -1,6 +1,6 @@
 //var myApp = angular.module('todoApp')
 
-myApp.controller("loginController",function ($scope,  $state, loginService ) {	
+myApp.controller("loginController",function ($scope,  $state, loginService,profileService ) {	
 	this.login = function () {
 		var user = {};
 		user.email = $scope.email;
@@ -8,9 +8,13 @@ myApp.controller("loginController",function ($scope,  $state, loginService ) {
 		var httpObje = loginService.login(user);
 		
 		httpObje.then(function (data) {
+			
 			if( data.data.status == 1 ){
+				var httpobj=profileService.profile().then(function(data1){
+					window.localStorage['user'] = angular.toJson(data1);
+					$state.go("home");
+				});
 				
-				$state.go("home");
 			}
 			else
 			{

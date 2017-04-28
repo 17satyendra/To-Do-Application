@@ -1,8 +1,62 @@
 myApp.controller('homeController', function($scope,$uibModal, $state, taskService,$timeout){
+	
+	var accessData = window.localStorage['user'];
+	var userjson=JSON.parse(accessData);
+	$scope.userData=userjson.data;
+	//console.log(userjson);
+	//console.log(userjson.data.email);
+	
+	$("#menu").hover(function(){//selector
+	    $('.flyout').removeClass('hidden');
+	},function(){
+	    $('.flyout').addClass('hidden');
+	});
+	$("#menu").click(function(){
+		 $('.flyout').addClass('hidden');
+	});
+	
 	$scope.todoDisplay= false;
 	$scope.result = []; // Http call Then server kal ka data
 	$scope.isList = false;
 	var cont = this;
+	
+	
+	$(".slides").sortable({
+	    placeholder: 'slide-placeholder',
+	   axis: "z",
+	   revert: 150,
+	   
+	   start: function(e, ui){
+	       
+	       placeholderHeight = ui.item.outerHeight();
+	       ui.placeholder.height(placeholderHeight + 15);
+	       $('<div class="slide-placeholder-animator" data-height="' + placeholderHeight + '"></div>').insertAfter(ui.placeholder);
+	   
+	   },
+	   change: function(event, ui) {
+	       
+	       ui.placeholder.stop().height(0).animate({
+	           height: ui.item.outerHeight() + 15
+	       }, 300);
+	       
+	       placeholderAnimatorHeight = parseInt($(".slide-placeholder-animator").attr("data-height"));
+	       
+	       $(".slide-placeholder-animator").stop().height(placeholderAnimatorHeight + 15).animate({
+	           height: 0
+	       }, 300, function() {
+	           $(this).remove();
+	           placeholderHeight = ui.item.outerHeight();
+	           $('<div class="slide-placeholder-animator" data-height="' + placeholderHeight + '"></div>').insertAfter(ui.placeholder);
+	       });
+	       
+	   },
+	   stop: function(e, ui) {
+	       
+	       $(".slide-placeholder-animator").remove();
+	       
+	   },
+	});
+
 	
 	$scope.hoverIn = function(){
         this.hoverEdit = true;
@@ -19,7 +73,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	          templateUrl: "template/popup.html",
 	          ariaLabelledBy: 'modal-title-bottom',
 	          ariaDescribedBy: 'modal-body-bottom',
-	          size: 'sm',
+	          size: 'mg',
 	          controller:function($uibModalInstance){
 	        	  this.title=data.title;
 	        	  this.id = data.id;
@@ -52,8 +106,15 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	       })
 	        
 	};
+	
+	
+	
+	   
+	
+	
 
 	this.signout=function(){
+		console.log("signout");
 		var httpobj=taskService.signoutUser().then(function(data){
 			if(data.data.status==1){
 				$state.go("login");
@@ -80,7 +141,8 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 		}); // Reset To all update
 		
 		$scope.result[index].update=true; // set only one field
-	}
+	};
+	
 	this.updateTask=function(index , id){
 		
 		$scope.result[index].update=true;
@@ -94,7 +156,27 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 			}
 		});
 	}
-
+	this.doReminder=function(id,index,day,time){
+		console.log(id,index,day,time);
+		var obj = $scope.result[index];
+		if(day== "Today"){
+		var date = new Date();
+		
+		console.log(date);
+		}
+		else{
+		if(day== "Tomorrow"){
+			var tomorrow = new Date();
+			tomorrow.setDate(tomorrow.getDate() + 1);
+			console.log(tomorrow);
+			}else{
+				var nextweek = new Date();
+				nextweek.setDate(nextweek.getDate() + 7);
+				console.log(nextweek);
+			}
+		}
+		
+	}
 	
 	taskService.getAllTask().then(function(data){
 		//console.log(data);
@@ -104,7 +186,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 			// console.log(todos);signoutUser
 			// if( todos )
 			// {
-			// for(var i=0; i<todos.length; i++ )
+			// for(var i=0;hidden i<todos.length; i++ )
 			// {
 			// $scope.result.push(todos[i]);
 			//					 
@@ -167,7 +249,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 				
 				 	//
 			 }else{
-					 // Not action Remain in same page or error page
+					 // Nothidden action Remain in same page or error page
 			 }
 			// console.log($scope.result);
 		 }).catch(function(){});
@@ -234,3 +316,4 @@ window.onclick = function(event) {
     }
   }
 }
+

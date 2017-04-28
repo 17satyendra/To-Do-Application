@@ -4,10 +4,14 @@ myApp.controller("profileController",function($scope, profileService){
 		var userDetails="";
 		var httpobj=profileService.profile().then(function(data){
 			console.log(data);
-			console.log(data.data.email)
+			var em=data.data.email;
+			console.log(em);
 			$scope.userDetails=data.data;
 			
-		})
+			window.localStorage['user'] = angular.toJson(data);
+			console.log(data);
+			console.log(window.localStorage['user']);
+		});
 	}
 });
 myApp.service('profileService',function($http){
