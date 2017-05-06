@@ -52,4 +52,9 @@ public class UserServiceImpl implements UserService {
 		return dao.authUser(email, password);
 	}
 
+	@Override
+	public User getEntityByEmailId(String email) {
+		return dao.getEntityByEmailId(email);
+	}
+
 }

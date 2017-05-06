@@ -1,6 +1,7 @@
 //var myApp = angular.module('todoApp')
 
 myApp.controller("loginController",function ($scope,  $state, loginService,profileService ) {	
+	
 	this.login = function () {
 		var user = {};
 		user.email = $scope.email;

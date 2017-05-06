@@ -1,6 +1,15 @@
 package com.bridgeit.toDoApp.controller;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +25,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bridgeit.toDoApp.json.ErrorResponse;
 import com.bridgeit.toDoApp.json.Response;
 import com.bridgeit.toDoApp.json.SignupErrorResponse;
+import com.bridgeit.toDoApp.json.TokenResponse;
 import com.bridgeit.toDoApp.json.UserResponse;
+import com.bridgeit.toDoApp.model.FBProfile;
 import com.bridgeit.toDoApp.model.Status;
+import com.bridgeit.toDoApp.model.Token;
 import com.bridgeit.toDoApp.model.User;
 import com.bridgeit.toDoApp.service.UserService;
 import com.bridgeit.toDoApp.validator.UserValidatation;
+import com.facebook.Facebook;
 
 /**
  * This is simple Spring MVC controller with annotations, we have added all
@@ -129,4 +142,5 @@ public class UserController {
 			return new Status(0, e.toString());
 		}
 	}
+
 }

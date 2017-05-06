@@ -1,5 +1,6 @@
 package com.bridgeit.toDoApp.controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
@@ -20,10 +21,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bridgeit.toDoApp.json.ErrorResponse;
 import com.bridgeit.toDoApp.json.Response;
 import com.bridgeit.toDoApp.json.TokenResponse;
+import com.bridgeit.toDoApp.model.FBProfile;
 import com.bridgeit.toDoApp.model.Token;
 import com.bridgeit.toDoApp.model.User;
 import com.bridgeit.toDoApp.service.TokenService;
 import com.bridgeit.toDoApp.service.UserService;
+import com.facebook.Facebook;
 
 /**
  * This is simple Spring MVC login controller with annotations, we have added
@@ -128,4 +131,93 @@ public class LoginController {
 			return er;
 		}
 	}
+	
+	
+	@RequestMapping(value="/loginwithfacebook")
+	public void loginWithFB(HttpServletRequest pRequest, HttpServletResponse pResponse) throws IOException 
+	{
+		Facebook fb = new Facebook();
+		
+		String lsr = pRequest.getRequestURL().toString();
+		String appUrl = lsr.substring(0, lsr.lastIndexOf("/") );
+		
+		String unId  = UUID.randomUUID().toString();
+		pRequest.getSession().setAttribute("STATE", unId);
+		
+		String fbUrl = fb.getFBUrl( appUrl, unId );
+		
+		// redirect user to FB
+		pResponse.sendRedirect( fbUrl );
+		return;
+	}
+	
+	@RequestMapping(value="/postfacebooklogin")
+	public void postFBLogin(HttpServletRequest pRequest, HttpServletResponse pResponse) throws Exception 
+	{
+		String sessionState = (String) pRequest.getSession().getAttribute("STATE");
+		String stateFromFB = pRequest.getParameter("state");
+		if( sessionState == null || !sessionState.equals(stateFromFB) )
+		{
+			System.out.println("State is empty");
+			// Redirect to FB again or show error to user
+			pResponse.sendRedirect("loginwithfacebook");
+			return;
+		}
+		
+		String error = pRequest.getParameter("error");
+		if( error!=null && error.trim().isEmpty())
+		{
+			pResponse.sendRedirect("login");
+			return;
+		}
+		
+		String authCode = pRequest.getParameter("code");
+		
+		String lsr = pRequest.getRequestURL().toString();
+		String appUrl = lsr.substring(0, lsr.lastIndexOf("/") );
+		
+		Facebook fb = new Facebook();
+		FBProfile profile = fb.authUser(authCode, appUrl);
+
+		User user = userservice.getEntityByEmailId( profile.getEmail()  );
+		if( user == null)
+		{
+			user = new User();
+			user.setEmail(profile.getEmail());
+			user.setFirstName(profile.getFirst_name());
+			user.setLastName(profile.getLast_name());
+			user.setPassword("1234567asdfclkhgvhkgv");
+			userservice.addEntity(user);
+		}
+		
+		String accessToken = UUID.randomUUID().toString().replaceAll("-", "");
+		String refreshToken = UUID.randomUUID().toString().replaceAll("-", "");
+
+		HttpSession session = pRequest.getSession();
+		Token token = new Token();
+		token.setCreatedOn(new Date());
+		token.setAccessToken(accessToken);
+		token.setRefreshToken(refreshToken);
+		token.setId(user.getId());
+		
+		tokenservice.addToken(token);
+		
+		session.setAttribute("user", user);
+		/*
+		LoginResponse lr = new LoginResponse();
+		lr.setStatus(1);
+		lr.setMessage("User logged succesfully");
+		*/
+		tr = new TokenResponse();
+		tr.getAccessToken();
+		tr.getRefreshToken();
+		tr.setStatus(1);
+
+		Cookie ck = new Cookie("access_token", token.getAccessToken());
+		pResponse.addCookie(ck);
+		
+		pResponse.sendRedirect(appUrl + "/#!/home");
+		return;
+	}
+	
 }

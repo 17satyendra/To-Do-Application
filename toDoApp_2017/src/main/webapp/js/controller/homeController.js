@@ -1,12 +1,46 @@
 myApp.controller('homeController', function($scope,$uibModal, $state, taskService,$timeout){
+	$scope.getNote=function(){
+		$state.reload();
+	};
+	$scope.remindfilter=function(){
+		var date = new Date();
+		date.setHours(0,0,0,0);
+		$scope.result = $scope.result.filter(function(data){
+			return (data.reminder>date.getTime());
+		});
+// console.log("inside reminder filter",$scope.result);
+	};
 	
+	/*
+	 * this.open1 = function() { $scope.popup1.opened = true; };
+	 * 
+	 * $scope.popup1 = { opened: false };
+	 * 
+	 * $scope.popup2 = { opened: false };
+	 * 
+	 * var tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1); var
+	 * afterTomorrow = new Date(); afterTomorrow.setDate(tomorrow.getDate() +
+	 * 1); $scope.events = [ { date: tomorrow, status: 'full' }, { date:
+	 * afterTomorrow, status: 'partially' } ];
+	 * 
+	 * function getDayClass(data) { var date = data.date, mode = data.mode; if
+	 * (mode === 'day') { var dayToCheck = new Date(date).setHours(0,0,0,0);
+	 * 
+	 * for (var i = 0; i < $scope.events.length; i++) { var currentDay = new
+	 * Date($scope.events[i].date).setHours(0,0,0,0);
+	 * 
+	 * if (dayToCheck === currentDay) { return $scope.events[i].status; } } }
+	 * 
+	 * return ''; }
+	 */
+		  
 	var accessData = window.localStorage['user'];
 	var userjson=JSON.parse(accessData);
 	$scope.userData=userjson.data;
-	//console.log(userjson);
-	//console.log(userjson.data.email);
+	// console.log(userjson);
+	// console.log(userjson.data.email);
 	
-	$("#menu").hover(function(){//selector
+	$("#menu").hover(function(){// selector
 	    $('.flyout').removeClass('hidden');
 	},function(){
 	    $('.flyout').addClass('hidden');
@@ -17,9 +51,47 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	
 	$scope.todoDisplay= false;
 	$scope.result = []; // Http call Then server kal ka data
-	$scope.isList = false;
-	var cont = this;
 	
+	$scope.isList = false;
+	// read from cookie
+	
+	var cView = readCookie('view');
+	// console.log('view',cView)
+	if( 'true' == cView )
+	{
+		// console.log('if');
+		$scope.isList = true;
+	}
+	else
+	{	// console.log('else');
+		$scope.isList = false;
+	}
+	// console.log('is list ', $scope.isList);
+	
+	this.changeView = function(){
+		// store in cookie
+		// isList = !isList;
+		// console.log('change view', $scope.isList);
+		writeCookie('view', $scope.isList);
+		writeCookie('sideMenu','jhhh');
+	}
+	
+	 function writeCookie (cname, cvalue)
+	 {
+	        var d = new Date();
+	        d.setTime(d.getTime() + (30*24*60*60*1000));
+	        var expires = "expires="+d.toUTCString();
+	        document.cookie = cname + "=" + cvalue + "; " + expires;
+	 }
+	 function readCookie (name)
+	 {
+	        if (document.cookie.indexOf(name) > -1) 
+	        {
+	            return document.cookie.split(name)[1].split("; ")[0].substr(1);
+	        } else {
+	            return "";
+	        }
+	 } 
 	
 	$(".slides").sortable({
 	    placeholder: 'slide-placeholder',
@@ -57,7 +129,6 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	   },
 	});
 
-	
 	$scope.hoverIn = function(){
         this.hoverEdit = true;
     };
@@ -65,75 +136,90 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
     $scope.hoverOut = function(){
         this.hoverEdit = false;
     };
-	 this.refresh=function(){
-		 $state.reload();
-	 }
-	 $scope.load_modal_sms = function (data, index) {
-	        var modal = $uibModal.open({
-	          templateUrl: "template/popup.html",
-	          ariaLabelledBy: 'modal-title-bottom',
-	          ariaDescribedBy: 'modal-body-bottom',
-	          size: 'mg',
-	          controller:function($uibModalInstance){
-	        	  this.title=data.title;
-	        	  this.id = data.id;
-	        	  var $ctrl = this;
-	        	  this.description = data.description;
-	      	      this.cancel = function () {
-	      	    	  $uibModalInstanceProvider.dismiss('cancel');
-	          	  };
-	        	  this.ok = function () {
-	        		  $uibModalInstance.close({title:$ctrl.title,description:$ctrl.description,id:$ctrl.id});
-	        	  };
+	this.refresh=function(){
+		$state.reload();
+	};
+	 
+	var cont = this;
+	
+	 
+	 $scope.close = function(result) {
+	 	close(result, 500); // close, but give 500ms for bootstrap to animate
+	 };
+	 var  ModalService=this;
+    $scope.show = function() {
+        ModalService.showModal({
+            templateUrl: 'modal.html',
+            controller: "ModalController"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+                $scope.message = "You said " + result;
+            });
+        });
+    };
+    
+	
+	$scope.load_modal_sms = function (data, index) {
+	       var modal = $uibModal.open({
+	         templateUrl: "template/popup.html",
+	         ariaLabelledBy: 'modal-title-bottom',
+	         ariaDescribedBy: 'modal-body-bottom',
+	         size: 'sm',
+	         controller:function($uibModalInstance){
+	        	 this.title=data.title;
+	        	 this.id = data.id;
+	        	 var $ctrl = this;
+	        	 this.description = data.description;
+	      	     this.cancel = function () {
+	      	    	 $uibModalInstanceProvider.dismiss('cancel');
+	          	 };
+	        	 this.ok = function () {
+	        		 $uibModalInstance.close({title:$ctrl.title,description:$ctrl.description,id:$ctrl.id});
+	        	 };
 
-	        	  this.cancel = function () {
+	        	 this.cancel = function () {
 	        		    $uibModalInstance.dismiss('cancel');
-	        	  };
+	        	 };
 	        	  
-	          },
-	          controllerAs:"$ctrl"
+	         },
+	         controllerAs:"$ctrl"
 	          // scope: data
-	        });
+	         });
 	        
-	        modal.result.catch(function(error){
+	         modal.result.catch(function(error){
 	        	console.log("error::",error);   	
-	        }).then(function(data){
+	         }).then(function(data){
 	        	$state.reload();
 	        	if(data) {
 	        		$scope.result.splice(index, 1, data);
 	        		cont.updateTask(index, data.id);
 	        	}
-	       })
+	        })
 	        
-	};
-	
-	
-	
-	   
-	
-	
+	 };
 
-	this.signout=function(){
+	 this.signout=function(){
 		console.log("signout");
 		var httpobj=taskService.signoutUser().then(function(data){
 			if(data.data.status==1){
 				$state.go("login");
 			}
 		})
-	}
-	
+	 };
 	
 	this.deleteTask=function(id){
 		var httpObj=taskService.deleteTodo(id).then(function(data){
-			console.log(data);
+			// console.log(data);
 			if(data.data.status==1){
-				console.log(data.data.message);
+				// console.log(data.data.message);
 				$state.reload();
 				
 			}
 		})
 		
 	};
+	
 	this.updateEnable=function(index){
 		$scope.result=$scope.result.map(function(ret){
 			ret.update=false
@@ -143,35 +229,58 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 		$scope.result[index].update=true; // set only one field
 	};
 	
-	this.updateTask=function(index , id){
+	this.updateTask=function(index , id, date){
 		
 		$scope.result[index].update=true;
 		$scope.todoDisplay= false;
 		var obj = $scope.result[index];
+		 obj.reminder=date;
+		// console.log(obj);
+		
 		var httpobj = taskService.updateToDo(id, obj).then(function(data){
-			console.log(data);
+			// console.log(data);
 			if(data.data.status==1){
-				console.log(data.data.message);
+				// console.log(data.data.message);
 				$state.reload();
 			}
 		});
 	}
-	this.doReminder=function(id,index,day,time){
-		console.log(id,index,day,time);
+	
+	this.deleteReminder=function(id, index){
+		
+		console.log("inside delete4r"+id+" "+index);
+		var object = $scope.result[index];
+		console.log(object.reminder);
+		object.reminder=null;
+		console.log(object.reminder);
+		var httpobj =taskService.updateToDo(id,object).then(function (data) {
+			
+			if(data.data.status==1){
+				$state.reload();
+			}
+		});
+		}
+	this.doReminder=function(id,index,day){
+		//console.log(id,index,day,time);
 		var obj = $scope.result[index];
 		if(day== "Today"){
 		var date = new Date();
-		
-		console.log(date);
+		date.setHours(20, 0, 0);
+		cont.updateTask(index,id,date);
+		// console.log(date);
 		}
 		else{
 		if(day== "Tomorrow"){
 			var tomorrow = new Date();
 			tomorrow.setDate(tomorrow.getDate() + 1);
-			console.log(tomorrow);
+			tomorrow.setHours(08, 0, 0);
+			cont.updateTask(index,id,tomorrow);
+			// console.log(tomorrow);
 			}else{
 				var nextweek = new Date();
 				nextweek.setDate(nextweek.getDate() + 7);
+				nextweek.setHours(08, 0, 0);
+				cont.updateTask(index,id,nextweek);
 				console.log(nextweek);
 			}
 		}
@@ -179,6 +288,8 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	}
 	
 	taskService.getAllTask().then(function(data){
+		// console.log('getAllTask');
+		
 		//console.log(data);
 		if(data.data.status == 1)
 		{
@@ -200,10 +311,11 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	}).catch(function(){});
 	
 	this.save = function(){
+		console.log($scope.todo);
 		 var httpObj = taskService.createTask($scope.todo).then(function(data){
 			 if(data.data.status==1)
 			 {
-				 delete $scope.todo;
+				 delete $askService.updateToDscope.todo;
 				 $scope.result.push( data.data.doTask );style="border: none; width: 100%"
 				 $scope.todoDisplay= fasignoutUserlse;
 					console.log(data);
@@ -246,7 +358,6 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 						}
 						$state.go("login");
 					}
-				
 				 	//
 			 }else{
 					 // Nothidden action Remain in same page or error page

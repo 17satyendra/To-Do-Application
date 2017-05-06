@@ -1,4 +1,22 @@
 @CHARSET "UTF-8";
+
+.notification-bell{
+	color:#f5B400; 
+}
+.notification-icon{
+	color: #555;	
+}
+.notification-icon:hover{
+	color: black;
+}
+.notification{
+	border-radius: 50%;
+    border: none;
+   background-color: #555;
+}
+.notification:hover{
+	color: black;
+}
 .user {
   display: inline-block;
   width: 35px;
@@ -35,7 +53,7 @@
 .search:focus{
 	background-color: white;
 }
-
+    border: none;
 hr{
 	border-top: 1px solid lightgray;
 }
@@ -106,10 +124,11 @@ input, textarea {
 }
 
 .refreshbutton {
-	
 	width: 40px;
 	background-color: #FFBB00;
 	border: none;
+	margin-right: 20px;
+    margin-top: 8px;
 }
 
 .searchdiv {
@@ -141,7 +160,7 @@ body {
 	font-size: 1.8em;
 	margin-bottom: 10px;
 }
-
+    border: none;
 .button:active:after {
 	padding: 0;
 	margin: 0;
@@ -187,6 +206,7 @@ body {
 	margin-top: -10px;
 	margin-bottom: 0px;
 	border: #FFBB00;
+	margin-right: 17px;
 }
 
 .button {

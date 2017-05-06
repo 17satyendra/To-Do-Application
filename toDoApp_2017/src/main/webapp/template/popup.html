@@ -1,15 +1,19 @@
-<div style="margin-top: 162px;">
+<div>
 	<div class="modal-header ">
-		<input type="text" class="modal-title" id="modal-title" style="border: none; width: 100%"
-			value="{{$ctrl.title}}" data-ng-model="$ctrl.title">
+		<input type="text" class="modal-title" id="modal-title"
+			style="border: none; width: 100%" value="{{$ctrl.title}}"
+			data-ng-model="$ctrl.title">
 	</div>
 	<div class="modal-body" id="modal-body" contenteditable="true">
-		<textarea style="border: none; width: 100%" data-ng-model="$ctrl.description"rows="" cols="">{{$ctrl.description}}</textarea>
+		<textarea style="border: none; width: 100%"
+			data-ng-model="$ctrl.description" rows="" cols="">{{$ctrl.description}}</textarea>
 	</div>
+
 	<div class="modal-footer">
 		<button class="btn btn-primary" type="button"
 			data-ng-click="$ctrl.ok()">OK</button>
 		<button class="btn btn-warning" type="button" data-ng-discard
 			data-ng-click="$ctrl.cancel()">Cancel</button>
 	</div>
+
 </div>

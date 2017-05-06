@@ -1,5 +1,6 @@
 var myApp = angular.module('todoApp', ['ui.router','ui.bootstrap','ngSanitize','ngAnimate'])
 .config(function ($stateProvider, $urlRouterProvider) {
+  
   $stateProvider
   .state("profile",{
 	  url:"/profile",

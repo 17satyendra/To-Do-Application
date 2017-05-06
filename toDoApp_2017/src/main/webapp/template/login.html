@@ -1,24 +1,32 @@
-<div class="col-md-6 col-md-offset-3">
-    <form class="" name="loginForm">
-        <div class="panel panel-primary" data-ng-controller="loginController as lc">
-            <div class="panel-heading">Sign Up</div>
-            
-            <div class="panel-body">
-                <div class="form-group">
-                    <label>Email-Address:  </label>
-                    <input type="email" data-ng-model="email" class="form-control" placeholder="email" required="" />
-                </div>
-                <div class="form-group">
-                    <label>Password:  </label>
-                    <input type="password" data-ng-model="password" class="form-control" placeholder="Password" required="" /><br>
-                    <div data-ng-bind="errorMessage" style="color: red;text-align: center;"></div>
-                    <button type="button" data-ng-click="lc.login()" name="button" class="btn btn-primary" data-ng-disabled="loginForm.$invalid">Login</button>
-               		 <div style="text-align: center;display: inline-block;"><a data-ui-sref="signUp">Yet Not Registered? Create account</a></div>
-                	
-                </div>
-               
-            </div>
-        </div>
-    </form>
+<div style="width: 100%; margin-top: 100px;" class="container" data-ng-controller="loginController as lc">
+	<div class="row">
+		<div class="col-sm-6 col-md-4 col-md-offset-4">
+			<div class="title" style="">TO-DO Manager</div>
+
+			<div class="account-wall">
+				<!--  <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+                    alt=""> -->
+				<h1 class="text-center login-title">Sign in to continue to
+					To-Do</h1>
+				<div class="col-md-12" style="margin-bottom: 20px; margin-left: 8%; width: 84%;">
+                	<a href="loginwithfacebook" class="btn btn-primary btn-block">
+                  		<i class="icon-facebook"></i>Login with Facebook
+                	</a>
+				</div>
+				<form class="form-signin" name="loginForm">
+					<input type="text" class="form-control" placeholder="Email" required autofocus data-ng-model="email"> 
+					<input type="password" class="form-control" placeholder="Password" required data-ng-model="password">
+					<hr>
+					<div data-ng-bind="errorMessage" style="color: red;text-align: center;"></div>
+					<button class="btn btn-lg btn-primary btn-block" type="submit" data-ng-disabled="loginForm.$invalid" data-ng-click="lc.login()">Sign in</button>
+					<label class="checkbox pull-left"> 
+					<input type="checkbox" value="remember-me"> Remember me </label> 
+					<a href="" class="pull-right need-help">Need help? </a>
+					<span class="clearfix"></span>
+				</form>
+			</div>
+			<a data-ui-sref="signUp" class="text-center new-account">Create an account </a>
+		</div>
+	</div>
 </div>
 

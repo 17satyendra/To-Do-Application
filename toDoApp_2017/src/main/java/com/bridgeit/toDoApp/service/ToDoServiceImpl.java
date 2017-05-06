@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bridgeit.toDoApp.dao.ToDoDao;
-import com.bridgeit.toDoApp.model.Reminder;
 import com.bridgeit.toDoApp.model.ToDoTask;
 
 /**
@@ -40,11 +39,6 @@ public class ToDoServiceImpl implements ToDoService{
 	@Override
 	public void deleteTaskByToDoId(int taskId) throws Exception {
 		tododao.deleteTaskByTODoId(taskId);
-	}
-
-	@Override
-	public void addReminder(Reminder reminder) throws HibernateException {
-		tododao.addReminder(reminder);
 	}
 
 }

@@ -1,3 +1,9 @@
+.remind{
+	color: gray;
+}
+.remind:hover{
+	color: black;
+}
 .slides {
     list-style: none;
     padding: 0;
@@ -44,7 +50,7 @@ background:black;
 overflow: hidden;
 border-radius: 4px;
 z-index:10000;
-margin: 4px 4px 0px -47px;
+margin: 8px 4px 0px -15px;;
 
 }
 .hoverfont{

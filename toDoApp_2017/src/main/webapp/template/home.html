@@ -4,7 +4,7 @@
 		<div class="navbar-header">
 			<div style="font-size: 20px; display: inline-block; cursor: pointer">
 				<span data-toggle="tooltip" data-placement="bottom" title="menu"
-					class="sidebutton"
+					class="sidebutton notification-icon"
 					style="font-size: 20px; margin-left: 10px; cursor: pointer;"
 					onclick="openNav()">&#9776;</span>
 			</div>
@@ -21,32 +21,24 @@
 		</div>
 		<div style="background-color: #FFBB00"
 			class="well well-sm, listDisplay">
-			<span data-toggle="tooltip" data-placement="bottom" title="Refresh">
-				<button class="refreshbutton" data-ng-click=hc.refresh()>
-					<i class="glyphicon glyphicon-repeat"></i>
+			<span>
+				<button data-toggle="tooltip" data-placement="bottom"
+					title="Refresh" class="refreshbutton" data-ng-click=hc.refresh()>
+					<i class="glyphicon glyphicon-repeat notification-icon"></i>
+				</button>
+				<button data-toggle="tooltip" data-placement="bottom"
+					title="notification" class="notification">
+					<i class="fa fa-bell notification-bell" aria-hidden="true"></i>
 				</button>
 			</span>
 			<div class="btn-group btndenger1">
-				<span data-toggle="tooltip" data-placement="bottom" title="view">
-					<button type="button" class="btn btn-danger glyphicon"
-						data-ng-click="isList = !isList"
-						data-ng-class="{'glyphicon-list': !isList, 'glyphicon-th-large': isList}"
-						style="background-color: #ffbb00; border: none; padding: 5px 30px 7px 19px;"></button>
+				<span style="padding: 0px 24px 0px 13px;" data-toggle="tooltip"
+					data-placement="bottom" title="{{!isList?'list view':'grid view'}}">
+					<span class="notification-icon"
+					data-ng-click="isList = !isList; hc.changeView()"
+					data-ng-class="{'fa fa-list': !isList, 'fa fa-th-large': isList}"
+					style="background-color: #ffbb00; border: none; padding: 9px 30px 7px 19px;"></span>
 				</span>
-				<!-- 	<button class="popuptext btn btn-default btn-sm" type="button"
-					ng-show="i.update" data-ng-click="hc.updateTask($index, i.id)">Done</button> -->
-				<!-- 
-					<li class="dropdown"><a href="" class="dropdown-toggle"
-						data-toggle="dropdown"><i class="fa fa-user"></i> <b
-							class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a ui-sref="profile"><i class="fa fa-fw fa-user"></i>
-									Profile</a></li>
-							<li class="divider"></li>
-							<li><a data-ng-click="hc.signout()"><i
-									class="fa fa-fw fa-power-off"></i> Log Out</a></li>
-						</ul></li>
-				</ul> -->
 				<div class="nav navbar-right top-nav ">
 					<a href="" class="dropdown-toggle" data-toggle="dropdown"><img
 						id="menu" class="user margint10 round-border"
@@ -62,7 +54,7 @@
 								{{userData.lastName}}</span> <span> <span
 								style="position: absolute; padding: 28px 0px 0px 32px; font-size: 0.85em;">{{userData.email}}</span>
 								<button class="btn btn-default btn-sm accBtn" type="button"
-									value="My Account" data-ng-click="hc.signout()">My
+									value="My Account" data-ui-sref="profile">My
 									Account</button>
 							</span>
 						</div>
@@ -98,7 +90,7 @@
 
 			<div id="mySidenav" class="sidenav">
 				<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-				<a data-ui-sref="home"><i class="glyphicon glyphicon-grain"></i>
+				<a data-ng-click="getNote()"><i class="glyphicon glyphicon-grain"></i>
 					Notes</a>
 				<hr>
 				<a data-ui-sref="profile"><i class="glyphicon glyphicon-user"></i>
@@ -107,15 +99,16 @@
 				<a data-ui-sref="about"><i class="glyphicon glyphicon-asterisk"></i>
 					About</a>
 				<hr>
-				<a data-ui-sref="contact"><i
-					class="glyphicon glyphicon-phone-alt"></i> Contact</a>
+				<a data-ng-click="remindfilter()"><i
+					class="glyphicon glyphicon-hand-up"></i> Reminder</a>
 				<hr>
 				<a data-ng-click="hc.signout()"><i
 					class="glyphicon glyphicon-log-out"></i> Logout</a>
 			</div>
 			<div>
+			
 				<div class="row" style="margin-top: 10%;">
-					<div class="cardTitle card-2">
+					<div class="cardTitle card-2">				     
 						<div>
 							<input style="width: 100%; border: none; display: none;"
 								id="selectPeriodRangePanel" type="text" name="title"
@@ -126,42 +119,63 @@
 								id="period_select_range_btn" name="description"
 								data-ng-model="todo.description" placeholder="Take a note..."></textarea>
 						</div>
-						<div id="selectPeriodRangePanel3"
-							style=" display: none; position: relative;">
-							<button data-toggle="dropdown" id="d" style="border: none; margin: 0px 0px 0px 10px;"
+						<!-- <div id="selectPeriodRangePanel3"
+							style="display: none; position: relative;">
+							<button data-toggle="dropdown" id="d"
+								style="border: none; margin: 0px 0px 0px 10px;"
 								class="btn btn-default btn dropdown-toggle" type="button"
 								type="button">
 								<i class="glyphicon glyphicon-hand-up"></i>
 							</button>
 							<div style="width: 273px; height: auto;" class="dropdown-menu">
-								<div style="padding: 13px 10px 0px 10px;">Reminder:</div>
+								<label style="padding: 13px 10px 0px 10px;">Reminder:</label>
 								<hr>
-								<div style="padding: 0px 10px 0px 10px;"
-									data-ng-click="hc.doReminder(i.id,$index,'Today','8:00PM')">
-									<span style="left: 0px;">Later Today</span> <span
-										style="float: right;">8:00PM</span>
-								</div>
-								<div style="padding: 13px 10px 0px 10px;"
-									data-ng-click="hc.doReminder(i.id,$index,'Tomorrow','8:00AM')">
-									<span style="left: 0px;">Tomorrow</span> <span
-										style="float: right;">8:00AM</span>
-								</div>
-								<div style="padding: 13px 10px 0px 10px;"
-									data-ng-click="hc.doReminder(i.id,$index,'Next week','8:00AM')">
-									<span style="left: 0px;">Next Week</span> <span
-										style="float: right;">8:00AM</span>
-								</div>
-								<div style="padding: 8px 10px 0px 7px;"
-									data-ng-click="hc.doReminder(i.id,'Tomorrow','8:00AM')">
-									<i class="glyphicon glyphicon-time"></i> <span>Pick date
-										& time</span>
-									<!-- <div data-ng-show=""></div> -->
-								</div>
+								<select data-ng-model="todo.reminder">
+									<option style="padding: 0px 10px 0px 10px;"
+										data-ng-click="hc.doReminder(i.id,$index,'Today','8:00PM')">
+										<span style="left: 0px;">Later Today</span> <span
+											style="float: right;">8:00PM</span>
+									</option>
+									<option style="padding: 13px 10px 0px 10px;"
+										data-ng-click="hc.doReminder(i.id,$index,'Tomorrow','8:00AM')">
+										<span style="left: 0px;">Tomorrow</span> <span
+											style="float: right;">8:00AM</span>
+									</option>
+									<option style="padding: 13px 10px 0px 10px;"
+										data-ng-click="hc.doReminder(i.id,$index,'Next week','8:00AM')">
+										<span style="left: 0px;">Next Week</span> <span
+											style="float: right;">8:00AM</span>
+									</option>
+									<option style="padding: 8px 10px 0px 7px;"
+										data-ng-click="hc.doReminder(i.id,'Tomorrow','8:00AM')">
+										<i class="glyphicon glyphicon-time"></i> <span>Pick
+											date & time</span>
+
+									</option>
+								</select>
 							</div>
+							
 						</div>
+ -->
+						<div class="dropdown" id="selectPeriodRangePanel3" style="display: none;">
+							<label style="padding: 13px 10px 0px 10px;">Reminder:{{todo.reminder}}</label>
+							<!-- <a class="dropdown-toggle" id="dLabel" role="button"
+								data-toggle="dropdown"> <i class="glyphicon glyphicon-time"></i> <span>Pick
+											date & time</span> </a>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+								<datetimepicker data-ng-model="todo.reminder"
+									data-datetimepicker-config="{ dropdownSelector: '.dropdown-toggle' }"></datetimepicker>
+							</ul> -->
+							 <input type='text' ng-bind="todo.reminder" id='datetimepicker4' />
+						</div>
+						 <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker4').datetimepicker();
+            });
+        </script>
 						<div id="selectPeriodRangePanel2"
-							style="display: none; margin-left: 88%;">
-							<button class="btn btn-default btn-sm"
+							style=" margin-left: 88%;">
+							<button class="btn btn-default btn"
 								style="border: none; margin-top: -35px;" type="button"
 								value="Done" data-ng-click="hc.save()">Done</button>
 						</div>
@@ -169,7 +183,7 @@
 					<div class="outer slides  ng-class="{list:isList, grid: !isList}" >
 						<div class="item"
 							data-ng-class="{'col-xs-12':!isList, 'col-md-6':!isList, 'col-sm-6':!isList,'col-lg-4':!isList}"
-							data-ng-repeat="i in result | orderBy:'-' |filter :searchtext track by $index "
+							data-ng-repeat="i in result | orderBy:'reminder' |filter :searchtext track by $index "
 							data-ng-mouseover="hoverIn()" data-ng-mouseleave="hoverOut()">
 							<div class="card card-1 thumbnail " style="width: 100%;">
 								<div
@@ -193,8 +207,8 @@
 										type="text" data-ng-model="i.description"></textarea>
 								</div> -->
 								<div style="margin-top: 12px;">
-									<span
-										style="left: 0px; position: absolute; bottom: 0px; right: 0px;"
+									<span data-ng-style="{bottom:(!i.reminder?'0px':'22px')}"
+										style="left: 0px; position: absolute; right: 0px;"
 										data-toggle="tooltip" data-placement="bottom"
 										title="Remind me">
 										<button data-toggle="dropdown" id="d" style="border: none;"
@@ -202,44 +216,42 @@
 											type="button" data-ng-show="hoverEdit">
 											<i class="glyphicon glyphicon-hand-up"></i>
 										</button>
-										<div style="width: 273px; height: auto;"
-											class="dropdown-menu">
+										<div style="width: 273px; height: auto;" class="dropdown-menu">
 											<div style="padding: 13px 10px 0px 10px;">Reminder:</div>
 											<hr>
 											<div style="padding: 0px 10px 0px 10px;"
-												data-ng-click="hc.doReminder(i.id,$index,'Today','8:00PM')">
+												data-ng-click="hc.doReminder(i.id,$index,'Today')">
 												<span style="left: 0px;">Later Today</span> <span
 													style="float: right;">8:00PM</span>
 											</div>
 											<div style="padding: 13px 10px 0px 10px;"
-												data-ng-click="hc.doReminder(i.id,$index,'Tomorrow','8:00AM')">
+												data-ng-click="hc.doReminder(i.id,$index,'Tomorrow')">
 												<span style="left: 0px;">Tomorrow</span> <span
 													style="float: right;">8:00AM</span>
 											</div>
 											<div style="padding: 13px 10px 0px 10px;"
-												data-ng-click="hc.doReminder(i.id,$index,'Next week','8:00AM')">
+												data-ng-click="hc.doReminder(i.id,$index,'Next week')">
 												<span style="left: 0px;">Next Week</span> <span
 													style="float: right;">8:00AM</span>
 											</div>
-											<div style="padding: 8px 10px 0px 7px;" 
-												data-ng-click="hc.doReminder(i.id,'Tomorrow','8:00AM')">
-												<i class="glyphicon glyphicon-time"></i> <span>Pick
-													date & time</span>
-												<!-- <div data-ng-show=""></div> -->
-											</div>
+
+
+
 										</div>
-									</span> <span data-toggle="tooltip" data-placement="bottom"
-										title="Edit on" data-ng-show="hoverEdit" align="left"
-										style="right: 55px; position: absolute; bottom: 0px; font-style: italic; font-size: 0.85em;">
+
+									</span> <span data-ng-style="{bottom:(!i.reminder?'0px':'22px')}"
+										data-toggle="tooltip" data-placement="bottom" title="Edit on"
+										data-ng-show="hoverEdit" align="left"
+										style="right: 55px; position: absolute; font-style: italic; font-size: 0.85em;">
 										<h6>Edited on {{i.date | date }}</h6>
-									</span> <span style="position: absolute; bottom: 0px; right: 0px;">
-										<!-- <button class="popuptext btn btn-default btn-sm" type="button" ng-show="i.update"
+									</span> <span style="position: absolute; right: 0px;"
+										data-ng-style="{bottom:(!i.reminder?'0px':'22px')}"> <!-- <button class="popuptext btn btn-default btn-sm" type="button" ng-show="i.update"
 									data-ng-click="hc.updateTask($index, i.id)">Done</button>
-								 <button style="border: none; float: right;" type="button"
+								 	<button style="border: none; float: right;" type="button"
 									ng-hide="i.update" class="btn btn-default btn"
 									data-ng-click="hc.updateEnable($index)">
 									<i class="glyphicon glyphicon-pencil"></i>
-								</button> -->
+									</button> -->
 
 										<button id="d" style="border: none; float: right;"
 											type="button" type="button" class="btn btn-default btn"
@@ -248,6 +260,21 @@
 										</button>
 									</span>
 
+								</div>
+
+								<div data-ng-mouseenter="options=true"
+									data-ng-mouseleave="options=false"
+									style="border-top: dotted 1px; font-size: small; font-family: 'Roboto', arial, sans-serif;"
+									data-ng-if="i.reminder">
+									<span class="remind"><i
+										style="padding-top: 5px; padding-left: 4px;"
+										class="glyphicon glyphicon-time"></i> {{i.reminder |date:'EEE
+										MMM, dd hh:mm:ss a'}}</span> <span
+										data-ng-click="hc.deleteReminder(i.id, $index)"
+										style="float: right; padding: 5px 8px 0px 4px;"><i
+										data-toggle="tooltip" data-placement="bottom"
+										title="Delete Reminder" data-ng-show="options"
+										class="glyphicon glyphicon-remove-circle"></i></span>
 								</div>
 
 							</div>

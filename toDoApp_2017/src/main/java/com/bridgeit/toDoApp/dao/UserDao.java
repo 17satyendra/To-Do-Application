@@ -16,4 +16,6 @@ public interface UserDao {
 
 	User authUser(String email, String password);
 
+	User getEntityByEmailId(String email);
+
 }
