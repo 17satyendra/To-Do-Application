@@ -1,4 +1,8 @@
-myApp.controller('homeController', function($scope,$uibModal, $state, taskService,$timeout){
+myApp.controller('homeController', function($scope,$uibModal, $state, taskService,$timeout, toaster){
+	
+	$scope.changeColor=function(color,e){
+		$(e.target).closest( ".card" ).css( "background-color", color);
+	};
 	$scope.getNote=function(){
 		$state.reload();
 	};
@@ -11,28 +15,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 // console.log("inside reminder filter",$scope.result);
 	};
 	
-	/*
-	 * this.open1 = function() { $scope.popup1.opened = true; };
-	 * 
-	 * $scope.popup1 = { opened: false };
-	 * 
-	 * $scope.popup2 = { opened: false };
-	 * 
-	 * var tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1); var
-	 * afterTomorrow = new Date(); afterTomorrow.setDate(tomorrow.getDate() +
-	 * 1); $scope.events = [ { date: tomorrow, status: 'full' }, { date:
-	 * afterTomorrow, status: 'partially' } ];
-	 * 
-	 * function getDayClass(data) { var date = data.date, mode = data.mode; if
-	 * (mode === 'day') { var dayToCheck = new Date(date).setHours(0,0,0,0);
-	 * 
-	 * for (var i = 0; i < $scope.events.length; i++) { var currentDay = new
-	 * Date($scope.events[i].date).setHours(0,0,0,0);
-	 * 
-	 * if (dayToCheck === currentDay) { return $scope.events[i].status; } } }
-	 * 
-	 * return ''; }
-	 */
+	
 		  
 	var accessData = window.localStorage['user'];
 	var userjson=JSON.parse(accessData);
@@ -204,20 +187,21 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 		var httpobj=taskService.signoutUser().then(function(data){
 			if(data.data.status==1){
 				$state.go("login");
+				toaster.success('User LogOut successfully');
 			}
 		})
 	 };
 	
-	this.deleteTask=function(id){
+	this.deleteTask=function(id, index){
+		
 		var httpObj=taskService.deleteTodo(id).then(function(data){
-			// console.log(data);
 			if(data.data.status==1){
-				// console.log(data.data.message);
-				$state.reload();
-				
+				if(index>-1){
+					$scope.result.splice(index, 1);
+					toaster.success('ToDo Deleted successfully');
+				}
 			}
 		})
-		
 	};
 	
 	this.updateEnable=function(index){
@@ -241,6 +225,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 			// console.log(data);
 			if(data.data.status==1){
 				// console.log(data.data.message);
+				toaster.success('ToDo Updated successfully');
 				$state.reload();
 			}
 		});
@@ -248,20 +233,19 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	
 	this.deleteReminder=function(id, index){
 		
-		console.log("inside delete4r"+id+" "+index);
 		var object = $scope.result[index];
-		console.log(object.reminder);
 		object.reminder=null;
-		console.log(object.reminder);
 		var httpobj =taskService.updateToDo(id,object).then(function (data) {
 			
 			if(data.data.status==1){
-				$state.reload();
+				
+				//$state.reload();
+				toaster.success('Reminder Deleted successfully');
 			}
 		});
 		}
 	this.doReminder=function(id,index,day){
-		//console.log(id,index,day,time);
+		// console.log(id,index,day,time);
 		var obj = $scope.result[index];
 		if(day== "Today"){
 		var date = new Date();
@@ -288,12 +272,13 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	}
 	
 	taskService.getAllTask().then(function(data){
-		// console.log('getAllTask');
+		 console.log('getAllTask');
 		
-		//console.log(data);
+		// console.log(data);
 		if(data.data.status == 1)
 		{
 			$scope.result = data.data.list;
+			console.log($scope.result);
 			// console.log(todos);signoutUser
 			// if( todos )
 			// {
@@ -310,61 +295,55 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 		}
 	}).catch(function(){});
 	
+	$scope.copy=function(index){
+		console.log(index);
+		var copyObj = $scope.result[index];
+		console.log(copyObj);
+		//$scope.result.push()
+		
+	}
+	
 	this.save = function(){
-		console.log($scope.todo);
+		if($scope.todo.reminder!=null){
+			$scope.todo.reminder=new Date($scope.todo.reminder);
+		}
+		 //$scope.result.push( $scope.todo );
+		 $("#ToggleToDoSection").hide();
+         $('#OpenToDoSecton').show();
 		 var httpObj = taskService.createTask($scope.todo).then(function(data){
+			 
+			 console.log(data);
+			 $scope.todoDisplay= false;
 			 if(data.data.status==1)
 			 {
-				 delete $askService.updateToDscope.todo;
-				 $scope.result.push( data.data.doTask );style="border: none; width: 100%"
-				 $scope.todoDisplay= fasignoutUserlse;
-					console.log(data);
-					if(data.data.status == 1)
-					{
-						$scope.result = data.data.list;
-						// console.log(todos);signoutUser
-						// if( todos )
-						// {
-						// for(var i=0; i<todos.length; i++ )
-						// {
-						// $scope.result.push(todos[i]);
-						//								 
-						// console.log(todos[i]);
-						// }
-						// }
-					}
-					else{
-					   /*
-						 * When the user clicks on the button, toggle between
-						 * hiding and showing the dropdown content
-						 */
-						function myFunction() {
-						    document.getElementById("myDropdown").classList.toggle("show");
-						}
-
-						// Close the dropdown if the user clicks outside of it
-						window.onclick = function(event) {
-						  if (!event.target.matches('.dropbtn')) {
-
-						    var dropdowns = document.getElementsByClassName("dropdown-content");
-						    var i;
-						    for (i = 0; i < dropdowns.length; i++) {
-						      var openDropdown = dropdowns[i];
-						      if (openDropdown.classList.contains('show')) {
-						        openDropdown.classList.remove('show');
-						      }
-						    }
-						  }
-						}
-						$state.go("login");
-					}
-				 	//
-			 }else{
-					 // Nothidden action Remain in same page or error page
+				 $scope.result.push( data.data.doTask );
+				
+				 $scope.todo.title=null;
+				 $scope.todo.reminder=null;
+				 $scope.todo.description=null;
+				 
+				 toaster.success('ToDo created successfully');
+					// console.log(todos);
+					// if( todos )
+					// {
+					// for(var i=0; i<todos.length; i++ )
+					// {
+					// $scope.result.push(todos[i]);
+					//								 
+					// console.log(todos[i]);
+					// }
+					// }
 			 }
-			// console.log($scope.result);
+			 else{
+				 $state.go("login"); // Nothidden action Remain in same page or error page
+			 }
+			 console.log($scope.result);
 		 }).catch(function(){});
 	}
+	
+	
+	
+	
 	this.ShowHide = function(){
 		$scope.todoDisplay= true;
 	}

@@ -1,4 +1,4 @@
-var myApp = angular.module('todoApp', ['ui.router','ui.bootstrap','ngSanitize','ngAnimate'])
+var myApp = angular.module('todoApp', ['ui.router','ui.bootstrap','ngSanitize','ngAnimate', 'ui.bootstrap.datetimepicker','toaster','angularSpinner'])
 .config(function ($stateProvider, $urlRouterProvider) {
   
   $stateProvider

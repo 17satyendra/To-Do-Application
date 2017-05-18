@@ -23,13 +23,13 @@ public class Facebook {
 	public String FB_URL = "https://www.facebook.com/v2.9/dialog/oauth?client_id=%s&redirect_uri=%s&state=%s&response_type=code&scope=public_profile,email";
 	
 	public String FB_ACCESS_TOKEN_URL = "https://graph.facebook.com/v2.9/oauth/access_token?client_id=%s&client_secret=%s&redirect_uri=%s&code=%s";
-	public String FB_GET_USER_URL= "https://graph.facebook.com/v2.9/me?access_token=%s";
+	public String FB_GET_USER_URL = "https://graph.facebook.com/v2.9/me?access_token=%s&fields=id,name,email,first_name,last_name,picture";
 	
 	public String getFBUrl( String appUrl, String pState)
 	{
 		appUrl = appUrl + FB_RERDIRECT_URI;
 		
-		return FB_URL.format(FB_URL, new String[]{ FB_CLIENT_ID, appUrl, pState });
+		return String.format(FB_URL, new String[]{ FB_CLIENT_ID, appUrl, pState });
 		
 	}
 
@@ -42,7 +42,7 @@ public class Facebook {
 	public String getAccessToken(String authCode, String appUrl) throws JsonParseException, JsonMappingException, IOException 
 	{
 		appUrl = appUrl + FB_RERDIRECT_URI;
-		String accTokenUrl = FB_URL.format(FB_ACCESS_TOKEN_URL, new String[]{ FB_CLIENT_ID, FB_SECRET_KEY, appUrl, authCode });
+		String accTokenUrl = String.format(FB_ACCESS_TOKEN_URL, new String[]{ FB_CLIENT_ID, FB_SECRET_KEY, appUrl, authCode });
 		  
 		ResteasyClient client = new ResteasyClientBuilder().build();
 		ResteasyWebTarget target = client.target( accTokenUrl );
@@ -51,9 +51,9 @@ public class Facebook {
 		FBToken fbToken = response.readEntity(FBToken.class);
 		
 		//String sr = response.readEntity(String.class);
-		//System.out.println( sr );
 		//ObjectMapper mapper = new ObjectMapper();
 		//FBToken fbToken = mapper.readValue(sr, FBToken.class);
+		//System.out.println(fbToken.getAccess_token());
 		
 		client.close();
 		
@@ -68,13 +68,13 @@ public class Facebook {
 		ResteasyWebTarget target = client.target( accProfileUrl );
 		 
 		Response response =  target.request().accept(MediaType.APPLICATION_JSON).get();
-		System.out.println( response );
-		FBProfile profile = response.readEntity(FBProfile.class);
+		//System.out.println( response );
+		//FBProfile profile = response.readEntity(FBProfile.class);
 		
-		//String sr = response.readEntity(String.class);
-		//System.out.println( sr );
-		//ObjectMapper mapper = new ObjectMapper();
-		//FBProfile profile = mapper.readValue(sr, FBProfile.class);
+		String sr = response.readEntity(String.class);
+		System.out.println( sr );
+		ObjectMapper mapper = new ObjectMapper();
+		FBProfile profile = mapper.readValue(sr, FBProfile.class);
 		
 		client.close();
 		

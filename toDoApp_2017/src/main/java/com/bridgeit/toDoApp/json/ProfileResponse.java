@@ -11,6 +11,7 @@ public class ProfileResponse extends Response {
 	private String lastName;
 	private String email;
 	private String mobile;
+	private String picture;
 	
 	public int getId() {
 		return id;
@@ -41,6 +42,12 @@ public class ProfileResponse extends Response {
 	}
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+	public String getPicture() {
+		return picture;
+	}
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 	
 }

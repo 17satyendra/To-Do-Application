@@ -1,20 +1,7 @@
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
-    console.log($('#datetimepicker4'));
-	$('#datetimepicker4').datetimepicker();
 });
 
-
-/*$(function () {
-    $('#datetimepicker8').datetimepicker({
-        icons: {
-            time: "fa fa-clock-o",
-            date: "fa fa-calendar",
-            up: "fa fa-arrow-up",
-            down: "fa fa-arrow-down"
-        }
-    });
-});*/
 function ClickToEditCtrl($scope) {
 	$scope.title = "Welcome to this demo!";
 	$scope.editorEnabled = false;
@@ -54,17 +41,18 @@ function closeNav() {
 	document.getElementById("main").style.marginLeft = "0";
 }
 var doubleClick = true;
+
+/*
 $(document).on("click", function(e) {
-	//console.log(doubleClick)
-	if (doubleClick) {
+	console.log(doubleClick)
+	if ( doubleClick ) {
 		if ($(e.target).is("#period_select_range_btn")) {
+			//doubleClick = false;	
 			$("#selectPeriodRangePanel").show();
 			$("#selectPeriodRangePanel2").show();
 			$("#selectPeriodRangePanel3").show();
-			doubleClick = !doubleClick;
-			//console.log(doubleClick);
-
-		} else {
+		}
+		else {
 			$("#selectPeriodRangePanel").hide();
 			$("#selectPeriodRangePanel2").hide();
 			$("#selectPeriodRangePanel3").hide();
@@ -72,17 +60,10 @@ $(document).on("click", function(e) {
 			//console.log(doubleClick)
 		}
 	} else {
-		if ($(e.target).is("#period_select_range_btn")) {
-			doubleClick = !doubleClick;
-		//	console.log(doubleClick)
-		} else {
-			doubleClick = !doubleClick;
-			//console.log(doubleClick)
-
-		}
+		doubleClick = !doubleClick;
 	}
 });
-
+*/
 /*for search background color*/
 $(document).ready(function(){
     $(".searchtab").click(function(e){
@@ -93,62 +74,33 @@ $(document).ready(function(){
     $(document).click(function(){ 
         $(".searchback").removeClass("searchback");
     });
+    
+    $("#OpenToDoSecton").on("click", function() {
+    	$('#OpenToDoSecton').hide();
+    	$("#ToggleToDoSection").show();
+    });
+    
+    $(document).on("click", function(e) {
+    	var l = $(e.target).closest('#ToggleToDoSection').length
+    	if( l == 0 )
+    	{
+    		var l2 = $(e.target).closest('#OpenToDoSecton').length
+    		if( l2 == 1)
+    		{
+    			$('#OpenToDoSecton').hide();
+    	    	$("#ToggleToDoSection").show();
+    		}
+    		else
+    		{
+    			$("#ToggleToDoSection").hide();
+    			$('#OpenToDoSecton').show();
+        	}
+        	
+    	}
+    });    
  });
+
 /*ends*/
-/*$(document).ready(function(){
-    $("#himakeNote = ->
-  height = parseInt 100+Math.random()*500, 10
-  '<div class="note"><div class="note-inner" style="height: '+height+'px"></div></div>'
-  
-$ ->
-  $notes = $ ".notes"
-  for x in [0..10]
-    $note = $ makeNote()
-    $notes.append $note
-    
-  $('.notes').isotope
-    itemSelector: '.note',
-    layoutMode: 'masonry'de").mouseover(function(){
-       makeNote = ->
-  height = parseInt 100+Math.random()*500, 10
-  '<div class="note"><div class="note-inner" style="height: '+height+'px"></div></div>'
-  
-$ ->
-  $notes = $ ".notes"
-  for x in [0..10]
-    $note = $ makeNote()
-    $notes.append $note
-    
-  $('.notes').isotope
-    itemSelector: '.note',
-    layoutMode: 'masonry' $("#b1").show();
-    });
-    $("#hide").mouseout(function(){
-        $("#b1").hide();
-    });
-});*/
-/*Script for adjustable heiht div*/
-/*var makeNote;
-
-makeNote = function() {
-  var height;
-  height = parseInt(100 + Math.random() * 500, 10);
-  return '<div class="note"><div class="note-inner" style="height: ' + height + 'px"></div></div>';
-};
-
-$(function() {
-  var $note, $notes, i, x;
-  $notes = $(".notes");
-  for (x = i = 0; i <= 10; x = ++i) {
-    $note = $(makeNote());
-    $notes.append($note);
-  }
-  return $('.notes').isotope({
-    itemSelector: '.note',
-    layoutMode: 'masonry'
-  });
-});*/
-
 $(".slides").sortable({
     placeholder: 'slide-placeholder',
    axis: "y",
@@ -164,7 +116,7 @@ $(".slides").sortable({
    change: function(event, ui) {
        
        ui.placeholder.stop().height(0).animate({
-           height: ui.item.outerHeight() + 15
+           height: ui.item.outerHeigClickht() + 15
        }, 300);
        
        placeholderAnimatorHeight = parseInt($(".slide-placeholder-animator").attr("data-height"));
@@ -184,5 +136,3 @@ $(".slides").sortable({
        
    },
 });
-
-   

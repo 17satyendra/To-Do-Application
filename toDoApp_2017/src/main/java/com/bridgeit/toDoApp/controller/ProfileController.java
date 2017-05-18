@@ -24,6 +24,7 @@ public class ProfileController {
 		pr.setLastName(user.getLastName());
 		pr.setEmail(user.getEmail());
 		pr.setMobile(user.getMobileNumber());
+		pr.setPicture(user.getPicture());
 		
 		return pr;
 		

@@ -22,11 +22,14 @@ import com.bridgeit.toDoApp.json.ErrorResponse;
 import com.bridgeit.toDoApp.json.Response;
 import com.bridgeit.toDoApp.json.TokenResponse;
 import com.bridgeit.toDoApp.model.FBProfile;
+import com.bridgeit.toDoApp.model.FBProfileData;
+import com.bridgeit.toDoApp.model.GmailProfile;
 import com.bridgeit.toDoApp.model.Token;
 import com.bridgeit.toDoApp.model.User;
 import com.bridgeit.toDoApp.service.TokenService;
 import com.bridgeit.toDoApp.service.UserService;
 import com.facebook.Facebook;
+import com.gmail.Gmail;
 
 /**
  * This is simple Spring MVC login controller with annotations, we have added
@@ -67,7 +70,7 @@ public class LoginController {
 		HttpSession session = request.getSession();
 		try {
 			user = userservice.authUser(loginMap.get("email"), loginMap.get("password"));
-			System.out.println(user.getFirstName());
+			System.out.println(user.getPicture()+": Profile picture");
 		
 		} catch (Exception e) {
 			log.error("login exception", e);
@@ -139,7 +142,9 @@ public class LoginController {
 		Facebook fb = new Facebook();
 		
 		String lsr = pRequest.getRequestURL().toString();
+		System.out.println("line 142"+lsr);
 		String appUrl = lsr.substring(0, lsr.lastIndexOf("/") );
+		System.out.println(appUrl);
 		
 		String unId  = UUID.randomUUID().toString();
 		pRequest.getSession().setAttribute("STATE", unId);
@@ -165,6 +170,7 @@ public class LoginController {
 		}
 		
 		String error = pRequest.getParameter("error");
+		
 		if( error!=null && error.trim().isEmpty())
 		{
 			pResponse.sendRedirect("login");
@@ -179,14 +185,16 @@ public class LoginController {
 		Facebook fb = new Facebook();
 		FBProfile profile = fb.authUser(authCode, appUrl);
 
-		User user = userservice.getEntityByEmailId( profile.getEmail()  );
+		User user = userservice.getEntityByEmailId( profile.getEmail() );
 		if( user == null)
 		{
 			user = new User();
+			
 			user.setEmail(profile.getEmail());
 			user.setFirstName(profile.getFirst_name());
 			user.setLastName(profile.getLast_name());
-			user.setPassword("1234567asdfclkhgvhkgv");
+			user.setPicture(profile.getPicture().getData().getUrl());
+			user.setPassword("123");
 			userservice.addEntity(user);
 		}
 		
@@ -205,7 +213,7 @@ public class LoginController {
 		session.setAttribute("user", user);
 		/*
 		LoginResponse lr = new LoginResponse();
-		lr.setStatus(1);
+		lr.setStatus(1);public void postFBLogin(HttpServletRequest pRequest, HttpServletResponse pResponse)
 		lr.setMessage("User logged succesfully");
 		*/
 		tr = new TokenResponse();
@@ -220,4 +228,85 @@ public class LoginController {
 		return;
 	}
 	
+
+	@RequestMapping(value="/loginWithGoogle")
+	public void loginWithGmail(HttpServletRequest pRequest, HttpServletResponse pResponse) throws IOException{
+		
+		System.out.println("Inside login with goole");
+		
+		Gmail gmail = new Gmail();
+		String lsr = pRequest.getRequestURL().toString();
+		String appUrl = lsr.substring(0, lsr.lastIndexOf("/"));
+		String unId=UUID.randomUUID().toString();
+		pRequest.getSession().setAttribute("STATE", unId);
+		String gmailUrl=gmail.getGmailUrl(appUrl,unId);
+		pResponse.sendRedirect(gmailUrl);
+		
+		return;
+	}
+	@RequestMapping(value="/postgmailLogin")
+	public void postGmailLogin(HttpServletRequest pRequest, HttpServletResponse pResponse) throws Exception {
+		
+		System.out.println("Inside redirect url from google");
+		
+		String sessionState = (String) pRequest.getSession().getAttribute("STATE");
+		String stateFromGmail=pRequest.getParameter("state");
+		if(sessionState==null || !sessionState.equals(stateFromGmail)){
+			
+			pResponse.sendRedirect("loginWithGoogle");
+			return;
+		}
+		
+		String error = pRequest.getParameter("error");
+		
+		if(error !=null && error.trim().isEmpty()){
+			
+			pResponse.sendRedirect("login");
+			return;
+		}
+		
+		String authCode = pRequest.getParameter("code");
+		
+		String lsr = pRequest.getRequestURL().toString();
+		String appUrl = lsr.substring(0, lsr.lastIndexOf("/") );
+		
+		Gmail gmail = new Gmail();
+		GmailProfile profile = gmail.authUser(authCode, appUrl);
+		
+		User user = userservice.getEntityByEmailId( profile.getEmail() );
+		if(user==null){
+			
+			user = new User();
+			
+			user.setEmail(profile.getEmail());
+			user.setFirstName(profile.getGiven_name());
+			user.setLastName(profile.getFamily_name());
+			user.setPicture(profile.getPicture());
+			user.setPassword("123");
+			userservice.addEntity(user);
+		}String accessToken = UUID.randomUUID().toString().replaceAll("-", "");
+		String refreshToken = UUID.randomUUID().toString().replaceAll("-", "");
+
+		HttpSession session = pRequest.getSession();
+		Token token = new Token();
+		token.setCreatedOn(new Date());
+		token.setAccessToken(accessToken);
+		token.setRefreshToken(refreshToken);
+		token.setId(user.getId());
+		
+		tokenservice.addToken(token);
+		
+		session.setAttribute("user", user);
+		
+		tr = new TokenResponse();
+		tr.getAccessToken();
+		tr.getRefreshToken();
+		tr.setStatus(1);
+
+		Cookie ck = new Cookie("access_token", token.getAccessToken());
+		pResponse.addCookie(ck);
+		
+		pResponse.sendRedirect(appUrl + "/#!/home");
+		return;
+	}
 }

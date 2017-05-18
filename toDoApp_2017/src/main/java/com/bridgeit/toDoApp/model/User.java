@@ -40,7 +40,7 @@ public class User implements Serializable {
 	private String email;
 	private String mobileNumber;
 	private String password;
-
+	private String picture;
 	public User() {
 	}
 
@@ -90,5 +90,13 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 }

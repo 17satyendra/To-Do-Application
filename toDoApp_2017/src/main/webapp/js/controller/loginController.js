@@ -1,6 +1,18 @@
 //var myApp = angular.module('todoApp')
 
-myApp.controller("loginController",function ($scope,  $state, loginService,profileService ) {	
+myApp.controller("loginController",function ($scope,  $state, loginService,profileService, usSpinnerService ) {	
+	
+	$scope.startSpin = function() {
+	      if (!$scope.spinneractive) {
+	        usSpinnerService.spin('spinner-1');
+	       
+	      }
+	    };
+	
+	this.loginWithFaceBook=function (){
+		console.log("Inside Facbook method")
+		var httpObj = loginSer
+	}
 	
 	this.login = function () {
 		var user = {};
@@ -12,6 +24,7 @@ myApp.controller("loginController",function ($scope,  $state, loginService,profi
 			
 			if( data.data.status == 1 ){
 				var httpobj=profileService.profile().then(function(data1){
+					console.log(data1);
 					window.localStorage['user'] = angular.toJson(data1);
 					$state.go("home");
 				});
