@@ -106,9 +106,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	       
 	   },
 	   stop: function(e, ui) {
-	       
 	       $(".slide-placeholder-animator").remove();
-	       
 	   },
 	});
 
@@ -124,26 +122,9 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	};
 	 
 	var cont = this;
-	
-	 
-	 $scope.close = function(result) {
-	 	close(result, 500); // close, but give 500ms for bootstrap to animate
-	 };
-	 var  ModalService=this;
-    $scope.show = function() {
-        ModalService.showModal({
-            templateUrl: 'modal.html',
-            controller: "ModalController"
-        }).then(function(modal) {
-            modal.element.modal();
-            modal.close.then(function(result) {
-                $scope.message = "You said " + result;
-            });
-        });
-    };
-    
-	
+
 	$scope.load_modal_sms = function (data, index) {
+		console.log(data);
 	       var modal = $uibModal.open({
 	         templateUrl: "template/popup.html",
 	         ariaLabelledBy: 'modal-title-bottom',
@@ -152,13 +133,12 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	         controller:function($uibModalInstance){
 	        	 this.title=data.title;
 	        	 this.id = data.id;
+	        	 this.reminder=data.reminder;
 	        	 var $ctrl = this;
 	        	 this.description = data.description;
-	      	     this.cancel = function () {
-	      	    	 $uibModalInstanceProvider.dismiss('cancel');
-	          	 };
+	      	     
 	        	 this.ok = function () {
-	        		 $uibModalInstance.close({title:$ctrl.title,description:$ctrl.description,id:$ctrl.id});
+	        		 $uibModalInstance.close({title:$ctrl.title,description:$ctrl.description,id:$ctrl.id,reminder:$ctrl.reminder});
 	        	 };
 
 	        	 this.cancel = function () {
@@ -173,10 +153,15 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	         modal.result.catch(function(error){
 	        	console.log("error::",error);   	
 	         }).then(function(data){
-	        	$state.reload();
+	        	 console.log(data);
+//	        	$state.reload();
 	        	if(data) {
+	        		
+	        		console.log(data);
 	        		$scope.result.splice(index, 1, data);
-	        		cont.updateTask(index, data.id);
+	        		console.log(data)
+	        		
+	        		cont.updateTask(index, data.id,data.reminder);
 	        	}
 	        })
 	        
@@ -295,11 +280,17 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 		}
 	}).catch(function(){});
 	
-	$scope.copy=function(index){
-		console.log(index);
-		var copyObj = $scope.result[index];
-		console.log(copyObj);
-		//$scope.result.push()
+	$scope.copy=function(todo){
+		console.log(todo);
+		todo.id=null;
+		
+		taskService.createTask(todo).then(function(data){
+			if(data.data.status==1){
+				$scope.result.push( data.data.doTask );
+				
+				toaster.success('ToDo Copied successfully');
+			}
+		})
 		
 	}
 	
@@ -323,16 +314,6 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 				 $scope.todo.description=null;
 				 
 				 toaster.success('ToDo created successfully');
-					// console.log(todos);
-					// if( todos )
-					// {
-					// for(var i=0; i<todos.length; i++ )
-					// {
-					// $scope.result.push(todos[i]);
-					//								 
-					// console.log(todos[i]);
-					// }
-					// }
 			 }
 			 else{
 				 $state.go("login"); // Nothidden action Remain in same page or error page
@@ -375,6 +356,7 @@ myApp.service('taskService',function($http){
 	this.signoutUser=function(){
 		return $http({url:"http://localhost:8080/toDoApp_2017/signout"});
 	}
+	
 });
 function jqueryFunction(){
 	/*

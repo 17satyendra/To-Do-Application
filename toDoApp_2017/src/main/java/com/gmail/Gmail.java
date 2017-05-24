@@ -12,7 +12,7 @@ import com.bridgeit.toDoApp.model.GmailToken;
 
 public class Gmail {
 	
-	public String scope_url="https://www.googleapis.com/auth/userinfo.profile";
+	public String scope_url="https://www.googleapis.com/auth/plus.login";
 	public String Gmail_CLIENT_ID="708988921879-kvjfn4ctfjve5sfcv0p6m2inc1nnas52.apps.googleusercontent.com";
 	public String Gmail_SECRET_KEY = "Y58D6oclbmye3b3XRtXmyCop";
 	public String Gmail_RERDIRECT_URI = "/postgmailLogin";

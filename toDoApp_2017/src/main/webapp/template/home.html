@@ -41,17 +41,15 @@
 				</span>
 				<div class="nav navbar-right top-nav ">
 					<a href="" style="background-color: transparent;" class="dropdown-toggle" data-toggle="dropdown">
-					<img id="menu" class="user margint10 round-border"
-						src="{{userData.picture}}"  alt="Smiley face"></a>
+					<img id="menu" class="user"
+						src="{{userData.picture}}"  alt="{{userData.firstName.charAt(0).toUpperCase()}}"></a>
 					<div style="width: 325px; height: 180px; margin-right: -18px;"
 						class="dropdown-menu">
 						<div>
-							<span><img class="user1" src="{{userData.picture}}"  alt="Smiley face"></span>
+							<span><img class="user1"  src="{{userData.picture}}"  alt="{{userData.firstName.charAt(0).toUpperCase()}}"></span>
 
-							<span
-								style="position: absolute; padding: 14px 0px 0px 32px; font-size: 1.00em; font-weight: bold;">{{userData.firstName}}
-								{{userData.lastName}}</span> <span> <span
-								style="position: absolute; margin: 34px; font-size: 0.85em;">{{userData.email}}</span>
+							<span style="position: absolute; padding: 14px 0px 0px 32px; font-size: 1.00em; font-weight: bold;">{{userData.firstName}}{{userData.lastName}}</span>
+							 <span style="position: absolute; margin: 34px; font-size: 0.85em;">{{userData.email}}</span>
 								<button class="btn btn-default btn-sm accBtn" type="button"
 									value="My Account" data-ui-sref="profile">My Account</button>
 							</span>
@@ -79,7 +77,6 @@
 						{{userData.lastName}}</div>
 					<div class="hoverfont">{{userData.email}}</div>
 				</div>
-
 			</div>
 		</div>
 	</nav>
@@ -162,7 +159,7 @@
 						<div class="item"
 							data-ng-class="{'col-xs-12':!isList, 'col-md-6':!isList, 'col-sm-6':!isList,'col-lg-4':!isList}"
 							data-ng-repeat="i in result | orderBy:'reminder' |filter :searchtext track by $index "
-							data-ng-mouseoveUser user = userservice.getEntityByEmailId( profile.getEmail()  );r="hoverIn()" data-ng-mouseleave="hoverOut()">
+							data-ng-mouseover="hoverIn()" data-ng-mouseleave="hoverOut()">
 							<div class="card card-1 thumbnail " 
 								style="width: 100%;">
 								<div
@@ -178,15 +175,15 @@
 								<div class="text-box" style="margin-top: 12px;">
 									<span data-ng-show="hoverEdit"
 										data-ng-style="{bottom:(!i.reminder?'0px':'19px')}"
-										data-toggle="tooltip" data-placement="bottom" title="Edit on"
+										data-toggle="tooltip" data-placement="auto" title="Edit on"
 										align="left"
 										style="position: absolute; font-style: italic; font-size: 0.85em;">
-										<h6 style="padding: 0px 7px;">Edited on {{i.date | date
-											}}</h6>
-									</span> <span data-ng-show="hoverEdit"
-										data-ng-style="{bottom:(!i.reminder?'2px':'28px')}"
-										style="left: 145px; position: absolute;" data-toggle="tooltip"
-										data-placement="bottom" title="Remind me">
+										<h6 style="padding: 0px 7px;font-size: 10px;">Edited on {{i.date | date}}</h6>
+									</span> 
+									<span data-ng-show="hoverEdit"
+										data-ng-style="{bottom:(!i.reminder?'5px':'28px')}"
+										style="right:95px; position: absolute;" data-toggle="tooltip"
+										data-placement="auto" title="Remind me">
 										<button data-toggle="dropdown" id="d"
 											style="border: none; background-color: transparent;"
 											class=" dropdown-toggle" type="button">
@@ -203,8 +200,8 @@
 											</div>
 											<div style="padding: 13px 10px 0px 10px;"
 												data-ng-click="hc.doReminder(i.id,$index,'Tomorrow')">
-												<span style="left: 0px;">Tomorrow</span> <span
-													style="float: right;">8:00AM</span>
+												<span style="left: 0px;">Tomorrow</span> 
+												<span style="float: right;">8:00AM</span>
 											</div>
 											<div style="padding: 13px 10px 0px 10px;"
 												data-ng-click="hc.doReminder(i.id,$index,'Next week')">
@@ -212,50 +209,57 @@
 													style="float: right;">8:00AM</span>
 											</div>
 										</div>
-									</span> <span class="dropup" data-toggle="tooltip"
-										data-placement="bottom" title="change color"
+									</span> 
+									<span class="dropup" data-toggle="tooltip"
+										data-placement="auto" title="change color"
 										data-ng-show="hoverEdit"
-										data-ng-style="{bottom:(!i.reminder?'2px':'28px')}"
-										style="left: 175px; position: absolute;"><button
+										data-ng-style="{bottom:(!i.reminder?'5px':'28px')}"
+										style="right:60px; position: absolute;">
+										<button
 											style="border: none; background-color: transparent;"
 											class="dropdown-toggle" type="button" data-toggle="dropdown">
-											<i class="fa fa-paint-brush" aria-hidden="true"></i>
+											<!-- <i class="fa fa-paint-brush" aria-hidden="true"></i> -->
+											<img style="width: 14px;" src="https://maxcdn.icons8.com/Android_L/PNG/24/Editing/paint_palette-24.png" >
 										</button>
 										<div id="test" style="width: auto;" class="dropdown-menu"
 											role="menu" aria-labelledby="menu1">
 											<ul class="ul">
 												<li>
-													<div data-toggle="tooltip" data-placement="bottom"
+													<div data-toggle="tooltip" data-placement="auto"
 														title="White" data-ng-click="changeColor('#fff',$event)"
 														style="background-color: transparent;" class="test1"></div>
-												<div data-toggle="tooltip" data-placement="bottom"
+												<div data-toggle="tooltip" data-placement="auto"
 														title="Red" data-ng-click="changeColor('#FF8A80',$event)"
 														style="background-color: #FF8A80;" class="test1"></div>
-													<div data-toggle="tooltip" data-placement="bottom"
+													<div data-toggle="tooltip" data-placement="auto"
 														title="Gray" data-ng-click="changeColor('#CFD8DC',$event)"
 														style="background-color: #CFD8DC;" class="test1"></div>
 												</li>
 												<hr class="hrRem">
 												<li>
-													<div data-toggle="tooltip" data-placement="bottom"
+													<div data-toggle="tooltip" data-placement="auto"
 														title="Orange"
 														data-ng-click="changeColor('#FFD180',$event)"
 														style="background-color: #FFD180;" class="test1"></div>
-													<div data-toggle="tooltip" data-placement="bottom"
+													<div data-toggle="tooltip" data-placement="auto"
 														title="Blue" data-ng-click="changeColor('#80D8FF',$event)"
 														style="background-color: #80D8FF;" class="test1"></div>
-													<div data-toggle="tooltip" data-placement="bottom"
+													<div data-toggle="tooltip" data-placement="auto"
 														title="Green"
 														data-ng-click="changeColor('#CCFF90',$event)"
 														style="background-color: #CCFF90;" class="test1"></div>
 												</li>
 											</ul>
 
-										</d7pxiv>
-										</span>
-										<span  data-ng-show="hoverEdit" 
+										</div>
+									</span>
+									<span data-toggle="tooltip" data-placement="auto" title="share"
+									data-ng-show="hoverEdit" style="position: absolute; right: 40px;"data-ng-style="{bottom:(!i.reminder?'5px':'28px')}">
+										<i class="fa fa-facebook" aria-hidden="true"></i>
+									</span>
+									<span  data-ng-show="hoverEdit" 
 										style="position: absolute; right: 0px;"
-										data-ng-style="{bottom:(!i.reminder?'2px':'28px')}">
+										data-ng-style="{bottom:(!i.reminder?'5px':'28px')}">
 										<button id="d" data-toggle="dropdown"
 											style="border: none; background-color: transparent; float: right; outline: none; padding: 0px 12px;"
 											type="button" class="btn btn-default btn dropdown-toggle">
@@ -263,14 +267,13 @@
 										</button>
 										<div class="dropdown-menu" style="margin-left: 10px; min-width: 150px; top: 87%; padding: 5px; line-height: 2.5">
 											
-
 											<div data-ng-click="hc.deleteTask(i.id, $index)">
 												<span>Delete note</span>
 											</div>
 											<div data-ng-click="">
 												<span>Add label</span>
 											</div>
-											<div data-ng-click="copy($index)">
+											<div data-ng-click="copy(i)">
 												<span>Make a copy</span>
 											</div>
 											
@@ -286,14 +289,15 @@
 									<span class="remind"><i
 										style="padding-top: 5px; padding-left: 4px;"
 										class="glyphicon glyphicon-time"></i> {{i.reminder |date:'EEE
-										MMM, dd hh:mm:ss a'}}</span> <span
-										data-ng-click="hc.deleteReminder(i.id, $index)"
-										style="float: right; padding: 5px 8px 0px 4px;"><i
-										data-toggle="tooltip" data-placement="bottom"
+										MMM, dd hh:mm:ss a'}}</span> 
+									<span data-ng-click="hc.deleteReminder(i.id, $index)"
+										style="float: right; padding: 5px 8px 0px 4px;">
+										<i data-toggle="tooltip" data-placement="auto"
 										title="Delete Reminder" data-ng-show="options"
-										class="glyphicon glyphicon-remove-circle"></i></span> <i></i>
+										class="glyphicon glyphicon-remove-circle">
+										</i>
+									</span>
 								</div>
-
 							</div>
 						</div>
 					</div>

@@ -60,6 +60,24 @@ public class LoginController {
 	Response resp=null;
 	static final Logger log = Logger.getLogger(LoginController.class);
 
+	@RequestMapping(value = "/isLogin", method = RequestMethod.POST)
+	public @ResponseBody Response isLogin(HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		Response res = new Response();
+		if(user!=null){
+			
+			res.setStatus(1);
+			res.setMessage("user already login");
+			return res;
+		}else{
+			res.setStatus(-1);
+			res.setMessage("session expired");
+			return res;
+		}
+		
+	}
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody Response getEmployeeById(@RequestBody Map<String, String> loginMap, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -81,7 +99,7 @@ public class LoginController {
 		}
 
 		if (user == null) {
-			
+			log.error("user null when try to login");
 			ErrorResponse esignoutUserr = new ErrorResponse();
 			er.setStatus(-1);
 			er.setMessage("Invalid credential, Please check email or password");
@@ -272,6 +290,8 @@ public class LoginController {
 		
 		Gmail gmail = new Gmail();
 		GmailProfile profile = gmail.authUser(authCode, appUrl);
+		
+		System.out.println(profile.getEmail()+" "+profile.getFamily_name()+" "+profile.getGiven_name()+" "+profile.getId());
 		
 		User user = userservice.getEntityByEmailId( profile.getEmail() );
 		if(user==null){

@@ -10,10 +10,24 @@
 	</div>
 
 	<div class="modal-footer">
+			<div id="dropdown"class="reminderPopup remind dropdown-toggle" data-toggle="dropdown">
+			<span><i class="fa fa-clock-o" aria-hidden="true"></i> </span>
+			<span>Reminder:</span>
+			<span>
+				<input style="border: none; padding: 0px 0px 0px 0px;"
+					    
+					   data-ng-model="$ctrl.reminder|date:'EEE MMM, dd hh:mm:ss a'">
+			</span>
+			</div>
+			<div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+				<datetimepicker data-ng-model="$ctrl.reminder" data-datetimepicker-config="{ dropdownSelector: '#dropdown' }"></datetimepicker>
+			</div>
+			<div class=colorpanpopup><img src="https://maxcdn.icons8.com/Android_L/PNG/24/Editing/paint_palette-24.png" >
+			</div>
 		<button class="btn btn-primary" type="button"
-			data-ng-click="$ctrl.ok()">OK</button>
-		<button class="btn btn-warning" type="button" data-ng-discard
-			data-ng-click="$ctrl.cancel()">Cancel</button>
+			data-ng-click="$ctrl.ok()">Done</button>
+		<!-- <button class="btn btn-warning" type="button" data-ng-discard
+			data-ng-click="$ctrl.cancel()">Cancel</button> -->
 	</div>
-
+	
 </div>

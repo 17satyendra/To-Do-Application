@@ -66,6 +66,7 @@ $(document).on("click", function(e) {
 */
 /*for search background color*/
 $(document).ready(function(){
+	$('[data-toggle="tooltip"]').tooltip();
     $(".searchtab").click(function(e){
         $(".searchback").removeClass("searchback");
         $(this).addClass("searchback");
