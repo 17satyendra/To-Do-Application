@@ -1,8 +1,21 @@
 myApp.controller('homeController', function($scope,$uibModal, $state, taskService,$timeout, toaster){
-	
-	$scope.changeColor=function(color,e){
+	$scope.result = []; 
+	$scope.changeColor=function(color, e, index, id){
+		var obj = null;
+		for(var i=0; i< $scope.result.length;i++){
+			if($scope.result[i].id==id)
+				{
+				obj=$scope.result[i];
+				}
+		}
+		obj.cardColor=color;
+		taskService.updateToDo(id, obj);
+		
 		$(e.target).closest( ".card" ).css( "background-color", color);
 	};
+	
+	
+	
 	$scope.getNote=function(){
 		$state.reload();
 	};
@@ -33,7 +46,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	});
 	
 	$scope.todoDisplay= false;
-	$scope.result = []; // Http call Then server kal ka data
+	// Http call Then server kal ka data
 	
 	$scope.isList = false;
 	// read from cookie
@@ -134,11 +147,18 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	        	 this.title=data.title;
 	        	 this.id = data.id;
 	        	 this.reminder=data.reminder;
+	        	 this.cardColor=data.cardColor;
+	        	 this.index=index;
 	        	 var $ctrl = this;
 	        	 this.description = data.description;
 	      	     
+	        	 this.del = function(){
+	        		 $uibModalInstance.close({id:$ctrl.id,index:$ctrl.index});
+	        	 };
+	        	 
+	        	 
 	        	 this.ok = function () {
-	        		 $uibModalInstance.close({title:$ctrl.title,description:$ctrl.description,id:$ctrl.id,reminder:$ctrl.reminder});
+	        		 $uibModalInstance.close({title:$ctrl.title,description:$ctrl.description,id:$ctrl.id,reminder:$ctrl.reminder, cardColor:$ctrl.cardColor});
 	        	 };
 
 	        	 this.cancel = function () {
@@ -178,7 +198,6 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	 };
 	
 	this.deleteTask=function(id, index){
-		
 		var httpObj=taskService.deleteTodo(id).then(function(data){
 			if(data.data.status==1){
 				if(index>-1){

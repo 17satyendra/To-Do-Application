@@ -1,20 +1,20 @@
-<div>
-	<div class="modal-header ">
+<div style="background-color: {{$ctrl.cardColor}}">
+	<div class="modal-header " style="border-bottom:none; background-color: {{$ctrl.cardColor}}">
 		<input type="text" class="modal-title" id="modal-title"
-			style="border: none; width: 100%" value="{{$ctrl.title}}"
+			style="border: none; width: 100%; background-color: {{$ctrl.cardColor}}" value="{{$ctrl.title}}"
 			data-ng-model="$ctrl.title">
 	</div>
-	<div class="modal-body" id="modal-body" contenteditable="true">
-		<textarea style="border: none; width: 100%"
+	<div class="modal-body" id="modal-body" contenteditable="true"  style="border-bottom:none;">
+		<textarea style="border: none; width: 100%; background-color: {{$ctrl.cardColor}}"
 			data-ng-model="$ctrl.description" rows="" cols="">{{$ctrl.description}}</textarea>
 	</div>
 
-	<div class="modal-footer">
+	<div class="modal-footer" style="border-top: none" >
 			<div id="dropdown"class="reminderPopup remind dropdown-toggle" data-toggle="dropdown">
 			<span><i class="fa fa-clock-o" aria-hidden="true"></i> </span>
 			<span>Reminder:</span>
 			<span>
-				<input style="border: none; padding: 0px 0px 0px 0px;"
+				<input style="border: none; padding: 0px 0px 0px 0px; background-color: {{$ctrl.cardColor}}"
 					    
 					   data-ng-model="$ctrl.reminder|date:'EEE MMM, dd hh:mm:ss a'">
 			</span>
@@ -22,10 +22,71 @@
 			<div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 				<datetimepicker data-ng-model="$ctrl.reminder" data-datetimepicker-config="{ dropdownSelector: '#dropdown' }"></datetimepicker>
 			</div>
-			<div class=colorpanpopup><img src="https://maxcdn.icons8.com/Android_L/PNG/24/Editing/paint_palette-24.png" >
+			<div>
+				<span class="colorpanpopup dropup" data-toggle="tooltip" data-placement="auto" title="change color">
+					<button style="border: none; background-color: transparent;"
+											class="dropdown-toggle" type="button" data-toggle="dropdown">
+						<img style="width: 20px;"src="https://maxcdn.icons8.com/Android_L/PNG/24/Editing/paint_palette-24.png" >
+					</button>
+					<div id="test" style="width: auto;" class="dropdown-menu"
+						role="menu" aria-labelledby="menu1">
+						<ul class="ul" style="padding: 10px 20px 0px 24px;">
+							<li>
+								<div data-toggle="tooltip" data-placement="auto"
+									title="White" data-ng-click="changeColor('#fff',$event, $index,i.id)"
+									style="background-color: transparent;" class="test1">
+								</div>
+								<div data-toggle="tooltip" data-placement="auto"
+									title="Red" data-ng-click="changeColor('#FF8A80',$event,$index,i.id)"
+									style="background-color: #FF8A80;" class="test1">
+								</div>
+								<div data-toggle="tooltip" data-placement="auto"
+									title="Gray" data-ng-click="changeColor('#CFD8DC',$event,$index,i.id)"
+									style="background-color: #CFD8DC;" class="test1">
+								</div>
+							</li>
+							<hr class="hrRem">
+							<li>
+							    <div data-toggle="tooltip" data-placement="auto"
+									title="Orange" data-ng-click="changeColor('#FFD180',$event,$index,i.id)"
+								    style="background-color: #FFD180;" class="test1">
+								</div>
+								<div data-toggle="tooltip" data-placement="auto"
+									title="Blue" data-ng-click="changeColor('#80D8FF',$event,$index,i.id)"
+									style="background-color: #80D8FF;" class="test1">
+								</div>
+								<div data-toggle="tooltip" data-placement="auto"
+									title="Green" data-ng-click="changeColor('#CCFF90',$event, $index, i.id)"
+									style="background-color: #CCFF90;" class="test1">
+								</div>
+							</li>
+						</ul>
+
+					</div>
+				</span>
+				
+			
+			<span class="fbpopup" data-toggle="tooltip" data-placement="auto" title="share on facebook">
+				<i class="fa fa-facebook-square" aria-hidden="true"></i>
+			</span>
+			<div data-toggle="tooltip" data-placement="auto" title="more">
+			<button type="button" class="ellipsisDrop dropdown-toggle" data-toggle="dropdown">			
+				<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+			</button>
+				<div class="dropdown-menu" style="margin-left: 75%;min-width: 150px; top: 95%; padding: 5px; line-height: 2.5">
+											
+					<div data-ng-click="$ctrl.del()">
+						<span>Delete note</span>
+					</div>
+					<div data-ng-click="copy($ctrl)">
+						<span>Make a copy</span>
+			   		</div>
+				</div>
 			</div>
-		<button class="btn btn-primary" type="button"
-			data-ng-click="$ctrl.ok()">Done</button>
+			
+		</div>
+			<button type="button" class="btn btn-default donepopup"	value="Done" data-ng-click="$ctrl.ok()">Done</button>
+		
 		<!-- <button class="btn btn-warning" type="button" data-ng-discard
 			data-ng-click="$ctrl.cancel()">Cancel</button> -->
 	</div>
