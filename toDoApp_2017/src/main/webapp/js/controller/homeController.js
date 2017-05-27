@@ -1,12 +1,15 @@
 myApp.controller('homeController', function($scope,$uibModal, $state, taskService,$timeout, toaster){
 	$scope.result = []; 
+	var cont = this;
+	
+	console.log($scope.colorCard);
 	$scope.changeColor=function(color, e, index, id){
 		var obj = null;
 		for(var i=0; i< $scope.result.length;i++){
 			if($scope.result[i].id==id)
-				{
-				obj=$scope.result[i];
-				}
+			{
+			obj=$scope.result[i];
+			}
 		}
 		obj.cardColor=color;
 		taskService.updateToDo(id, obj);
@@ -134,7 +137,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 		$state.reload();
 	};
 	 
-	var cont = this;
+	
 
 	$scope.load_modal_sms = function (data, index) {
 		console.log(data);
@@ -143,7 +146,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	         ariaLabelledBy: 'modal-title-bottom',
 	         ariaDescribedBy: 'modal-body-bottom',
 	         size: 'sm',
-	         controller:function($uibModalInstance){
+	         controller:function($uibModalInstance,$scope){
 	        	 this.title=data.title;
 	        	 this.id = data.id;
 	        	 this.reminder=data.reminder;
@@ -152,10 +155,18 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	        	 var $ctrl = this;
 	        	 this.description = data.description;
 	      	     
-	        	 this.del = function(){
-	        		 $uibModalInstance.close({id:$ctrl.id,index:$ctrl.index});
+	        	 this.del = function(id, index){
+	        		 
+	        		 cont.deleteTask(id, index);
+	        		 $uibModalInstance.dismiss("delete");
 	        	 };
-	        	 
+	        	 $scope.changeColor=function(color){
+	        		 $ctrl.cardColor= color;
+	        	 }
+	        	 this.copytodo=function(todo){
+	        		 console.log(todo);
+	        		 $scope.copy(todo);
+	        	 }
 	        	 
 	        	 this.ok = function () {
 	        		 $uibModalInstance.close({title:$ctrl.title,description:$ctrl.description,id:$ctrl.id,reminder:$ctrl.reminder, cardColor:$ctrl.cardColor});
@@ -169,6 +180,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	         controllerAs:"$ctrl"
 	          // scope: data
 	         });
+	       
 	        
 	         modal.result.catch(function(error){
 	        	console.log("error::",error);   	
@@ -216,7 +228,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 		
 		$scope.result[index].update=true; // set only one field
 	};
-	
+	var cont = this;
 	this.updateTask=function(index , id, date){
 		
 		$scope.result[index].update=true;
@@ -248,7 +260,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 			}
 		});
 		}
-	this.doReminder=function(id,index,day){
+		this.doReminder=function(id,index,day){
 		// console.log(id,index,day,time);
 		var obj = $scope.result[index];
 		if(day== "Today"){

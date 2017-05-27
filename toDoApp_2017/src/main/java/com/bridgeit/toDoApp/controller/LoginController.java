@@ -291,20 +291,19 @@ public class LoginController {
 		Gmail gmail = new Gmail();
 		GmailProfile profile = gmail.authUser(authCode, appUrl);
 		
-		System.out.println(profile.getEmail()+" "+profile.getFamily_name()+" "+profile.getGiven_name()+" "+profile.getId());
 		
-		User user = userservice.getEntityByEmailId( profile.getEmail() );
+		User user = userservice.getEntityByEmailId( profile.getEmails().get(0).getValue() );
 		if(user==null){
 			
 			user = new User();
+			user.setFirstName(profile.getName().getGivenName());
+			user.setLastName(profile.getName().getFamilyName());
+			user.setPicture(profile.getImage().getUrl());
+			user.setEmail(profile.getEmails().get(0).getValue());
 			
-			user.setEmail(profile.getEmail());
-			user.setFirstName(profile.getGiven_name());
-			user.setLastName(profile.getFamily_name());
-			user.setPicture(profile.getPicture());
-			user.setPassword("123");
 			userservice.addEntity(user);
-		}String accessToken = UUID.randomUUID().toString().replaceAll("-", "");
+		}
+		String accessToken = UUID.randomUUID().toString().replaceAll("-", "");
 		String refreshToken = UUID.randomUUID().toString().replaceAll("-", "");
 
 		HttpSession session = pRequest.getSession();

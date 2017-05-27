@@ -81,82 +81,6 @@
 		</div>
 	</nav>
 	
-	
-	<!-- <nav class="navbar navbar-inverse" style="background-color: #FFBB00; width: 100%; z-index: 999; position: fixed; border: none;">
-		  <div class="container-fluid">
-		    <div class="navbar-header" style="margin-top: 5px;">
-				<span data-toggle="tooltip" data-placement="bottom" title="menu"
-					class="sidebutton notification-icon"
-					style="font-size: 20px; margin-right:20px; cursor: pointer;"
-					onclick="openNav()">&#9776;</span>
-			
-				<span class="navbar-brand" data-ui-sref="#"
-				style="color: black; display: inline-block; float: none;"><b>To Do Manager</b>
-				</span>
-				
-				<div class="form-group searchdiv ">
-					<div class="icon-addon addon-md">
-						<input type="text" placeholder="Search" class="form-control search"
-					id="search" data-ng-model="searchtext"> <label 
-					class="glyphicon glyphicon-search" title="Search"></label>
-					</div>
-					<div>
-					<button data-toggle="tooltip" data-placement="bottom"
-					title="Refresh" class="refreshbutton" data-ng-click=hc.refresh()>
-					<i class="glyphicon glyphicon-repeat notification-icon"></i>
-				</button>
-				</div>
-				</div>
-				    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-		    </div>
-		    <div class="nav navbar-nav" style="width: 50%">
-		   	 	<div class="form-group searchdiv ">
-					<div class="icon-addon addon-md">
-						<input type="text" placeholder="Search" class="form-control search"
-					id="search" data-ng-model="searchtext"> <label 
-					class="glyphicon glyphicon-search" title="Search"></label>
-					</div>
-					
-					<button data-toggle="tooltip" data-placement="bottom"
-					title="Refresh" class="refreshbutton" data-ng-click=hc.refresh()>
-					<i class="glyphicon glyphicon-repeat notification-icon"></i>
-				</button>
-				</div>
-		    </div>
-		   
-		    <div id="navbar" class="navbar-collapse collapse">
-		    
-		      <ul class="nav navbar-nav navbar-right">
-		        <li>
-		        	<button data-toggle="tooltip" data-placement="bottom"
-						title="notification" class="notification">
-						<i class="fa fa-bell notification-bell" aria-hidden="true"></i>
-					</button>
-				</li>
-				<li>
-					<span style="padding: 0px 24px 0px 13px;" data-toggle="tooltip"
-						data-placement="bottom" title="{{!isList?'list view':'grid view'}}">
-						<span class="notification-icon"
-							data-ng-click="isList = !isList; hc.changeView()"
-							data-ng-class="{'fa fa-list': !isList, 'fa fa-th-large': isList}"
-							style="background-color: #ffbb00; border: none; padding: 9px 30px 7px 19px;">
-						</span>
-					</span>
-				</li>
-		      </ul>
-		   </div>
-		  </div>
-	</nav> -->
-	
-	
-	
-	
-	
 	<div id="main">
 		<div class="container">
 
@@ -203,7 +127,7 @@
 	
 							<div class="dropdown" id="selectPeriodRangePanel3"
 								style="width: 50%; height: 65px;">
-								<label style="padding: 13px 10px 0px 10px;">Reminder:{{todo.reminder}}</label>
+								<label style="padding: 13px 10px 0px 10px;">Reminder:</label>
 								<a class="dropdown-toggle" id="dropdown" role="button"
 									data-toggle="dropdown">
 									<div class="input-group">
@@ -221,12 +145,47 @@
 										data-datetimepicker-config="{ dropdownSelector: '#dropdown' }"></datetimepicker>
 								</ul>
 							</div>
-	
+							<div style="margin-left: 30%; margin-top: -22px; position: absolute;">
+								<span class="dropup" data-toggle="tooltip" data-placement="auto" title="change color">
+									<button style="border: none; background-color: transparent;"
+										class="dropdown-toggle" type="button" data-toggle="dropdown">
+										<img style="width: 24px;" src="https://maxcdn.icons8.com/Android_L/PNG/24/Editing/paint_palette-24.png" >
+									</button>
+									<div id="test" style="width: auto;" class="dropdown-menu" role="menu" aria-labelledby="menu1">
+										<ul class="ul" style="padding: 10px 20px 0px 24px;">
+											<li>
+												<div data-toggle="tooltip" data-placement="auto" title="White"
+													style="background-color: transparent;" class="test1" data-ng-click="todo.cardColor='#FFF'">
+												</div>
+												<div data-toggle="tooltip" data-placement="auto" title="Red" 
+													style="background-color: #FF8A80;" class="test1" data-ng-click="todo.cardColor='#FF8A80'">
+												</div>
+												<div data-toggle="tooltip" data-placement="auto"title="Gray" 
+													style="background-color: #CFD8DC;" class="test1" data-ng-click="todo.cardColor='#CFD8DC'">
+												</div>
+											</li>
+											<hr class="hrRem">
+											<li>
+												<div data-toggle="tooltip" data-placement="auto"title="Orange"
+													style="background-color: #FFD180;" class="test1" data-ng-click="todo.cardColor='#FFD180'">
+												</div>
+												<div data-toggle="tooltip" data-placement="auto" title="Blue" 
+													style="background-color: #80D8FF;" class="test1" data-ng-click="todo.cardColor='#80D8FF'">
+												</div>
+												<div data-toggle="tooltip" data-placement="auto" title="Green"
+													style="background-color: #CCFF90;" class="test1" data-ng-click="todo.cardColor='#CCFF90'">
+												</div>
+											</li>
+										</ul>
+
+									</div>
+								</span>
+							</div>
 	
 							<div id="selectPeriodRangePanel2"
-								style="margin-left: 88%;">
+								style="margin-left: 85%;">
 								<button type="button" class="btn btn-default"
-									style="border: none; margin-top: -35px;" type="button"
+									style="border: none; margin-top: -43px;" type="button"
 									value="Done" data-ng-click="hc.save()">Done</button>
 							</div>
 						</div>
