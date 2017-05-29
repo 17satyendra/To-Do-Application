@@ -44,7 +44,6 @@ ends */
 	color: black;
 }
 .user {
-  display: inline-block;
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -62,8 +61,6 @@ ends */
   background-size: cover;
   margin: 20px 0px 0px 20px;
 }
-
-
 
 .del {
     display: none;
@@ -92,14 +89,13 @@ hr{
 
 .form-control {
 	border: none;
-	height: 39px;
+	height: 47px;
 	
 }
 
 .icon-addon {
-	position: relative;
+	position: absolute;
 	color: #555;
-	display: block;
 }
 
 .icon-addon.addon-md .glyphicon, .icon-addon .glyphicon, .icon-addon.addon-md .fa,
@@ -107,10 +103,9 @@ hr{
 	position: absolute;
 	left: 10px;
 	font-size: 14px;
-	margin-left: -2.5px;
 	text-align: center;
 	padding: 10px 0;
-	top: 1px
+	top: 6px
 }
 
 .icon-addon.addon-sm .form-control {
@@ -152,19 +147,16 @@ input, textarea {
 }
 
 .refreshbutton {
-	width: 40px;
 	background-color: #FFBB00;
 	border: none;
-	margin-right: 20px;
-    margin-top: 8px;
 }
 
 .searchdiv {
-	width: 50%;
-	margin-left: 20%;
 	margin-top: 5px;
+	margin-left: 5%;
 	border: none;
 	background-color: #f5B400;
+    display: -webkit-inline-box;
 }
 
 . /*Ends*/
@@ -222,19 +214,14 @@ body {
 	margin-top: 20px;
 }
 
-.icon {
-	text-align: right;
-}
-
 .listDisplay {
 	float: right;
-	display: inline;
+	display: -webkit-box;
 	padding-bottom: 0px;
 	padding-top: 0px;
-	margin-top: -10px;
 	margin-bottom: 0px;
 	border: #FFBB00;
-	margin-right: 17px;
+	margin-right: 30px;
 }
 
 .button {
