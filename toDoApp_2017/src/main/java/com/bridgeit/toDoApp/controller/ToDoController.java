@@ -77,7 +77,7 @@ public class ToDoController {
 			return er;
 		}
 	}
-
+	
 	@RequestMapping(value = "/todoList")
 	public @ResponseBody Response getToDoList(HttpServletRequest request) {
 		System.out.println("getToDOList");

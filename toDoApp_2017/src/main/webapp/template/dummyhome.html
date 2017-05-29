@@ -1,99 +1,85 @@
 <div data-ng-controller="homeController as hc">
 	<nav class="navbar navbar-inverse, nav" role="navigation"
 		style="background-color: #FFBB00; width: 100%; z-index: 999; position: fixed;">
-		<div class=" navbar-header navbar-text" style="display:inline-flex; cursor: pointer">
-			<span data-toggle="tooltip" data-placement="bottom" title="menu" class="sidebutton notification-
-			icon" style="font-size: 20px; cursor: pointer;" onclick="openNav()">&#9776;
-			</span>
-			<span style="font-size: 19px; display: -webkit-inline-box; color: black; font-weight: bolder;padding-left: 35px;">
-					To Do Manager
-			</span>
+		<div class="navbar-header">
+			<div style="font-size: 20px; display: inline-block; cursor: pointer">
+				<span data-toggle="tooltip" data-placement="bottom" title="menu"
+					class="sidebutton notification-icon"
+					style="font-size: 20px; margin-left: 10px; cursor: pointer;"
+					onclick="openNav()">&#9776;</span>
+			</div>
+			<span class="navbar-brand" data-ui-sref="#"
+				style="color: black; display: inline-block; float: none;"><b>To
+					Do Manager</b></span>
 		</div>
-		<form>
-		<div class="icon-addon addon-md form-group searchdiv">
-			<span>
-				<i class="fa fa-search" aria-hidden="true"></i>
-				
-				<input type="text" placeholder="Search" class="form-control search"id="search" data-ng-model="searchtext"> 
-			</span>
+		<div class="form-group searchdiv">
+			<div class="icon-addon addon-md">
+				<input type="text" placeholder="Search" class="form-control search"
+					id="search" data-ng-model="searchtext"> <label for="email"
+					class="glyphicon glyphicon-search" title="Search"></label>
+			</div>
 		</div>
-		</form>
 		<div style="background-color: #FFBB00"
-			class="well well-sm navbar-text listDisplay">
-			
+			class="well well-sm, listDisplay">
+			<span>
 				<button data-toggle="tooltip" data-placement="bottom"
 					title="Refresh" class="refreshbutton" data-ng-click=hc.refresh()>
 					<i class="glyphicon glyphicon-repeat notification-icon"></i>
 				</button>
-			
-			
 				<button data-toggle="tooltip" data-placement="bottom"
 					title="notification" class="notification">
-					<i class="fa fa-bell notification-bell" aria-hidden="true" style="margin-left: 25px;"></i>
+					<i class="fa fa-bell notification-bell" aria-hidden="true"></i>
 				</button>
-			<span class="btn-group btndenger1">
-				<span data-toggle="tooltip"data-placement="bottom" title="{{!isList?'list view':'grid view'}}">
-					<span class="notification-icon" data-ng-click="isList = !isList; hc.changeView()"
-						data-ng-class="{'fa fa-list': !isList, 'fa fa-th-large': isList}"
-						style="background-color: #ffbb00; border: none; margin-left: 25px;">
-					</span>
-				</span>
 			</span>
-			<span class="top-nav">
-				<a href="" style="background-color: transparent;margin-left: 25px;" class="dropdown-toggle" data-toggle="dropdown">
-					<img id="menu" class="user"src="{{userData.picture}}"  
-						alt="{{userData.firstName.charAt(0).toUpperCase()}}">
-				</a>
-				<div style="width: 325px; height: 180px; margin-right: -18px;"class="dropdown-menu ">
-					<div>
-						<span>
-							<img class="user1"  src="{{userData.picture}}"  alt="{{userData.firstName.charAt(0).toUpperCase()}}">
-						</span>
-						<span style="position: absolute; padding: 14px 0px 0px 32px; font-size: 1.00em; 
-							font-weight: bold;">{{userData.firstName}}{{userData.lastName}}
-						</span>
-						<span style="position: absolute; margin: 34px; font-size: 0.85em;">
-							{{userData.email}}
-						</span>
-						<span>
-							<button class="btn btn-default btn-sm accBtn" type="button"
-									value="My Account" data-ui-sref="profile">My Account
-							</button>
-						</span>
-					</div>
-					<hr>
-					<div style="background: #E8E8E8;">
-						<div>
-							<button class="btn btn-default btn-sm"
-								style="margin: -9px 20px 0px 0px; float: right; border: 1px solid #c6c6c6;"
-								type="button" value="signout" data-ng-click="hc.signout()">
-								Sign out
-							</button>
-						</div>
-						<div>
-							<button class="btn btn-default btn-sm"style="margin: -9px 20px 0px 19px; float: left; border: 1px solid #c6c6c6;"
-									type="button" value="Add Account" data-ng-click="hc.signout()">
-									Add account
-							</button>
-						</div>
-					</div>
+			<div class="btn-group btndenger1">
+				<span style="padding: 0px 24px 0px 13px;" data-toggle="tooltip"
+					data-placement="bottom" title="{{!isList?'list view':'grid view'}}">
+					<span class="notification-icon"
+					data-ng-click="isList = !isList; hc.changeView()"
+					data-ng-class="{'fa fa-list': !isList, 'fa fa-th-large': isList}"
+					style="background-color: #ffbb00; border: none; padding: 9px 30px 7px 19px;"></span>
 				</span>
-			</div>
-				
-			<div class="flyout hidden">
-				<div class="hoverfont1">
-					ToDo Account
+				<div class="nav navbar-right top-nav ">
+					<a href="" style="background-color: transparent;" class="dropdown-toggle" data-toggle="dropdown">
+					<img id="menu" class="user"
+						src="{{userData.picture}}"  alt="{{userData.firstName.charAt(0).toUpperCase()}}"></a>
+					<div style="width: 325px; height: 180px; margin-right: -18px;"
+						class="dropdown-menu">
+						<div>
+							<span><img class="user1"  src="{{userData.picture}}"  alt="{{userData.firstName.charAt(0).toUpperCase()}}"></span>
+
+							<span style="position: absolute; padding: 14px 0px 0px 32px; font-size: 1.00em; font-weight: bold;">{{userData.firstName}}{{userData.lastName}}</span>
+							 <span style="position: absolute; margin: 34px; font-size: 0.85em;">{{userData.email}}</span>
+								<button class="btn btn-default btn-sm accBtn" type="button"
+									value="My Account" data-ui-sref="profile">My Account</button>
+							</span>
+						</div>
+						<hr>
+						<div style="background: #E8E8E8;">
+							<div>
+								<button class="btn btn-default btn-sm"
+									style="margin: -9px 20px 0px 0px; float: right; border: 1px solid #c6c6c6;"
+									type="button" value="signout" data-ng-click="hc.signout()">Sign
+									out</button>
+							</div>
+							<div>
+								<button class="btn btn-default btn-sm"
+									style="margin: -9px 20px 0px 19px; float: left; border: 1px solid #c6c6c6;"
+									type="button" value="Add Account" data-ng-click="hc.signout()">Add
+									account</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="hoverfont">
-					{{userData.firstName}} {{userData.lastName}}
-				</div>
-				<div class="hoverfont">
-					{{userData.email}}
+				<div class="flyout hidden">
+					<div class="hoverfont1">ToDo Account</div>
+					<div class="hoverfont">{{userData.firstName}}
+						{{userData.lastName}}</div>
+					<div class="hoverfont">{{userData.email}}</div>
 				</div>
 			</div>
 		</div>
 	</nav>
-	
 	<div id="main">
 		<div class="container">
 
@@ -140,7 +126,7 @@
 	
 							<div class="dropdown" id="selectPeriodRangePanel3"
 								style="width: 50%; height: 65px;">
-								<label style="padding: 13px 10px 0px 10px;">Reminder:</label>
+								<label style="padding: 13px 10px 0px 10px;">Reminder:{{todo.reminder}}</label>
 								<a class="dropdown-toggle" id="dropdown" role="button"
 									data-toggle="dropdown">
 									<div class="input-group">
@@ -158,47 +144,12 @@
 										data-datetimepicker-config="{ dropdownSelector: '#dropdown' }"></datetimepicker>
 								</ul>
 							</div>
-							<div style="margin-left: 30%; margin-top: -22px; position: absolute;">
-								<span class="dropup" data-toggle="tooltip" data-placement="auto" title="change color">
-									<button style="border: none; background-color: transparent;"
-										class="dropdown-toggle" type="button" data-toggle="dropdown">
-										<img style="width: 24px;" src="https://maxcdn.icons8.com/Android_L/PNG/24/Editing/paint_palette-24.png" >
-									</button>
-									<div id="test" style="width: auto;" class="dropdown-menu" role="menu" aria-labelledby="menu1">
-										<ul class="ul" style="padding: 10px 20px 0px 24px;">
-											<li>
-												<div data-toggle="tooltip" data-placement="auto" title="White"
-													style="background-color: transparent;" class="test1" data-ng-click="todo.cardColor='#FFF'">
-												</div>
-												<div data-toggle="tooltip" data-placement="auto" title="Red" 
-													style="background-color: #FF8A80;" class="test1" data-ng-click="todo.cardColor='#FF8A80'">
-												</div>
-												<div data-toggle="tooltip" data-placement="auto"title="Gray" 
-													style="background-color: #CFD8DC;" class="test1" data-ng-click="todo.cardColor='#CFD8DC'">
-												</div>
-											</li>
-											<hr class="hrRem">
-											<li>
-												<div data-toggle="tooltip" data-placement="auto"title="Orange"
-													style="background-color: #FFD180;" class="test1" data-ng-click="todo.cardColor='#FFD180'">
-												</div>
-												<div data-toggle="tooltip" data-placement="auto" title="Blue" 
-													style="background-color: #80D8FF;" class="test1" data-ng-click="todo.cardColor='#80D8FF'">
-												</div>
-												<div data-toggle="tooltip" data-placement="auto" title="Green"
-													style="background-color: #CCFF90;" class="test1" data-ng-click="todo.cardColor='#CCFF90'">
-												</div>
-											</li>
-										</ul>
-
-									</div>
-								</span>
-							</div>
+	
 	
 							<div id="selectPeriodRangePanel2"
-								style="margin-left: 85%;">
+								style="margin-left: 88%;">
 								<button type="button" class="btn btn-default"
-									style="border: none; margin-top: -43px;" type="button"
+									style="border: none; margin-top: -35px;" type="button"
 									value="Done" data-ng-click="hc.save()">Done</button>
 							</div>
 						</div>
@@ -208,9 +159,9 @@
 						<div class="item"
 							data-ng-class="{'col-xs-12':!isList, 'col-md-6':!isList, 'col-sm-6':!isList,'col-lg-4':!isList}"
 							data-ng-repeat="i in result | orderBy:'reminder' |filter :searchtext track by $index "
-							data-ng-mouseover="hoverIn()" data-ng-mouseleave="hoverOut()" >
+							data-ng-mouseover="hoverIn()" data-ng-mouseleave="hoverOut()">
 							<div class="card card-1 thumbnail " 
-								style="width: 100%; background-color: {{i.cardColor}}">
+								style="width: 100%;">
 								<div
 									style="word-break: break-word; font-weight: 600; font-family: Roboto Slab, Times New Roman, serif; margin: 0px 10px 16px 9px;"
 									data-ng-hide="i.update">{{i.title}}</div>
@@ -240,8 +191,8 @@
 
 										</button>
 										<div style="width: 273px; height: auto;" class="dropdown-menu">
-											<div style="padding: 13px 0px 10px 10px;">Reminder:</div>
-											
+											<div style="padding: 13px 10px 0px 10px;">Reminder:</div>
+											<hr>
 											<div style="padding: 0px 10px 0px 10px;"
 												data-ng-click="hc.doReminder(i.id,$index,'Today')">
 												<span style="left: 0px;">Later Today</span> <span
@@ -275,50 +226,53 @@
 											<ul class="ul" style="padding: 10px 20px 0px 24px;">
 												<li>
 													<div data-toggle="tooltip" data-placement="auto"
-														title="White" data-ng-click="changeColor('#fff',$event, $index,i.id)"
+														title="White" data-ng-click="changeColor('#fff',$event)"
 														style="background-color: transparent;" class="test1"></div>
 												<div data-toggle="tooltip" data-placement="auto"
-														title="Red" data-ng-click="changeColor('#FF8A80',$event,$index,i.id)"
+														title="Red" data-ng-click="changeColor('#FF8A80',$event)"
 														style="background-color: #FF8A80;" class="test1"></div>
 													<div data-toggle="tooltip" data-placement="auto"
-														title="Gray" data-ng-click="changeColor('#CFD8DC',$event,$index,i.id)"
+														title="Gray" data-ng-click="changeColor('#CFD8DC',$event)"
 														style="background-color: #CFD8DC;" class="test1"></div>
 												</li>
 												<hr class="hrRem">
 												<li>
 													<div data-toggle="tooltip" data-placement="auto"
 														title="Orange"
-														data-ng-click="changeColor('#FFD180',$event,$index,i.id)"
+														data-ng-click="changeColor('#FFD180',$event)"
 														style="background-color: #FFD180;" class="test1"></div>
 													<div data-toggle="tooltip" data-placement="auto"
-														title="Blue" data-ng-click="changeColor('#80D8FF',$event,$index,i.id)"
+														title="Blue" data-ng-click="changeColor('#80D8FF',$event)"
 														style="background-color: #80D8FF;" class="test1"></div>
 													<div data-toggle="tooltip" data-placement="auto"
 														title="Green"
-														data-ng-click="changeColor('#CCFF90',$event, $index, i.id)"
+														data-ng-click="changeColor('#CCFF90',$event)"
 														style="background-color: #CCFF90;" class="test1"></div>
 												</li>
 											</ul>
 
 										</div>
 									</span>
-									<span data-toggle="tooltip" data-placement="auto" title="share" data-ng-click="facebookshare(i)"
+									<span data-toggle="tooltip" data-placement="auto" title="share"
 									data-ng-show="hoverEdit" style="position: absolute; right: 40px;"data-ng-style="{bottom:(!i.reminder?'5px':'28px')}">
 										<i class="fa fa-facebook" aria-hidden="true"></i>
 									</span>
-									<span  data-ng-show="hoverEdit" data-toggle="tooltip" data-placement="auto" title="more"
-										style="position: absolute; right: 0px;"data-ng-style="{bottom:(!i.reminder?'5px':'28px')}">
+									<span  data-ng-show="hoverEdit" 
+										style="position: absolute; right: 0px;"
+										data-ng-style="{bottom:(!i.reminder?'5px':'28px')}">
 										<button id="d" data-toggle="dropdown"
 											style="border: none; background-color: transparent; float: right; outline: none; padding: 0px 12px;"
 											type="button" class="btn btn-default btn dropdown-toggle">
 											<i class="glyphicon glyphicon-option-vertical" aria-hidden="true"></i>
 										</button>
-										<div class="dropdown-menu" style=" min-width: 150px; top: 87%; padding: 5px; line-height: 2.5">
+										<div class="dropdown-menu" style="margin-left: 10px; min-width: 150px; top: 87%; padding: 5px; line-height: 2.5">
 											
 											<div data-ng-click="hc.deleteTask(i.id, $index)">
 												<span>Delete note</span>
 											</div>
-											
+											<div data-ng-click="">
+												<span>Add label</span>
+											</div>
 											<div data-ng-click="copy(i)">
 												<span>Make a copy</span>
 											</div>

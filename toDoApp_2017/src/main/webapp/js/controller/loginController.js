@@ -2,6 +2,16 @@
 
 myApp.controller("loginController",function ($scope,  $state, loginService,profileService, usSpinnerService ) {	
 	
+	$scope.isLogin=function(){
+		console.log("true");
+		var httpObje = loginService.checkLogin();
+		httpObje.then(function (data) {
+			if(data.data.status==1){
+				$state.go('home');
+			}
+		});
+		
+	}
 	$scope.startSpin = function() {
 	      if (!$scope.spinneractive) {
 	        usSpinnerService.spin('spinner-1');
@@ -9,10 +19,6 @@ myApp.controller("loginController",function ($scope,  $state, loginService,profi
 	      }
 	    };
 	
-	this.loginWithFaceBook=function (){
-		console.log("Inside Facbook method")
-		var httpObj = loginSer
-	}
 	
 	this.login = function () {
 		var user = {};
@@ -51,6 +57,13 @@ myApp.service("loginService",function ($http) {
 			url:"http://localhost:8080/toDoApp_2017/login",
 			method:"post",
 			data:user
+		});
+	}
+	
+	this.checkLogin= function(){
+		return $http({
+			url:"http://localhost:8080/toDoApp_2017/isLogin",
+			method:"post",
 		});
 	}
 });

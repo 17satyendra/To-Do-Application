@@ -37,6 +37,7 @@ public class ToDoTask  implements Serializable{
 	private String description;
 	private Date date;
 	private Date reminder;
+	private String cardColor;
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="user_Id")
 	private User user;
@@ -90,5 +91,13 @@ public class ToDoTask  implements Serializable{
 
 	public void setReminder(Date reminder) {
 		this.reminder = reminder;
+	}
+
+	public String getCardColor() {
+		return cardColor;
+	}
+	
+	public void setCardColor(String cardColor) {
+		this.cardColor = cardColor;
 	}
 }

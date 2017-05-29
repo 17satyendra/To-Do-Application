@@ -1,5 +1,5 @@
 <div style="width: 100%; margin-top: 60px;" class="container"
-	data-ng-controller="loginController as lc">
+	data-ng-controller="loginController as lc" data-ng-init="isLogin()">
 	<div class="row">
 		<div class="col-sm-6 col-md-4 col-md-offset-4">
 			<div class="title" style="">TO-DO Manager</div>
@@ -16,11 +16,9 @@
 				<br>
 				<div class="col-md-12"
 					style="margin-bottom: 20px; text-align: center; width: 100%;">
-					<!-- <a href="loginwithfacebook" class="btn btn-primary btn-block"  data-ng-click="startSpin()" value="Start spinner">
-                  		<i class="icon-facebook"></i>Login with Facebook
-                	</a> -->
+					
 					<a class="btn btn-primary social-login-btn social-google"
-						href="loginWithGoogle"><i class="fa fa-google-plus"></i></a>
+						href="loginWithGoogle" data-ng-click="startSpin()"><i class="fa fa-google-plus"></i></a>
 						 <a class="btn btn-primary social-login-btn social-facebook"
 						href="loginwithfacebook"  data-ng-click="startSpin()"
 						value="Start spinner"><i class="fa fa-facebook"></i></a>

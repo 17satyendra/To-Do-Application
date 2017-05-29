@@ -10,6 +10,7 @@ public class GmailToken {
 	String token_type;
 	String refresh_token;
 	String id_token;
+	
 	public String getAccess_token() {
 		return access_token;
 	}

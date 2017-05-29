@@ -3,10 +3,12 @@ myApp.controller("profileController",function($scope, profileService){
 		//console.log("profile loading..");
 		var userDetails="";
 		var httpobj=profileService.profile().then(function(data){
-			//console.log(data);
+			
 			var em=data.data.email;
-			//console.log(em);
+			console.log(data);
 			$scope.userDetails=data.data;
+			
+			
 			
 			window.localStorage['user'] = angular.toJson(data);
 			//console.log(data);

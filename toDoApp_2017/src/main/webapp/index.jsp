@@ -17,18 +17,22 @@
 <script src="bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
 <script src="bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
 <script src="bower_components/AngularJS-Toaster/toaster.min.js"></script>
+<script src="https://connect.facebook.net/enUS/all.js"></script>
+ 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
 <link rel="stylesheet" href="bower_components/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="bower_components/AngularJS-Toaster/toaster.min.css">
+<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css">
+
 <link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/displaycard.css">
 <link rel="stylesheet" type="text/css" href="css/loading.css">
 <link rel="stylesheet" type="text/css" href="css/slide.css">
 <link rel="stylesheet" type="text/css" href="css/login.css">
 <link rel="stylesheet" type="text/css" href="css/Registration.css">
-<link rel="stylesheet" type="text/css" href="bower_components/AngularJS-Toaster/toaster.min.css">
-<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
-<link rel="stylesheet" href="bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css">
+
 <style>
 /* @media (min-width: 1200px) {
   .container {

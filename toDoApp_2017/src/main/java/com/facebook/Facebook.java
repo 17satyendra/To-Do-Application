@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Facebook {
 	
+	
 	public String FB_CLIENT_ID = "1639081702785828";
 	public String FB_SECRET_KEY = "3d57926246c4b8381b126719989a3c2f";
 	public String FB_RERDIRECT_URI = "/postfacebooklogin";

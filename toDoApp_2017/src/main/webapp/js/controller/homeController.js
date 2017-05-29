@@ -1,8 +1,55 @@
 myApp.controller('homeController', function($scope,$uibModal, $state, taskService,$timeout, toaster){
+	$scope.result = []; 
+	var cont = this;
 	
-	$scope.changeColor=function(color,e){
+	
+	$scope.facebookshare=function(todo){
+		FB.init({
+			appId : '1639081702785828',
+			status: true,
+			xfbml : true
+		});
+		 FB.ui({
+	           method: 'share_open_graph',
+	           action_type: 'og.shares',
+	           action_properties: JSON.stringify({
+	               object : {
+	                  // your url to share
+	                  'og:title': todo.title,
+	                  'og:description': todo.description,
+	                  /*'og:image': 'http://example.com/link/to/your/image.jpg'*/
+	               }
+	           })
+	           },
+	           // callback
+	           function(response) {
+	           if (response && !response.error_message) {
+	               // then get post content
+	               alert('successfully posted. Status id : '+response.post_id);
+	           } else {
+	               alert('Something went error.');
+	           }
+	       });
+	       
+	};
+	
+	
+	$scope.changeColor=function(color, e, index, id){
+		var obj = null;
+		for(var i=0; i< $scope.result.length;i++){
+			if($scope.result[i].id==id)
+			{
+			obj=$scope.result[i];
+			}
+		}
+		obj.cardColor=color;
+		taskService.updateToDo(id, obj);
+		
 		$(e.target).closest( ".card" ).css( "background-color", color);
 	};
+	
+	
+	
 	$scope.getNote=function(){
 		$state.reload();
 	};
@@ -33,7 +80,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	});
 	
 	$scope.todoDisplay= false;
-	$scope.result = []; // Http call Then server kal ka data
+	// Http call Then server kal ka data
 	
 	$scope.isList = false;
 	// read from cookie
@@ -106,9 +153,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	       
 	   },
 	   stop: function(e, ui) {
-	       
 	       $(".slide-placeholder-animator").remove();
-	       
 	   },
 	});
 
@@ -123,42 +168,39 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 		$state.reload();
 	};
 	 
-	var cont = this;
 	
-	 
-	 $scope.close = function(result) {
-	 	close(result, 500); // close, but give 500ms for bootstrap to animate
-	 };
-	 var  ModalService=this;
-    $scope.show = function() {
-        ModalService.showModal({
-            templateUrl: 'modal.html',
-            controller: "ModalController"
-        }).then(function(modal) {
-            modal.element.modal();
-            modal.close.then(function(result) {
-                $scope.message = "You said " + result;
-            });
-        });
-    };
-    
-	
+
 	$scope.load_modal_sms = function (data, index) {
+		console.log(data);
 	       var modal = $uibModal.open({
 	         templateUrl: "template/popup.html",
 	         ariaLabelledBy: 'modal-title-bottom',
 	         ariaDescribedBy: 'modal-body-bottom',
 	         size: 'sm',
-	         controller:function($uibModalInstance){
+	         controller:function($uibModalInstance,$scope){
 	        	 this.title=data.title;
 	        	 this.id = data.id;
+	        	 this.reminder=data.reminder;
+	        	 this.cardColor=data.cardColor;
+	        	 this.index=index;
 	        	 var $ctrl = this;
 	        	 this.description = data.description;
-	      	     this.cancel = function () {
-	      	    	 $uibModalInstanceProvider.dismiss('cancel');
-	          	 };
+	      	     
+	        	 this.del = function(id, index){
+	        		 
+	        		 cont.deleteTask(id, index);
+	        		 $uibModalInstance.dismiss("delete");
+	        	 };
+	        	 $scope.changeColor=function(color){
+	        		 $ctrl.cardColor= color;
+	        	 }
+	        	 this.copytodo=function(todo){
+	        		 console.log(todo);
+	        		 $scope.copy(todo);
+	        	 }
+	        	 
 	        	 this.ok = function () {
-	        		 $uibModalInstance.close({title:$ctrl.title,description:$ctrl.description,id:$ctrl.id});
+	        		 $uibModalInstance.close({title:$ctrl.title,description:$ctrl.description,id:$ctrl.id,reminder:$ctrl.reminder, cardColor:$ctrl.cardColor});
 	        	 };
 
 	        	 this.cancel = function () {
@@ -169,14 +211,20 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	         controllerAs:"$ctrl"
 	          // scope: data
 	         });
+	       
 	        
 	         modal.result.catch(function(error){
 	        	console.log("error::",error);   	
 	         }).then(function(data){
-	        	$state.reload();
+	        	 console.log(data);
+//	        	$state.reload();
 	        	if(data) {
+	        		
+	        		console.log(data);
 	        		$scope.result.splice(index, 1, data);
-	        		cont.updateTask(index, data.id);
+	        		console.log(data)
+	        		
+	        		cont.updateTask(index, data.id,data.reminder);
 	        	}
 	        })
 	        
@@ -193,7 +241,6 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	 };
 	
 	this.deleteTask=function(id, index){
-		
 		var httpObj=taskService.deleteTodo(id).then(function(data){
 			if(data.data.status==1){
 				if(index>-1){
@@ -212,7 +259,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 		
 		$scope.result[index].update=true; // set only one field
 	};
-	
+	var cont = this;
 	this.updateTask=function(index , id, date){
 		
 		$scope.result[index].update=true;
@@ -244,7 +291,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 			}
 		});
 		}
-	this.doReminder=function(id,index,day){
+		this.doReminder=function(id,index,day){
 		// console.log(id,index,day,time);
 		var obj = $scope.result[index];
 		if(day== "Today"){
@@ -295,11 +342,17 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 		}
 	}).catch(function(){});
 	
-	$scope.copy=function(index){
-		console.log(index);
-		var copyObj = $scope.result[index];
-		console.log(copyObj);
-		//$scope.result.push()
+	$scope.copy=function(todo){
+		console.log(todo);
+		todo.id=null;
+		
+		taskService.createTask(todo).then(function(data){
+			if(data.data.status==1){
+				$scope.result.push( data.data.doTask );
+				
+				toaster.success('ToDo Copied successfully');
+			}
+		})
 		
 	}
 	
@@ -323,16 +376,6 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 				 $scope.todo.description=null;
 				 
 				 toaster.success('ToDo created successfully');
-					// console.log(todos);
-					// if( todos )
-					// {
-					// for(var i=0; i<todos.length; i++ )
-					// {
-					// $scope.result.push(todos[i]);
-					//								 
-					// console.log(todos[i]);
-					// }
-					// }
 			 }
 			 else{
 				 $state.go("login"); // Nothidden action Remain in same page or error page
@@ -375,6 +418,7 @@ myApp.service('taskService',function($http){
 	this.signoutUser=function(){
 		return $http({url:"http://localhost:8080/toDoApp_2017/signout"});
 	}
+	
 });
 function jqueryFunction(){
 	/*
