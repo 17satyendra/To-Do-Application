@@ -82,15 +82,5 @@
 	<bean id="tokendao" class="com.bridgeit.toDoApp.dao.TokenDaoImpl"></bean>
 	<bean id="toDoService" class="com.bridgeit.toDoApp.service.ToDoServiceImpl" />
 	<bean id="tododao" class="com.bridgeit.toDoApp.dao.ToDoDaoImpl"></bean>
-
-	<!-- <!-- For Heroku data base bean 
-	<bean class="java.net.URI" id="dbUrl">
-		<constructor-arg value="${DATABASE_URL}" />
-	</bean>
-
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="url" value="#{'jdbc:postgresql://'+@dbUrl.getHost()+':'+@dbUrl.getPost()+@dbUrl.getPath()}" />
-		<property name="username" value="#{@dbUrl.getUserInfo().split(':')[0]}" />
-		<property name="username" value="#{@dbUrl.getUserInfo().split(':')[1]}" />
-	</bean> -->
+	
 	</beans>

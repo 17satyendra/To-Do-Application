@@ -400,23 +400,23 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 myApp.service('taskService',function($http){
 	this.createTask = function(todo){ 
 		return $http({
-			url:"http://localhost:8080/toDoApp_2017/createtask",method:"post",data:todo});
+			url:"/createtask",method:"post",data:todo});
 	}
 	
 	this.getAllTask = function(todo){ 
-		return $http({url:"http://localhost:8080/toDoApp_2017/todoList"});
+		return $http({url:"/todoList"});
 	}
 	
 	this.deleteTodo=function(id){
-		return $http({url:"http://localhost:8080/toDoApp_2017/delete/"+id, method:"post"});
+		return $http({url:"/delete/"+id, method:"post"});
 	}
 	
 	this.updateToDo=function(id, todo){
-		return $http({url:"http://localhost:8080/toDoApp_2017/update/"+id, method:"post",data:todo});
+		return $http({url:"/update/"+id, method:"post",data:todo});
 	}
 	
 	this.signoutUser=function(){
-		return $http({url:"http://localhost:8080/toDoApp_2017/signout"});
+		return $http({url:"/signout"});
 	}
 	
 });
