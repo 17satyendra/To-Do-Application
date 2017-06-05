@@ -54,8 +54,7 @@ myApp.controller("loginController",function ($scope,  $state, loginService,profi
 myApp.service("loginService",function ($http) {
 	this.login = function(user){ 
 		return $http({
-			/*url:"http://localhost:8080/toDoApp_2017/login"*/
-			url:"/login",
+			url:"http://localhost:8080/toDoApp_2017/login",
 			method:"post",
 			data:user
 		});
@@ -63,10 +62,8 @@ myApp.service("loginService",function ($http) {
 	
 	this.checkLogin= function(){
 		return $http({
-			
-			url:"/isLogin",
-			/*url:"http://localhost:8080/toDoApp_2017/isLogin",*/
-			method:"post",
+			url:"http://localhost:8080/toDoApp_2017/isLogin",
+			method:"post"
 		});
 	}
 });

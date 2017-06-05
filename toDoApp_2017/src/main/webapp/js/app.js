@@ -1,4 +1,4 @@
-var myApp = angular.module('todoApp', ['ui.router','ui.bootstrap','ngSanitize','ngAnimate', 'ui.bootstrap.datetimepicker','toaster','angularSpinner'])
+var myApp = angular.module('todoApp', ['ui.router','ui.bootstrap','ngSanitize','ngAnimate', 'ui.bootstrap.datetimepicker','toaster','angularSpinner','ngFileUpload'])
 .config(function ($stateProvider, $urlRouterProvider) {
   
   $stateProvider
@@ -8,7 +8,9 @@ var myApp = angular.module('todoApp', ['ui.router','ui.bootstrap','ngSanitize','
   })
   .state("home",{
     url:"/home",
-    templateUrl:"template/home.html"
+    templateUrl:"template/home.html",
+    controller:"homeController",
+    controllerAs:"hc"
   })
   .state("about",{
     url:"/about",

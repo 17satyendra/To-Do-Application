@@ -1,9 +1,59 @@
-myApp.controller('homeController', function($scope,$uibModal, $state, taskService,$timeout, toaster){
-	$scope.result = []; 
+myApp.controller('homeController', function($scope,$uibModal, $state, taskService,$timeout, toaster,Upload){
+	$scope.result = [];
 	var cont = this;
 	
+	$scope.uploadImagePopUp=function(user){
+		var modal = $uibModal.open({
+	         templateUrl: "template/imageupload.html",
+	         ariaLabelledBy: 'modal-title-bottom',
+	         ariaDescribedBy: 'modal-body-bottom',
+	         size: 'sm',
+			 controller:function($uibModalInstance,$scope){
+				var $img=this;
+				
+				
+				this.ok=function(){
+					$uibModalInstance.close($scope.picFile);
+				};
+				this.cancel=function(){
+					$uibModalInstance.dismiss('cancel');
+				};
+			},
+			controllerAs:"$img"
+		});
+		 modal.result.catch(function(error){
+	        	console.log("error::",error);   	
+		 })
+	 	 .then( function(data) {
+	 		console.log(data);
+	 		//console.log();
+	 		
+	 		Upload.upload({
+        	 	url: '/toDoApp_2017/uploadFile',
+        	 	data: {file:data}
+        	 })
+        	 .then(function (response) {
+        		 console.log("picture");
+        		 var d = new Date();
+        		 document.getElementById("menu").src="http://localhost:8080/toDoApp_2017/getImage?t="+d.getTime();
+ 			 });
+        	 
+         });
+
+	}
+	/*$scope.uploadImage=function(user){
+		console.log($scope.picFile);
+		console.log(user);
 	
+		 Upload.upload({
+	            url: '/toDoApp_2017/uploadFile',
+	            data: {"file":$scope.pobjecticFile}
+		 }).then(function (response) {
+			 
+		 });
+	}*/
 	$scope.facebookshare=function(todo){
+		console.log("facebook share")
 		FB.init({
 			appId : '1639081702785828',
 			status: true,
@@ -67,8 +117,8 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	var accessData = window.localStorage['user'];
 	var userjson=JSON.parse(accessData);
 	$scope.userData=userjson.data;
-	// console.log(userjson);
-	// console.log(userjson.data.email);
+	 console.log(userjson);
+	 console.log(userjson.data.email);
 	
 	$("#menu").hover(function(){// selector
 	    $('.flyout').removeClass('hidden');
@@ -184,7 +234,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	        	 this.cardColor=data.cardColor;
 	        	 this.index=index;
 	        	 var $ctrl = this;
-	        	 this.description = data.description;
+	        	 this.descriptio1n = data.description;
 	      	     
 	        	 this.del = function(id, index){
 	        		 
@@ -196,7 +246,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	        	 }
 	        	 this.copytodo=function(todo){
 	        		 console.log(todo);
-	        		 $scope.copy(todo);
+	        		 cont.copy(todo);
 	        	 }
 	        	 
 	        	 this.ok = function () {
@@ -259,7 +309,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 		
 		$scope.result[index].update=true; // set only one field
 	};
-	var cont = this;
+	
 	this.updateTask=function(index , id, date){
 		
 		$scope.result[index].update=true;
@@ -282,6 +332,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 		
 		var object = $scope.result[index];
 		object.reminder=null;
+		console.log(object);
 		var httpobj =taskService.updateToDo(id,object).then(function (data) {
 			
 			if(data.data.status==1){
@@ -317,32 +368,27 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 		}
 		
 	}
-	
+	/*$scope.initTask =function(){*/
 	taskService.getAllTask().then(function(data){
 		 console.log('getAllTask');
 		
 		// console.log(data);
 		if(data.data.status == 1)
-		{
+		{	
+			/*$TIMEOUT(FUNCTION(){
+				
+			},1000);*/
 			$scope.result = data.data.list;
 			console.log($scope.result);
-			// console.log(todos);signoutUser
-			// if( todos )
-			// {
-			// for(var i=0;hidden i<todos.length; i++ )
-			// {
-			// $scope.result.push(todos[i]);
-			//					 
-			// console.log(todos[i]);
-			// }
-			// }
 		}
 		else{
 			$state.go("login");
 		}
-	}).catch(function(){});
+	}).catch(function(err){
+		console.log(err);
+	});
 	
-	$scope.copy=function(todo){
+	  	$scope.copy=function(todo){
 		console.log(todo);
 		todo.id=null;
 		
@@ -400,23 +446,23 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 myApp.service('taskService',function($http){
 	this.createTask = function(todo){ 
 		return $http({
-			url:"/createtask",method:"post",data:todo});
+			url:"http://localhost:8080/toDoApp_2017/createtask",method:"post",data:todo});
 	}
 	
-	this.getAllTask = function(todo){ 
-		return $http({url:"/todoList"});
+	this.getAllTask = function(){ 
+		return $http({url:"http://localhost:8080/toDoApp_2017/todoList"});
 	}
 	
 	this.deleteTodo=function(id){
-		return $http({url:"/delete/"+id, method:"post"});
+		return $http({url:"http://localhost:8080/toDoApp_2017/delete/"+id, method:"post"});
 	}
 	
 	this.updateToDo=function(id, todo){
-		return $http({url:"/update/"+id, method:"post",data:todo});
+		return $http({url:"http://localhost:8080/toDoApp_2017/update/"+id, method:"post",data:todo});
 	}
 	
 	this.signoutUser=function(){
-		return $http({url:"/signout"});
+		return $http({url:"http://localhost:8080/toDoApp_2017/signout"});
 	}
 	
 });
@@ -450,4 +496,31 @@ window.onclick = function(event) {
     }
   }
 }
+/*$(document).ready(function(){
+	$(function() {
+	    while( $('#fitin div').height() > $('#fitin').height() ) {
+	        $('#fitin div').css('font-size', (parseInt($('#fitin div').css('font-size')) - 1) + "px" );
+	    }
+	});
+}*/
+	/* $('.has-clear input[type="text"]').on('input propertychange', function() {
+   	  var $this = $(this);
+   	  var visible = Boolean($this.val());
+   	  $this.siblings('.form-control-clear').toggleClass('hidden', !visible);
+   	}).trigger('propertychange');
+
+   	$('.form-control-clear').click(function() {
+   	  $(this).siblings('input[type="text"]').val('')
+   	    .trigger('propertychange').focus();
+   	});
+   	
+   	$(".searchtab").click(function(e){
+           $(".searchback").removeClass("searchback");
+           $(this).addClass("searchback");
+           e.stopPropagation();
+    });   
+    $(document).click(function(){ 
+        $(".searchback").removeClass("searchback");
+    });*/
+
 

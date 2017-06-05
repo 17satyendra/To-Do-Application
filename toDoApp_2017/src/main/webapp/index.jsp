@@ -11,13 +11,16 @@
 <script src="bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
 <script src="bower_components/jquery/dist/jquery-ui.js" charset="utf-8"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"charset="utf-8"></script>
-<script src="bower_components/angular-animate/angular-animate.min.js"></script>
-<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="bower_components/angular-animate/angular-animate.min.js" charset="utf-8"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.min.js" charset="utf-8"></script>
 <script src="bower_components/angular-spinner/dist/angular-spinner.min.js" charset="utf-8"></script>
 <script src="bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
 <script src="bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
+<script src="bower_components/ng-file-upload/ng-file-upload.min.js" type="text/javascript"></script>
+<script src="bower_components/ng-file-upload-shim/ng-file-upload-shim.min.js"type="text/javascript"></script>
 <script src="bower_components/AngularJS-Toaster/toaster.min.js"></script>
 <script src="https://connect.facebook.net/enUS/all.js"></script>
+
  
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="bower_components/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
@@ -43,7 +46,7 @@
 </head>
 <body class="body" data-ng-app="todoApp" style="background: #E8E8E8;">
 	<ui-view></ui-view>
-	<toaster-container toaster-options="{'time-out': 1500,'position-class': 'toast-bottom-full-width'}"></toaster-container>
+	<toaster-container toaster-options="{'time-out': 1000,'position-class': 'toast-bottom-full-width'}"></toaster-container>
 </body>
 <script src="js/app.js" charset="utf-8"></script>
 <script src="js/controller/loginController.js" charset="utf-8"></script>

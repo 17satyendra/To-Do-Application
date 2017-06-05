@@ -26,17 +26,14 @@ public class ToDoServiceImpl implements ToDoService{
 	@Autowired
 	private ToDoDao tododao;
 	
-	@Override
 	public void addToDoTask(ToDoTask todo) throws HibernateException {
 		tododao.addToDoTask(todo);
 	}
 
-	@Override
 	public List<ToDoTask> getToDoList(int id) throws Exception {
 		return tododao.getToDoListByUserId(id);
 	}
 
-	@Override
 	public void deleteTaskByToDoId(int taskId) throws Exception {
 		tododao.deleteTaskByTODoId(taskId);
 	}

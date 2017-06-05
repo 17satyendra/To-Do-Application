@@ -11,18 +11,15 @@ public class TokenServiceImpl implements TokenService {
 	@Autowired 
 	private TokenDao tokendao;
 	
-	@Override
 	public Token getTokenByRefToken(String refreshToken) {
 		return tokendao.getRefreshToken(refreshToken);
 	}
 
-	@Override
 	public void addToken(Token tokenNew) {
 
 		tokendao.addToken(tokenNew);
 	}
 
-	@Override
 	public Token getAccessTokenByAcc(String accessToken) {
 		
 		return tokendao.getAccessTokenByAccess(accessToken);

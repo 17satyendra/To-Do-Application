@@ -1,5 +1,6 @@
 package com.bridgeit.toDoApp.service;
 
+import java.io.InputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bridgeit.toDoApp.dao.UserDao;
 import com.bridgeit.toDoApp.model.User;
+import com.bridgeit.toDoApp.model.UserPicture;
 
 /**
  * A service layer does nothing but it makes the code more flexible and
@@ -26,35 +28,45 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao dao;
 
-	@Override
+	
 	public void addEntity(User user) throws Exception {
 		dao.addEntity(user);
 
 	}
 
-	@Override
+	
 	public User getEntityById(int id) throws Exception{
 		return dao.getEntityById(id);
 	}
 
-	@Override
+
 	public List<User> getEntityList() throws Exception {
 		return dao.getUserList();
 	}
 
-	@Override
+	
 	public void deleteEntity(int id) throws Exception {
 		dao.deleteEntity(id);
 	}
 
-	@Override
+	
 	public User authUser(String email, String password) {
 		return dao.authUser(email, password);
 	}
 
-	@Override
 	public User getEntityByEmailId(String email) {
 		return dao.getEntityByEmailId(email);
 	}
 
+
+	@Override
+	public void savePicture(UserPicture picture){
+		dao.savePicture(picture);
+		
+	}
+
+	public UserPicture getPicture(int userId)
+	{
+		return dao.getPicture(userId);
+	}
 }

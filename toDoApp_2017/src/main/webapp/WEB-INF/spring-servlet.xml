@@ -30,13 +30,21 @@
 		<property name="suffix" value=".jsp"></property>
 	
 	</bean>
+	
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+		 <!-- setting maximum upload size -->
+		<property name="maxUploadSize" value="50000000" />
+
+	</bean>
 	<!-- Pooled data source. -->
 	<bean id="pooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://sql12.freemysqlhosting.net:3306/sql12177122" />
-		<property name="user" value="sql12177122" />
-		<property name="password" value="4MrbvSb69b" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/ToDoApp" />
+		<property name="user" value="root" />
+		<property name="password" value="root" />
 		<property name="maxPoolSize" value="100" />
 		<property name="minPoolSize" value="3" />
 		<property name="maxStatements" value="4" />
@@ -56,6 +64,9 @@
 				</value>
 				<value>
 					com.bridgeit.toDoApp.model.ToDoTask
+				</value>
+				<value>
+				com.bridgeit.toDoApp.model.UserPicture
 				</value>
 			</list>
 		</property>

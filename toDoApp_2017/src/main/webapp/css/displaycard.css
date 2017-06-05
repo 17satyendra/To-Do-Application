@@ -24,17 +24,38 @@
 		rgba(0, 0, 0, 0.22);
 }
 
+.cardtitle{
+	font-weight: 600; 
+	font-family: Roboto Slab, Times New Roman, serif; 
+	margin: 10px;
+	word-break: break-word;
+}
 p {
-	width: 100%;
+	width: 96%;
 	min-height: 38px;
 	overflow: hidden;
 	position: relative;
-	margin: 0px 16px 16px 6px;
     font-weight: inherit;
     font-family: 'Roboto Slab','Times New Roman',serif;
- 
 }
+/*Search Clear*/
 .tooltip-inner {
     font-size:10pt;
 }
+:-ms-clear {
+  display: none;
+}
 
+.form-control-clear {
+  z-index: 10;
+  pointer-events: auto;
+  cursor: pointer;
+  
+}
+.listviewalign{
+	width: 79%;
+    margin-left: 9%;
+}
+
+
+/*Ends*/

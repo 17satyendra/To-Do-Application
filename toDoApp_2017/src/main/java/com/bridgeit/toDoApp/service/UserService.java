@@ -1,8 +1,10 @@
 package com.bridgeit.toDoApp.service;
 
+import java.io.InputStream;
 import java.util.List;
 
 import com.bridgeit.toDoApp.model.User;
+import com.bridgeit.toDoApp.model.UserPicture;
 
 public interface UserService {
 
@@ -17,5 +19,8 @@ public interface UserService {
 	User authUser(String email, String password);
 
 	User getEntityByEmailId(String email);
+
+	public void savePicture(UserPicture pUserPicture);
+	UserPicture getPicture(int userId);
 
 }

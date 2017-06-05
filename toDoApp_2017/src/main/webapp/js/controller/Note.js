@@ -1,5 +1,48 @@
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
+    $('.has-clear input[type="text"]').on('input propertychange', function() {
+    	  var $this = $(this);
+    	  var visible = Boolean($this.val());
+    	  $this.siblings('.form-control-clear').toggleClass('hidden', !visible);
+    	}).trigger('propertychange');
+
+    	$('.form-control-clear').click(function() {
+    	  $(this).siblings('input[type="text"]').val('')
+    	    .trigger('propertychange').focus();
+    	});
+    	
+    	$(".searchtab").click(function(e){
+            $(".searchback").removeClass("searchback");
+            $(this).addClass("searchback");
+            e.stopPropagation();
+        });   
+        $(document).click(function(){ 
+            $(".searchback").removeClass("searchback");
+        });
+        
+        $("#OpenToDoSecton").on("click", function() {
+        	$('#OpenToDoSecton').hide();
+        	$("#ToggleToDoSection").show();
+        });
+        
+        $(document).on("click", function(e) {
+        	var l = $(e.target).closest('#ToggleToDoSection').length
+        	if( l == 0 )
+        	{
+        		var l2 = $(e.target).closest('#OpenToDoSecton').length
+        		if( l2 == 1)
+        		{
+        			$('#OpenToDoSecton').hide();
+        	    	$("#ToggleToDoSection").show();
+        		}
+        		else
+        		{
+        			$("#ToggleToDoSection").hide();
+        			$('#OpenToDoSecton').show();
+            	}
+            	
+        	}
+        });    
 });
 
 function ClickToEditCtrl($scope) {
@@ -65,41 +108,7 @@ $(document).on("click", function(e) {
 });
 */
 /*for search background color*/
-$(document).ready(function(){
-	$('[data-toggle="tooltip"]').tooltip();
-    $(".searchtab").click(function(e){
-        $(".searchback").removeClass("searchback");
-        $(this).addClass("searchback");
-        e.stopPropagation();
-    });   
-    $(document).click(function(){ 
-        $(".searchback").removeClass("searchback");
-    });
-    
-    $("#OpenToDoSecton").on("click", function() {
-    	$('#OpenToDoSecton').hide();
-    	$("#ToggleToDoSection").show();
-    });
-    
-    $(document).on("click", function(e) {
-    	var l = $(e.target).closest('#ToggleToDoSection').length
-    	if( l == 0 )
-    	{
-    		var l2 = $(e.target).closest('#OpenToDoSecton').length
-    		if( l2 == 1)
-    		{
-    			$('#OpenToDoSecton').hide();
-    	    	$("#ToggleToDoSection").show();
-    		}
-    		else
-    		{
-    			$("#ToggleToDoSection").hide();
-    			$('#OpenToDoSecton').show();
-        	}
-        	
-    	}
-    });    
- });
+
 
 /*ends*/
 $(".slides").sortable({
@@ -137,3 +146,4 @@ $(".slides").sortable({
        
    },
 });
+

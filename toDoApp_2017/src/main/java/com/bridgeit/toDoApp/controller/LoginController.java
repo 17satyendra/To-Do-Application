@@ -160,10 +160,8 @@ public class LoginController {
 		Facebook fb = new Facebook();
 		
 		String lsr = pRequest.getRequestURL().toString();
-		System.out.println("line 142"+lsr);
 		String appUrl = lsr.substring(0, lsr.lastIndexOf("/") );
-		System.out.println(appUrl);
-		
+ 		
 		String unId  = UUID.randomUUID().toString();
 		pRequest.getSession().setAttribute("STATE", unId);
 		

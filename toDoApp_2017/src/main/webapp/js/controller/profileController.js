@@ -18,6 +18,6 @@ myApp.controller("profileController",function($scope, profileService){
 });
 myApp.service('profileService',function($http){
 	this.profile=function(){
-		return $http({url:"/getProfile"});
+		return $http({url:"http://localhost:8080/toDoApp_2017/getProfile"});
 	}
 });

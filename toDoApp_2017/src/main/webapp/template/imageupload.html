@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<div modal="showModal" close="cancel()">
+      <div class="modal-header">
+          <h2>Crop Image and Upload</h2>
+      </div>
+      <div class="modal-body">
+      	  
+			<div ngf-select ng-model="picFile" accept="image/* ">
+				Select an image file:
+			    <input type="file" id="fileInput" />
+			</div>
+          <!-- <button ngf-select ng-model="picFile" accept="image/*"> Select Picture
+           </button> -->
+          
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" ng-click="$img.ok()">Okay</button>
+        <button class="btn" ng-click="$img.cancel()">Cancel</button>
+      </div>
+</div>

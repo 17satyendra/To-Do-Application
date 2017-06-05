@@ -34,14 +34,12 @@ public class ToDoDaoImpl implements ToDoDao {
 	@Autowired
 	SessionFactory sessionFactory;
 
-	@Override
 	public void addToDoTask(ToDoTask todo) throws HibernateException {
 
 		Session session = sessionFactory.getCurrentSession();
 		session.saveOrUpdate(todo);
 	}
 
-	@Override
 	public List<ToDoTask> getToDoListByUserId(int userid) throws Exception {
 		
 		Session session = sessionFactory.openSession();
@@ -61,7 +59,6 @@ public class ToDoDaoImpl implements ToDoDao {
 		return list;
 	}
 
-	@Override
 	public void deleteTaskByTODoId(int taskId) throws Exception {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("delete from ToDoTask where id = :id");

@@ -1,4 +1,20 @@
 
+.changeImage{
+	top:70px;
+	color: #fff;
+    font-size: 9px;
+    font-weight: bold;
+    left: 0;
+    position: absolute;
+    padding: 7px 0;
+    text-align: center;
+    width: 96px;
+    background: rgba(0,0,0,.54);
+}
+.naming{
+	    display: inline-block;
+    	vertical-align: top;
+}
 .modal.in .modal-dialog{
 	margin-top: 15%;
 }
@@ -48,8 +64,17 @@
     background-color: transparent;
     border: none;
 }
-
-@media(max-width:970px){
-	
-	
+/* .modal.in .modal-dialog{
+	margin-left: 14%;
+}
+@media (min-width: 320px){
+.col-sm-6 {
+    width: 33%;
+} */
+/* .modal.in .modal-dialog {
+    margin-top: 15%;
+    margin-left: 14%;
+} */
+.sidebutton{
+	    margin-left: 11px;
 }

@@ -1,8 +1,13 @@
 package com.bridgeit.toDoApp.dao;
 
+import java.io.File;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.SystemPropertyUtils;
 
 import com.bridgeit.toDoApp.model.User;
+import com.bridgeit.toDoApp.model.UserPicture;
 
 /**
  * This is a simple DAO Implementation class. All Hibernate related action goes
@@ -34,13 +40,11 @@ public class UserDaoImpl implements UserDao {
 
 	Session session = null;
 
-	@Override
 	public void addEntity(User user) throws Exception {
 		session = sessionFactory.getCurrentSession();
 		session.saveOrUpdate(user);
 	}
 
-	@Override
 	public User getEntityById(int id) throws Exception {
 
 		session = sessionFactory.getCurrentSession();
@@ -50,7 +54,6 @@ public class UserDaoImpl implements UserDao {
 		return user;
 	}
 
-	@Override
 	public List<User> getUserList() throws Exception {
 		session = sessionFactory.getCurrentSession();
 		Criteria ctr = session.createCriteria(User.class);
@@ -61,7 +64,6 @@ public class UserDaoImpl implements UserDao {
 		return list;
 	}
 
-	@Override
 	public void deleteEntity(int id) throws Exception {
 		session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("delete from User where id = :id");
@@ -70,7 +72,6 @@ public class UserDaoImpl implements UserDao {
 		System.out.println(rowCount + " Data Deleted");
 	}
 
-	@Override
 	public User authUser(String email, String password) {
 		session = sessionFactory.getCurrentSession();
 
@@ -80,7 +81,6 @@ public class UserDaoImpl implements UserDao {
 		return user;
 	}
 
-	@Override
 	public User getEntityByEmailId(String email) 
 	{
 		session = sessionFactory.getCurrentSession();
@@ -88,6 +88,19 @@ public class UserDaoImpl implements UserDao {
 		ctr.add(Restrictions.eq("email", email));
 		User user = (User) ctr.uniqueResult();
 		return user;
+	}
+
+	@Override
+	public void savePicture(UserPicture picture) {
+			session = sessionFactory.getCurrentSession();
+	        session.saveOrUpdate(picture);
+	}
+	
+	public UserPicture getPicture(int userId)
+	{	
+		session = sessionFactory.getCurrentSession();
+		UserPicture up = (UserPicture) session.get(UserPicture.class, userId);
+		return up;
 	}
 
 }

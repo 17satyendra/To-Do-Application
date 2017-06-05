@@ -19,7 +19,6 @@ public class TokenDaoImpl implements TokenDao {
 	@Autowired
 	SessionFactory sessionfactory;
 
-	@Override
 	public Token getRefreshToken(String refreshToken) {
 
 		Session session = sessionfactory.getCurrentSession();
@@ -34,7 +33,6 @@ public class TokenDaoImpl implements TokenDao {
 		return null;
 	}
 
-	@Override
 	public void addToken(Token token) {
 
 		Session session = sessionfactory.getCurrentSession();
@@ -46,7 +44,6 @@ public class TokenDaoImpl implements TokenDao {
 		}
 	}
 
-	@Override
 	public Token getAccessTokenByAccess(String accessToken) {
 
 		Session session = sessionfactory.getCurrentSession();

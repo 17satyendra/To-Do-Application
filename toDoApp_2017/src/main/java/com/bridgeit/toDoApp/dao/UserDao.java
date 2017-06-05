@@ -1,8 +1,10 @@
 package com.bridgeit.toDoApp.dao;
 
+import java.io.InputStream;
 import java.util.List;
 
 import com.bridgeit.toDoApp.model.User;
+import com.bridgeit.toDoApp.model.UserPicture;
 
 public interface UserDao {
 
@@ -17,5 +19,8 @@ public interface UserDao {
 	User authUser(String email, String password);
 
 	User getEntityByEmailId(String email);
+	
+	void savePicture(UserPicture picture);
+	UserPicture getPicture(int userId);
 
 }

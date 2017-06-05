@@ -6,20 +6,23 @@ img[alt].user {
   
   border-radius: 50%;
   background:#004d40;
- font-size: 23px;
+  font-size: 23px;
   font-weight:bolder;
   color: #fff;
   text-align: center;
+  margin-top: -3px;
+  overflow: hidden;
      
 }
 img[alt].user1 {
   
   border-radius: 50%;
   background: #004d40;
-  font-size: 55px;
+  font-size: 66px;
   font-weight:bolder;
   color: #fff;
   text-align: center;
+  overflow: hidden;
       
 }
 ends */
@@ -44,8 +47,8 @@ ends */
 	color: black;
 }
 .user {
-  width: 35px;
-  height: 35px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background-repeat: no-repeat;
   background-position: center center;
@@ -53,13 +56,12 @@ ends */
 }
 .user1 {
   display: inline-block;
-  width: 80px;
-  height: 80px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  margin: 20px 0px 0px 20px;
 }
 
 .del {
@@ -101,10 +103,10 @@ hr{
 .icon-addon.addon-md .glyphicon, .icon-addon .glyphicon, .icon-addon.addon-md .fa,
 	.icon-addon .fa {
 	position: absolute;
-	left: 10px;
+	left: 5px;
 	font-size: 14px;
 	text-align: center;
-	padding: 10px 0;
+	padding: 10px 8px;
 	top: 6px
 }
 
@@ -123,7 +125,7 @@ hr{
 }
 item
 .icon-addon.addon-md .form-control, .icon-addon .form-control {
-	padding-left: 30px;
+	padding-left: 40px;
 	float: left;;
 	font-weight: normal;
 }
@@ -162,11 +164,6 @@ input, textarea {
 . /*Ends*/
 body {
 	overflow-y: scroll;
-}
-
-.item {
-	padding-right: 15px;
-	padding-left: 15px;
 }
 
 .container {
@@ -220,8 +217,9 @@ body {
 	padding-bottom: 0px;
 	padding-top: 0px;
 	margin-bottom: 0px;
-	border: #FFBB00;
-	margin-right: 30px;
+	border: transparent;
+	background-color:transparent
+	margin-right: 8px;
 }
 
 .button {
@@ -238,6 +236,10 @@ body {
 .popclick {
 	position: relative;
 	display: inline-block;
+	font-size: 20px; 
+	width: 100%;
+	margin:10px;
+	word-break: break-word;
 }
 
 .popclick .popuptext {
@@ -328,18 +330,6 @@ hr {
 /*POPUP BOX START*/
 .button:hover {
 	background: #06D85F;
-}
-
-
-p {
-	width: 100%;
-	min-height: 38px;
-	overflow: hidden;
-	position: relative;
-	margin: 0px 16px 16px 6px;
-    font-weight: inherit;
-    font-family: 'Roboto Slab','Times New Roman',serif;
- 
 }
 
 /*LIstAnd Grid View Start*/
@@ -481,7 +471,7 @@ p {
 	border-radius: 2px;
 	height: auto;
 	margin: 1rem;
-	width: 500px;
+	width: 600px;
 	margin: 0 auto;
 }
 
