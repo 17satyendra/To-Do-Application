@@ -46,7 +46,7 @@
 					<img id="menu" class="user"src="http://localhost:8080/toDoApp_2017/getImage"  
 						alt="{{userData.firstName.charAt(0).toUpperCase()}}">
 				</a>
-				<div style="width: 310px; min-height: 190px;margin-left: 75%;margin-top: -8px;"class="dropdown-menu ">
+				<div style="min-width: 328px; margin-top: -8px;position: absolute;left: 72%;"class="dropdown-menu ">
 					<div style="margin: 20px; display: flex;">
 						 <a style="margin-right: 20px;position: relative; color: inherit;"> 
 							<div style="display: inline-block;">
@@ -142,13 +142,13 @@
 								Take a note...
 							</div>
 						</div>
-						<div id="ToggleToDoSection" style="display:none; margin: 20px;padding-top: 10px;">
+						<div id="ToggleToDoSection" style="display:none; margin: 20px;">
 							<div>
 								<input style="width: 100%; border: none; "
 									id="selectPeriodRangePanel" type="text" name="title"
 									placeholder="Title" data-ng-model="todo.title" />
 							</div>
-							<div style="margin-bottom: 20px;">
+							<div>
 								<textarea cols="60" maxlength="300" style="border: none;"
 									id="period_select_range_btn" name="description"
 									data-ng-model="todo.description" placeholder="Take a note..."></textarea>
@@ -219,8 +219,16 @@
 							</div>
 						</div>
 					</div>
+					<div>
+						<div class="beforeNote" ng-if="result.length===0">
+							<div>
+								<i style="font-size: 80px;" class="fa fa-check-square-o" aria-hidden="true">todo</i>
+							</div>
+							<div style="margin: 10px;">Notes you add appear here</div>
+						</div>
 					
-					<div class="slides  ng-class="{list:isList, grid: !isList}" >
+					</div>
+					<div ng-if="result.length!==0" class="slides"  ng-class="{list:isList, grid: !isList}" >
 						<div class="item"
 							data-ng-class="{'listviewalign':isList,'col-xs-12':!isList, 'col-md-6':!isList, 'col-sm-6':!isList,'col-lg-4':!isList}"
 							data-ng-repeat="i in result | orderBy:'reminder' |filter :searchtext track by $index "

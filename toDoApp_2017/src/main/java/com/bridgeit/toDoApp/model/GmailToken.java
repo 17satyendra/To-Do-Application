@@ -5,7 +5,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class GmailToken {
 
-	String access_token;
+	String access_token; 
 	String expires_in;
 	String token_type;
 	String refresh_token;

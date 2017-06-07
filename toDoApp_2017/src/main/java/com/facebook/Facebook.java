@@ -61,7 +61,7 @@ public class Facebook {
 		return fbToken.getAccess_token();
 	}
 	
-	public FBProfile getUserProfile(String accessToken) throws JsonParseException, JsonMappingException, IOException 
+	public FBProfile getUserProfile(String accessToken) throws JsonParseException, JsonMappingException, IOException
 	{
 		String accProfileUrl = String.format(FB_GET_USER_URL, new String[]{ accessToken });
 		  

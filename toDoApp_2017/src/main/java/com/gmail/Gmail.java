@@ -2,7 +2,6 @@ package com.gmail;
 
 import java.io.IOException;
 
-import javax.ws.rs.HttpMethod;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
@@ -12,7 +11,6 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
-import com.bridgeit.toDoApp.model.FBProfile;
 import com.bridgeit.toDoApp.model.GmailProfile;
 import com.bridgeit.toDoApp.model.GmailToken;
 import com.fasterxml.jackson.core.JsonParseException;
