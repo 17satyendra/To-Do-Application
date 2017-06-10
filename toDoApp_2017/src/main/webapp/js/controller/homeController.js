@@ -1,6 +1,43 @@
-myApp.controller('homeController', function($scope,$uibModal, $state, taskService,$timeout, toaster,Upload){
+myApp.controller('homeController', function($scope,$uibModal, $state, taskService,$timeout, toaster, Upload){
 	$scope.result = [];
 	var cont = this;
+	var pinup = false;
+	$scope.todo={};
+	$scope.todo.Archive=false;
+	
+
+	
+	$scope.PinArchive=function(index, id, type){
+		console.log(index+" "+id+" "+type);
+		var obj = null;
+		for(var i=0; i< $scope.result.length;i++)
+		{
+			if($scope.result[i].id==id)
+			{
+				obj=$scope.result[i];
+				
+			}
+		}
+		//console.log(obj.pinCard);
+		if(type===1){
+			console.log(obj.pinCard);
+			if(obj.pinCard){
+				obj.pinCard=false;
+			}else{
+				obj.pinCard=true;
+			}
+		}else if(type===2){
+			console.log(obj.Archive);
+			obj.Archive=!obj.Archive;
+			/*	obj.Archive=false;
+			}else{
+				obj.Archive=true;
+			}*/
+		}
+		//console.log(obj);
+		
+		taskService.updateToDo(id, obj);
+	}
 	
 	$scope.uploadImagePopUp=function(user){
 		var modal = $uibModal.open({

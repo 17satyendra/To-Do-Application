@@ -42,15 +42,16 @@ ends */
 	color:#f5B400;
 }
 .notification-icon{
-	color: #555;	
+	color:rgba(0,0,0,.54);	
 }
 .notification-icon:hover{
-	color: black;
+	color: rgba(0,0,0,.87);
 }
 .notification{
 	border-radius: 50%;
     border: none;
-   background-color: #FFBB00;
+   	background-color: rgba(0,0,0,.54);
+   	color: #f5B400;
 }
 .notification:hover{
 	color: black;

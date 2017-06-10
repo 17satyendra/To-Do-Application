@@ -1,12 +1,18 @@
 <div style="background-color: {{$ctrl.cardColor}};">
-	<div class="modal-header " style="border-bottom:none; background-color: {{$ctrl.cardColor}}">
-		<input type="text" class="modal-title" id="modal-title"
-			style="border: none; width: 100%; background-color: {{$ctrl.cardColor}}" value="{{$ctrl.title}}"
-			data-ng-model="$ctrl.title">
+	<div class="modal-header modal-title" >
+		<div class="pin_note " data-toggle="tooltip" data-placement="auto" 
+		data-ng-click="pinCard($ctrl.index, $ctrl.id)"title="Pin Card" >
+			<i style="padding: 10px;"class="fa fa-thumb-tack" aria-hidden="true"></i>
+		</div>
+		<div style=" background-color: {{$ctrl.cardColor}}">
+			<input type="text" class="" id="modal-title"
+				style="border: none; width: 100%; background-color: {{$ctrl.cardColor}}" value="{{$ctrl.title}}"
+				data-ng-model="$ctrl.title">
+		</div>
 	</div>
 	<div class="modal-body" id="modal-body" contenteditable="true"  style="border-bottom:none;">
 		<textarea style="border: none; width: 100%; background-color: {{$ctrl.cardColor}}"
-			data-ng-model="$ctrl.description" rows="" cols="">{{$ctrl.description}}</textarea>
+			data-ng-model="$ctrl.description" rows="" cols="" value="{{$ctrl.description}}"></textarea>
 	</div>
 
 	<div class="modal-footer" style="border-top: none" >
@@ -15,8 +21,7 @@
 			<span>Reminder:</span>
 			<span>
 				<input style="border: none; padding: 0px 0px 0px 0px; background-color: {{$ctrl.cardColor}}"
-					    
-					   data-ng-model="$ctrl.reminder|date:'EEE MMM, dd hh:mm:ss a'">
+					     data-ng-model="$ctrl.reminder|date:'EEE MMM, dd hh:mm:ss a'">
 			</span>
 			</div>
 			<div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -24,8 +29,7 @@
 			</div>
 			<div>
 				<span class="colorpanpopup dropup" data-toggle="tooltip" data-placement="auto" title="change color">
-					<button style="border: none; background-color: transparent;"
-											class="dropdown-toggle" type="button" data-toggle="dropdown">
+					<button style="border: none; background-color: transparent;"class="dropdown-toggle" type="button" data-toggle="dropdown">
 						<img style="width: 20px;"src="https://maxcdn.icons8.com/Android_L/PNG/24/Editing/paint_palette-24.png" >
 					</button>
 					<div id="test" style="width: auto;" class="dropdown-menu"
@@ -68,10 +72,15 @@
 			<span class="fbpopup" data-toggle="tooltip" data-placement="auto" title="share on facebook">
 				<i class="fa fa-facebook-square" aria-hidden="true"></i>
 			</span>
+			<span style="bottom: 7px;position: absolute;right: 143px;"data-toggle="tooltip" data-placement="auto" title="archive">
+				<button style="border: none; background-color: transparent;">
+					<i class="fa fa-archive " aria-hidden="true"></i>
+				</button>
+			</span>
 			<div data-toggle="tooltip" data-placement="auto" title="more">
-			<button type="button" class="ellipsisDrop dropdown-toggle" data-toggle="dropdown">			
-				<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-			</button>
+				<button type="button" class="ellipsisDrop dropdown-toggle" data-toggle="dropdown">			
+					<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+				</button>
 				<div class="dropdown-menu" style="margin-left: 75%;min-width: 150px; top: 95%; padding: 5px; line-height: 2.5">
 											
 					<div data-ng-click="$ctrl.del($ctrl.id, $ctrl.index)">
