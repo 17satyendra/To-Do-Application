@@ -12,7 +12,13 @@
 	</div>
 	<div class="modal-body" id="modal-body" contenteditable="true"  style="border-bottom:none;">
 		<textarea style="border: none; width: 100%; background-color: {{$ctrl.cardColor}}"
-			data-ng-model="$ctrl.description" rows="" cols="" value="{{$ctrl.description}}"></textarea>
+			data-ng-model="$ctrl.description" rows="" cols="">{{$ctrl.description}}</textarea>
+	</div>
+	<div  data-toggle="tooltip" data-placement="auto" 
+		title="Edit on" align="left" style="position: absolute; font-style: italic; font-size: 0.85em;">
+		<h6 style="padding: 0px 7px;font-size: 10px;">
+			Edited on {{$ctrl.date | date}}
+		</h6>
 	</div>
 
 	<div class="modal-footer" style="border-top: none" >
@@ -28,6 +34,11 @@
 				<datetimepicker data-ng-model="$ctrl.reminder" data-datetimepicker-config="{ dropdownSelector: '#dropdown' }"></datetimepicker>
 			</div>
 			<div>
+				<span style="position: absolute;right: 43%;margin-top: 4px;" data-toggle="tooltip" data-placement="auto" title="Collaborator">
+					<button class="colobpopup" style=" ">
+						<i class="fa fa-user-plus" aria-hidden="true"></i>
+					</button>
+				</span>
 				<span class="colorpanpopup dropup" data-toggle="tooltip" data-placement="auto" title="change color">
 					<button style="border: none; background-color: transparent;"class="dropdown-toggle" type="button" data-toggle="dropdown">
 						<img style="width: 20px;"src="https://maxcdn.icons8.com/Android_L/PNG/24/Editing/paint_palette-24.png" >

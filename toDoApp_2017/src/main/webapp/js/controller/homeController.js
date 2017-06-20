@@ -1,46 +1,86 @@
-myApp.controller('homeController', function($scope,$uibModal, $state, taskService,$timeout, toaster, Upload){
+myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state, taskService,$timeout, toaster, Upload){
 	$scope.result = [];
 	var cont = this;
-	var pinup = false;
-	$scope.todo={};
-	$scope.todo.Archive=false;
-	
+	$scope.initDirective = function(){
 
+		$rootScope.$watch("isList",function(oldvale,newVal){
+			$scope.isList=$rootScope.isList;
+		})
+	}
+	$scope.archive=function(){
+		var httpObj=taskService.getArchive().then(function(data){
+			if(data.data.status==1){
+				console.log($scope.result);
+				$scope.result=null;
+				$scope.result = data.data.list;
+				console.log($scope.result);
+			}
+		})
+	}
 	
 	$scope.PinArchive=function(index, id, type){
 		console.log(index+" "+id+" "+type);
 		var obj = null;
+		var ind = 0;
+		console.log($scope.result.length);
 		for(var i=0; i< $scope.result.length;i++)
 		{
+		console.log($scope.result[i].id)
 			if($scope.result[i].id==id)
 			{
 				obj=$scope.result[i];
-				
+				ind=i;
+				break;
 			}
 		}
-		//console.log(obj.pinCard);
 		if(type===1){
-			console.log(obj.pinCard);
-			if(obj.pinCard){
-				obj.pinCard=false;
-			}else{
-				obj.pinCard=true;
-			}
+			console.log(obj);
+			obj.pinCard=!obj.pinCard || false
+			//console.log(obj.pinCard);
 		}else if(type===2){
-			console.log(obj.Archive);
-			obj.Archive=!obj.Archive;
-			/*	obj.Archive=false;
-			}else{
-				obj.Archive=true;
-			}*/
+			//console.log(obj.archive);
+			obj.archive = !obj.archive;
+			
 		}
-		//console.log(obj);
-		
-		taskService.updateToDo(id, obj);
+		taskService.updateToDo(id, obj).then(function(data){
+			console.log(data);
+		});
 	}
+	/*Collaborator*/
+	$scope.collaborator=function(todo){
+		var modal = $uibModal.open({
+			 templateUrl: "template/collaborator.html",
+	         ariaLabelledBy: 'modal-title-bottom',
+	         ariaDescribedBy: 'modal-body-bottom',
+	         size: 'sm',
+			 controller:function($uibModalInstance,$scope){
+				var $coll=this;
+				$scope.todo=todo;
+				this.save=function(){
+					$uibModalInstance.close({sharedEmail:$scope.shareEmail,todoObj:$scope.todo});
+				};
+				
+				this.cancel=function(){
+					$uibModalInstance.dismiss('cancel');
+				};
+			 },
+			 controllerAs:"$coll"
+		});
+		modal.result.catch(function(error){
+        	console.log("error::",error);   	
+		}).then( function( collaborator_Obj ) {
+			var httpObj=taskService.collaboratorService( collaborator_Obj ).then(function(data){
+				console.log(data)
+			})
+		});
+	}
+	
 	
 	$scope.uploadImagePopUp=function(user){
 		var modal = $uibModal.open({
+			
+
+		     // windowClass: "modal fade in",
 	         templateUrl: "template/imageupload.html",
 	         ariaLabelledBy: 'modal-title-bottom',
 	         ariaDescribedBy: 'modal-body-bottom',
@@ -150,10 +190,9 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	};
 	
 	
-		  
 	var accessData = window.localStorage['user'];
 	var userjson=JSON.parse(accessData);
-	$scope.userData=userjson.data;
+	$rootScope.userData=userjson.data;
 	 console.log(userjson);
 	 console.log(userjson.data.email);
 	
@@ -169,7 +208,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	$scope.todoDisplay= false;
 	// Http call Then server kal ka data
 	
-	$scope.isList = false;
+	$scope.isList = $rootScope.isList = false;
 	// read from cookie
 	
 	var cView = readCookie('view');
@@ -177,20 +216,24 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	if( 'true' == cView )
 	{
 		// console.log('if');
-		$scope.isList = true;
+		$scope.isList =$rootScope.isList= true;
 	}
 	else
 	{	// console.log('else');
-		$scope.isList = false;
+		$scope.isList =$rootScope.isList= false;
 	}
 	// console.log('is list ', $scope.isList);
 	
 	this.changeView = function(){
 		// store in cookie
 		// isList = !isList;
-		// console.log('change view', $scope.isList);
+//		$rootScope.isList = $scope.isList = (!$rootScope.isList || !$scope.isList);
+		$rootScope.isList = $scope.isList = !$scope.isList;
+		 $timeout(function(){
+			 $scope.isList=$scope.isList;
+		 },1000)
 		writeCookie('view', $scope.isList);
-		writeCookie('sideMenu','jhhh');
+//		writeCookie('sideMenu','jhhh');
 	}
 	
 	 function writeCookie (cname, cvalue)
@@ -270,8 +313,10 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	        	 this.reminder=data.reminder;
 	        	 this.cardColor=data.cardColor;
 	        	 this.index=index;
+	        	 this.pinCard=data.pinCard;
+	        	 this.archive=data.archive;
 	        	 var $ctrl = this;
-	        	 this.descriptio1n = data.description;
+	        	 this.description = data.description;
 	      	     
 	        	 this.del = function(id, index){
 	        		 
@@ -287,7 +332,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	        	 }
 	        	 
 	        	 this.ok = function () {
-	        		 $uibModalInstance.close({title:$ctrl.title,description:$ctrl.description,id:$ctrl.id,reminder:$ctrl.reminder, cardColor:$ctrl.cardColor});
+	        		 $uibModalInstance.close({title:$ctrl.title,description:$ctrl.description,id:$ctrl.id,reminder:$ctrl.reminder, cardColor:$ctrl.cardColor,pinCard:$ctrl.pinCard,archive:$ctrl.archive});
 	        	 };
 
 	        	 this.cancel = function () {
@@ -405,9 +450,8 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 		}
 		
 	}
-	/*$scope.initTask =function(){*/
+	$scope.initTask =function(){
 	taskService.getAllTask().then(function(data){
-		 console.log('getAllTask');
 		
 		// console.log(data);
 		if(data.data.status == 1)
@@ -417,6 +461,12 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 			},1000);*/
 			$scope.result = data.data.list;
 			console.log($scope.result);
+			/*$scope.archiveList= data.data.list.filter(function(data){
+				return(data.archive);
+			});
+			$scope.pinList= data.data.list.filter(function(data){
+				return(data.pinCard);
+			})*/
 		}
 		else{
 			$state.go("login");
@@ -424,6 +474,7 @@ myApp.controller('homeController', function($scope,$uibModal, $state, taskServic
 	}).catch(function(err){
 		console.log(err);
 	});
+}
 	
 	  	$scope.copy=function(todo){
 		console.log(todo);
@@ -502,6 +553,13 @@ myApp.service('taskService',function($http){
 		return $http({url:"http://localhost:8080/toDoApp_2017/signout"});
 	}
 	
+	this.getArchive=function(){
+		return $http({url:"http://localhost:8080/toDoApp_2017/archiveList"});
+	}
+	
+	this.collaboratorService=function(collaborator_Obj){
+		return $http({url:"/toDoApp_2017/share", method:"post", data:collaborator_Obj});
+	}
 });
 function jqueryFunction(){
 	/*
@@ -533,31 +591,3 @@ window.onclick = function(event) {
     }
   }
 }
-/*$(document).ready(function(){
-	$(function() {
-	    while( $('#fitin div').height() > $('#fitin').height() ) {
-	        $('#fitin div').css('font-size', (parseInt($('#fitin div').css('font-size')) - 1) + "px" );
-	    }
-	});
-}*/
-	/* $('.has-clear input[type="text"]').on('input propertychange', function() {
-   	  var $this = $(this);
-   	  var visible = Boolean($this.val());
-   	  $this.siblings('.form-control-clear').toggleClass('hidden', !visible);
-   	}).trigger('propertychange');
-
-   	$('.form-control-clear').click(function() {
-   	  $(this).siblings('input[type="text"]').val('')
-   	    .trigger('propertychange').focus();
-   	});
-   	
-   	$(".searchtab").click(function(e){
-           $(".searchback").removeClass("searchback");
-           $(this).addClass("searchback");
-           e.stopPropagation();
-    });   
-    $(document).click(function(){ 
-        $(".searchback").removeClass("searchback");
-    });*/
-
-

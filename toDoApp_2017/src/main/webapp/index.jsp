@@ -2,6 +2,7 @@
 <html>
 <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>todo</title>
 <head>
 
 <script src="bower_components/moment/moment.js" charset="utf-8"></script>
@@ -36,6 +37,7 @@
 <link rel="stylesheet" type="text/css" href="css/slide.css">
 <link rel="stylesheet" type="text/css" href="css/login.css">
 <link rel="stylesheet" type="text/css" href="css/Registration.css">
+<link rel="stylesheet" type="text/css" href="css/collaborator.css">
 
 <style>
 /* @media (min-width: 1200px) {
@@ -55,4 +57,6 @@
 <script src="js/controller/homeController.js" charset="utf-8"></script>
 <script src="js/controller/Note.js" charset="utf-8"></script>
 <script src="js/controller/profileController.js" charset="utf-8"></script>
+<script src="js/Directives/pinup.js" charset="utf-8"></script>
+<script src="js/Directives/mycard.js" charset="utf-8"></script>
 </html>

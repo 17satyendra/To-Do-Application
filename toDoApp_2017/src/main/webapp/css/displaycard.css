@@ -1,4 +1,16 @@
 @CHARSET "UTF-8";
+.pinTitle{
+	color: rgba(0,0,0,.54);
+    font-family: 'Roboto',arial,sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 15px 70px;
+    
+}
+.cardView{
+	width: 100%;
+	padding: 20px;
+}
 .pin_note{
 	display: inline-block;
     position: absolute;

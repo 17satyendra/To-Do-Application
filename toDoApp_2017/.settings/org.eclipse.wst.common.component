@@ -6,6 +6,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/resources/static/html"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp/template"/>
         <property name="context-root" value="toDoApp_2017"/>
         <property name="java-output-path" value="/toDoApp_2017/target/classes"/>
     </wb-module>

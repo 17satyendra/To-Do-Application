@@ -20,18 +20,7 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
-	<filter>
-		<filter-name>CORSFilter</filter-name>
-		<filter-class>com.bridgeit.toDoApp.configuration.CROSFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>CORSFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-		
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
-		<dispatcher>INCLUDE</dispatcher>
-	</filter-mapping>
+	
 	
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

@@ -3,7 +3,6 @@ package com.bridgeit.toDoApp.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -44,7 +43,7 @@ public class ToDoDaoImpl implements ToDoDao {
 		
 		Session session = sessionFactory.openSession();
 		Criteria ctr = session.createCriteria(ToDoTask.class);
-		List<ToDoTask> list = ctr.add(Restrictions.eq("user.id", userid)).list();
+		List<ToDoTask> list = ctr.add(Restrictions.eq("user.id", userid)).add(Restrictions.eq("archive", false)).list();
 		session.close();
 		
 		if( list != null)
@@ -66,5 +65,23 @@ public class ToDoDaoImpl implements ToDoDao {
 		int rowCount = query.executeUpdate();
 		System.out.println(rowCount + " Data Deleted");
 	}
-
+	
+	public List<ToDoTask> getArchivedTOdoTask(int userId) throws Exception {
+		
+		Session session = sessionFactory.openSession();
+		Criteria ctr = session.createCriteria(ToDoTask.class);
+		List<ToDoTask> list = ctr.add(Restrictions.eq("user.id", userId)).add(Restrictions.eq("archive", true)).list();
+		session.close();
+		
+		if( list != null)
+		{
+			for (ToDoTask toDoTask : list) {
+				if( toDoTask.getUser() != null){
+					toDoTask.setUser(null);
+				}
+			}
+		}
+		
+		return list;
+	}
 }

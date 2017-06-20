@@ -20,6 +20,7 @@
 	<mvc:resources location="/images/" mapping="/images/**"/>
 	<mvc:resources location="/js/" mapping="/js/**"/>
 	<mvc:resources location="/template/" mapping="/template/**"/>
+	<mvc:resources location="/Directives/" mapping="/Directives/**"/>
 	
 	
 	<mvc:resources location="/css/" mapping="/css/**"/>
@@ -68,6 +69,10 @@
 				<value>
 				com.bridgeit.toDoApp.model.UserPicture
 				</value>
+				<value>
+				com.bridgeit.toDoApp.model.Collaboration
+				</value>
+				
 			</list>
 		</property>
 		<property name="hibernateProperties">

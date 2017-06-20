@@ -80,6 +80,19 @@ public class ToDoController {
 	
 	@RequestMapping(value = "/todoList")
 	public @ResponseBody Response getToDoList(HttpServletRequest request) {
+			try{
+				Response resp = toDoService.getToDoList(request);
+
+				return resp;
+
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+	}
+	
+	@RequestMapping(value = "/archiveList")
+	public @ResponseBody Response getArchivedTodo(HttpServletRequest request) {
 		System.out.println("getToDOList");
 		HttpSession sess = request.getSession();
 		User user = (User) sess.getAttribute("user");
@@ -87,11 +100,11 @@ public class ToDoController {
 		List<ToDoTask> toDoList;
 		System.out.println();
 		try {
-			toDoList = toDoService.getToDoList(user.getId());
+			toDoList = toDoService.getArchivedTOdoTask(user.getId());
 
 			TaskResponse tr = new TaskResponse();
 			tr.setStatus(1);
-			tr.setMessage("Data fetched sccessfully");
+			tr.setMessage("Archived Data fetched sccessfully");
 			tr.setList(toDoList);
 			return tr;
 		} catch (Exception e) {

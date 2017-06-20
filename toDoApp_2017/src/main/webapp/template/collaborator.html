@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<div class="coll_Outer"style="left: 328.5px;top: 88.275px;">
+	<div modal="showModal" close="cancel()">
+	   <div class="beforeheader"style="">  
+	      <div class="modal-header" style="padding: 0px;border-bottom: 1px solid rgba(0,0,0,0.15);">
+	          <div class="col_title"style="height: 16px;overflow: visible;width: 16px;">Collaborators</div>
+	      </div>
+	       <div class="modal-body" style="max-height: 347.062px; left: 0">
+	       	  <div style="overflow-x: hidden;overflow-y: auto; padding: 10px 0;">
+	       	  	<div style="font-size: 13px;">
+	       	  		<div style="display: flex;padding: 5px;align-items: center;">
+	       	  			<div class="ownerImg">
+	       	  				<div class="image" style="background-image: url(images/1464761441441.jpg);">
+	       	  				</div>
+	       	  				<div class="ownerNameEmail">
+	       	  					<div class="ownerName"style="">
+	       	  						<span style="font-weight: 700;">
+	       	  							{{userData.firstName}} {{userData.lastName}}
+	       	  						</span>
+	       	  						<span style="font-style: italic;margin-left: 5px;">
+	       	  							(Owner)
+	       	  						</span>
+	       	  					</div>
+	       	  					<div class="ownerEmail">
+	       	  						{{userData.email}}
+	       	  					</div>
+	       	  				</div>	
+	       	  			</div>
+	       	  			
+	       	  		</div>
+	       	  		<div style="display: inline-block;padding: 5px;align-items: center;">
+	       	  			<div class=" sharerImg ">
+	       	  				<div class="peopleimage"style="background-image: url(images/collaborator1.png);"></div>
+	       	  				<input data-ng-model="shareEmail"class="personInput"  type="text" placeholder="Person or email to share with" 
+	       	  					aria-label="Person or email to share with" maxlength="320" role="combobox" 
+	       	  					aria-autocomplete="list" dir="ltr" aria-haspopup="false" aria-expanded="false">
+	       	  			</div>
+	       	  		</div>
+	       	  	</div>
+	       	  </div>
+	       </div>
+	   </div>
+	       <div class="modal-footer collaboration_Footer" >
+	       		<div>
+	       			<div role="button" class="collaboration_cancel_button collbutton" ng-click="$coll.cancel()" tabindex="0" style="user-select: none;margin-right: 16px;">
+	       				Cancel
+	       			</div>
+	       			<div role="button" class="collaboration_save_button collbutton" ng-click="$coll.save()"  tabindex="0" style="user-select: none;">
+	       				save
+	       			</div>
+	       		</div>
+	       <!--  <button class="btn btn-success" ng-click="$coll.ok()">Okay</button>
+	        <button class="btn" ng-click="$coll.cancel()">Cancel</button> -->
+	      </div>
+	</div>
+</div>

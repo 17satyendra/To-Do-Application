@@ -1,0 +1,127 @@
+@CHARSET "UTF-8";
+
+.coll_Outer {
+	background-color: transparent;
+	border: none;
+	box-shadow: none;
+	
+	z-index: 4001;
+	opacity: 1;
+	transition: top .13s;
+	background: #fff;
+	background-clip: padding-box;
+	border: 1px solid #acacac;
+	border: 1px solid rgba(0, 0, 0, .333);
+	outline: 0;
+	transition: box-shadow .218s cubic-bezier(0.25, 0.8, 0.25, 1), transform
+		.218s cubic-bezier(0.25, 0.8, 0.25, 1);
+	box-shadow: 0 2px 15px rgba(0, 0, 0, 0.30);
+}
+.ownerEmail{
+	color: rgba(0,0,0,.54);
+    position: absolute;
+    margin: -18px 0px 0px 38px;
+}
+.ownerNameEmail {
+	-webkit-box-flex: 1;
+	flex: 1 0 auto;
+	margin: 0 13px;
+}
+.sharerImg{
+	border-radius: 50%;
+	border: 1px solid rgba(0,0,0,.5);
+	height: 40px;
+    width: 40px;
+    overflow: hidden;
+	box-shadow: 0 1px 1px 1px rgba(0, 0, 0, .1);
+}
+.ownerName {
+	font-size: 13px;
+	position: absolute;
+	margin: -32px 0px 0px 38px;
+	color: rgba(0, 0, 0, .87);
+	direction: ltr;
+	font-family: 'Roboto', arial, sans-serif;
+}
+.personInput{
+	font-size: 13px;
+	position: absolute;
+	margin: -30px 0px 0px 53px;
+	color: rgba(0, 0, 0, .87);
+	direction: ltr;
+	font-family: 'Roboto', arial, sans-serif;
+	background-color: transparent;
+    border: none;
+    box-shadow: none;
+    height: 25px;
+    padding: 0;
+}
+.ownerImg {
+	border-radius: 50%;
+	height: 40px;
+	width: 40px;
+	overflow: hidden;
+	border: 2px solid #fff;
+	box-shadow: 0 1px 1px 1px rgba(0, 0, 0, .1);
+}
+.peopleimage{
+	background-size: 50%;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 100%;
+	margin: -1px 0px 0px -1px;
+}
+.image {
+	background-size: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 100%;
+}
+
+.beforeheader {
+	color: rgba(0, 0, 0, .87);
+	direction: ltr;
+	font-family: 'Roboto', arial, sans-serif;
+	font-size: 15px;
+	padding: 15px 15px 0;
+}
+
+.col_title {
+	font-size: 18px;
+	font-weight: bold;
+	height: 0px;
+	padding: 0 0 30px 0;
+}
+.collaboration_Footer{
+	background-color: rgba(0,0,0,0.07);
+    padding: 10px 15px;
+    text-align: right;
+    margin-top: 20px;
+}
+.collbutton:hover{
+	background-color: rgba(0,0,0,0.08);
+}
+.collaboration_cancel_button{
+	border-radius: 3px;
+    color: rgba(0,0,0,.87);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-block;
+    outline: none!important;
+}
+.collaboration_save_button{
+	border-radius: 3px;
+    color: rgba(0,0,0,.87);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-block;
+    outline: none!important;
+}

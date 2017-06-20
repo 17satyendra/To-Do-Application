@@ -147,7 +147,7 @@ public class UserController {
 
 	/* Ger a single objct in Json form in Spring Rest Services */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public @ResponseBody Response getEmployeeById(@PathVariable("id") int id) {
+	public @ResponseBody Response getUserById(@PathVariable("id") int id) {
 		User user = null;
 		ErrorResponse er = null;
 		try {
