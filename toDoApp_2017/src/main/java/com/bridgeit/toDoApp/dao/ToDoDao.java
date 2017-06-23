@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 
+import com.bridgeit.toDoApp.model.Collaboration;
 import com.bridgeit.toDoApp.model.ToDoTask;
 
 public interface ToDoDao {
@@ -15,5 +16,9 @@ public interface ToDoDao {
 	List<ToDoTask> getArchivedTOdoTask(int userId) throws Exception;
 
 	void deleteTaskByTODoId(int taskId) throws Exception;
+
+	void saveCollaboration(Collaboration col);
+
+	List<ToDoTask> getSharedTodo(int id)throws Exception;
 
 }

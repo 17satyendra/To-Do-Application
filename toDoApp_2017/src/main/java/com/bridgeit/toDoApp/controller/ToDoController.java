@@ -38,6 +38,8 @@ import com.bridgeit.toDoApp.service.ToDoService;
  *
  */
 @Controller
+@RequestMapping("/")
+
 public class ToDoController {
 
 	@Autowired
@@ -77,23 +79,34 @@ public class ToDoController {
 			return er;
 		}
 	}
-	
+
 	@RequestMapping(value = "/todoList")
 	public @ResponseBody Response getToDoList(HttpServletRequest request) {
-			try{
-				Response resp = toDoService.getToDoList(request);
 
-				return resp;
+		HttpSession sess = request.getSession();
+		User user = (User) sess.getAttribute("user");
+		ErrorResponse er = null;
+		List<ToDoTask> toDoList = null;
 
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-			return null;
+		try {
+			toDoList = toDoService.getToDoList(user.getId());
+
+			TaskResponse tr = new TaskResponse();
+			tr.setStatus(1);
+			tr.setMessage("Data fetched sccessfully");
+			tr.setList(toDoList);
+			return tr;
+		} catch (Exception e) {
+			e.printStackTrace();
+			er = new ErrorResponse();
+			er.setStatus(-1);
+			er.setMessage("Internal server error, please try again.");
+			return er;
+		}
 	}
-	
+
 	@RequestMapping(value = "/archiveList")
 	public @ResponseBody Response getArchivedTodo(HttpServletRequest request) {
-		System.out.println("getToDOList");
 		HttpSession sess = request.getSession();
 		User user = (User) sess.getAttribute("user");
 		ErrorResponse er = null;
@@ -106,19 +119,21 @@ public class ToDoController {
 			tr.setStatus(1);
 			tr.setMessage("Archived Data fetched sccessfully");
 			tr.setList(toDoList);
+
 			return tr;
 		} catch (Exception e) {
 			e.printStackTrace();
+
 			er = new ErrorResponse();
 			er.setStatus(-1);
 			er.setMessage("Internal server error, please try again.");
+
 			return er;
 		}
 	}
 
 	@RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
 	public @ResponseBody Response deleteTask(@PathVariable("id") int taskId) {
-		System.out.println(taskId);
 		Response res = null;
 		ErrorResponse er = null;
 		try {
@@ -136,7 +151,8 @@ public class ToDoController {
 	}
 
 	@RequestMapping(value = "update/{id}", method = RequestMethod.POST)
-	public @ResponseBody Response updateTask(@RequestBody ToDoTask todo, @PathVariable("id") int taskId, HttpServletRequest request) {
+	public @ResponseBody Response updateTask(@RequestBody ToDoTask todo, @PathVariable("id") int taskId,
+			HttpServletRequest request) {
 
 		ErrorResponse er = null;
 		TaskResponse tr = null;
@@ -156,12 +172,12 @@ public class ToDoController {
 			tr.setMessage("Task updated successfully");
 			return tr;
 		} catch (Exception e) {
-			//logger.error("ToDoTask update exception", e);
+			// logger.error("ToDoTask update exception", e);
 			er = new ErrorResponse();
 			er.setStatus(-1);
 			er.setMessage("Internal server error, please try again.");
 			return er;
 		}
 	}
-	
+
 }

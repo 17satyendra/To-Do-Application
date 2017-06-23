@@ -2,7 +2,7 @@
 
 myApp.controller("loginController",function ($scope,  $state, loginService,profileService, usSpinnerService ) {	
 	
-	$scope.isLogin=function(){
+	/*$scope.isLogin=function(){
 		console.log("true");
 		var httpObje = loginService.checkLogin();
 		httpObje.then(function (data) {
@@ -11,7 +11,7 @@ myApp.controller("loginController",function ($scope,  $state, loginService,profi
 			}
 		});
 		
-	}
+	}*/
 	$scope.startSpin = function() {
 	      if (!$scope.spinneractive) {
 	        usSpinnerService.spin('spinner-1');

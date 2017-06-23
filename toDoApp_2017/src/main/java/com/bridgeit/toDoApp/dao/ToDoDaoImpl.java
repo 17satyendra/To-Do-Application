@@ -7,12 +7,16 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bridgeit.toDoApp.model.Collaboration;
 import com.bridgeit.toDoApp.model.ToDoTask;
+import com.bridgeit.toDoApp.model.User;
 
 /**
  * This is a simple DAO Implementation class. All Hibernate related action goes
@@ -83,5 +87,45 @@ public class ToDoDaoImpl implements ToDoDao {
 		}
 		
 		return list;
+	}
+
+	@Override
+	public void saveCollaboration(Collaboration col) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		session.saveOrUpdate(col);
+		
+	}
+
+	@Override
+	public List<ToDoTask> getSharedTodo(int userId) throws Exception {
+		
+		try{
+			Session session = sessionFactory.getCurrentSession();
+
+			List<ToDoTask> sharedNotes = null;
+			User user = new User();
+			user.setId(userId);
+			System.out.println("ggggggggggggggggggggggggggggggg");
+			Criteria criteria = session.createCriteria(Collaboration.class);
+
+			ProjectionList projectionList = Projections.projectionList();
+			projectionList.add(Projections.property("todo"));
+			criteria.setProjection(projectionList);
+
+			criteria.add(Restrictions.eq("shared_User", user));
+
+			//System.out.println(criteria.list());
+
+			sharedNotes = criteria.list();
+
+			return sharedNotes;
+		}
+		catch (Exception e) {
+
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 }

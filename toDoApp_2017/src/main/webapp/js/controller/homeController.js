@@ -57,7 +57,7 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 				var $coll=this;
 				$scope.todo=todo;
 				this.save=function(){
-					$uibModalInstance.close({sharedEmail:$scope.shareEmail,todoObj:$scope.todo});
+					$uibModalInstance.close({shareEmail:$scope.shareEmail,todoObj:$scope.todo});
 				};
 				
 				this.cancel=function(){
@@ -69,9 +69,10 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 		modal.result.catch(function(error){
         	console.log("error::",error);   	
 		}).then( function( collaborator_Obj ) {
+			console.log(collaborator_Obj);
 			var httpObj=taskService.collaboratorService( collaborator_Obj ).then(function(data){
-				console.log(data)
-			})
+				console.log(data);
+			});
 		});
 	}
 	
@@ -558,7 +559,7 @@ myApp.service('taskService',function($http){
 	}
 	
 	this.collaboratorService=function(collaborator_Obj){
-		return $http({url:"/toDoApp_2017/share", method:"post", data:collaborator_Obj});
+		return $http({url:"http://localhost:8080/toDoApp_2017/share", method:"post", data:collaborator_Obj});
 	}
 });
 function jqueryFunction(){

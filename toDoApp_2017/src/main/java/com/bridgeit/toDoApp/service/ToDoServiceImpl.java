@@ -10,12 +10,14 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bridgeit.toDoApp.controller.UserController;
 import com.bridgeit.toDoApp.dao.ToDoDao;
 import com.bridgeit.toDoApp.json.ErrorResponse;
 import com.bridgeit.toDoApp.json.Response;
 import com.bridgeit.toDoApp.json.TaskResponse;
+import com.bridgeit.toDoApp.model.Collaboration;
 import com.bridgeit.toDoApp.model.ToDoTask;
 import com.bridgeit.toDoApp.model.User;
 
@@ -41,36 +43,16 @@ public class ToDoServiceImpl implements ToDoService{
 	public void addToDoTask(ToDoTask todo) throws HibernateException {
 		tododao.addToDoTask(todo);
 	}
+	
 
-	public Response getToDoList(HttpServletRequest request) {
-		
-		HttpSession sess = request.getSession();
-		User user = (User) sess.getAttribute("user");
-		ErrorResponse er = null;
-		Response resp=null;
-		List<ToDoTask> toDoList;
-		try{
-			toDoList=tododao.getToDoListByUserId( user.getId() );
-			if(toDoList==null){
-				logger.setLevel(Level.WARN);
-				logger.warn("list null, No task yet created");
-				resp= new Response();
-				
-			}
-			logger.info("List of note fetched+");
-			TaskResponse tr = new TaskResponse();
-			tr.setStatus(1);
-			tr.setMessage("Data fetched sccessfully");
-			tr.setList(toDoList);
-			return tr;
-		}catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage());
-			er = new ErrorResponse();
-			er.setStatus(-1);
-			er.setMessage("Internal server error, please try again.");
-			return er;
+	public List<ToDoTask> getToDoList(int id) throws Exception {
+		List<ToDoTask>todoList= tododao.getToDoListByUserId(id);
+		List<ToDoTask> shareTodo = tododao.getSharedTodo(id);
+		if(shareTodo!=null){
+			todoList.addAll(shareTodo);
 		}
+		//System.out.println(shareTodo.toString());
+		return todoList;
 	}
 
 	public void deleteTaskByToDoId(int taskId) throws Exception {
@@ -80,6 +62,13 @@ public class ToDoServiceImpl implements ToDoService{
 	@Override
 	public List<ToDoTask> getArchivedTOdoTask(int userId) throws Exception {
 		return tododao.getArchivedTOdoTask(userId);
+	}
+
+	@Override
+	public void saveCollaboration(Collaboration col) {
+		tododao.saveCollaboration(col);
+		
+		
 	}
 
 }

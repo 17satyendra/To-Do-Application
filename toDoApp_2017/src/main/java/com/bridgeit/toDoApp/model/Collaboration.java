@@ -46,4 +46,10 @@ public class Collaboration implements Serializable {
 	public void setShared_User(User shared_User) {
 		this.shared_User = shared_User;
 	}
+	@Override
+	public String toString() {
+		return "Collaboration [coll_id=" + coll_id + ", todo=" + todo + ", shared_User=" + shared_User + "]";
+	}
+	
+	
 }

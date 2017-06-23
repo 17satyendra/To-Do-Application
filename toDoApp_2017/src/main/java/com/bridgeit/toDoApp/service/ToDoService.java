@@ -7,16 +7,19 @@ import javax.servlet.http.HttpServletRequest;
 import org.hibernate.HibernateException;
 
 import com.bridgeit.toDoApp.json.Response;
+import com.bridgeit.toDoApp.model.Collaboration;
 import com.bridgeit.toDoApp.model.ToDoTask;
 
 public interface ToDoService {
 
 	void addToDoTask(ToDoTask todo) throws HibernateException;
 
-	Response getToDoList(HttpServletRequest request);
+	List<ToDoTask> getToDoList(int id)throws Exception;
 	
 	List<ToDoTask> getArchivedTOdoTask(int userId) throws Exception; 
 
 	void deleteTaskByToDoId(int taskId)throws Exception;
+
+	void saveCollaboration(Collaboration col);
 
 }

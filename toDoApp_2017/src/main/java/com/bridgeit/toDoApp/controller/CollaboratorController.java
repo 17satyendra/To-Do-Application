@@ -16,12 +16,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bridgeit.toDoApp.json.Response;
 import com.bridgeit.toDoApp.model.Collaboration;
+import com.bridgeit.toDoApp.model.CollaboratorRequest;
+import com.bridgeit.toDoApp.model.ToDoTask;
 import com.bridgeit.toDoApp.model.User;
 //import com.bridgeit.toDoApp.model.Collaboration;
 import com.bridgeit.toDoApp.service.ToDoService;
 import com.bridgeit.toDoApp.service.UserService;
+import com.google.gson.Gson;
 
 @Controller
+@RequestMapping("/")
 public class CollaboratorController {
 	
 	
@@ -33,16 +37,30 @@ public class CollaboratorController {
 	
 	static final Logger logger = Logger.getLogger(CollaboratorController.class);
 	
-	@RequestMapping(value = "/share", method = RequestMethod.POST)
-	public @ResponseBody Response addTask(@RequestBody Map<String, String> shareMap ) {
+	static Response resp=null;
+	
+	@RequestMapping(value = "share", method = RequestMethod.POST)
+	public @ResponseBody Response addTask(@RequestBody CollaboratorRequest cr) {
 		
-		User user=userservice.getEntityByEmailId(shareMap.get("sharedEmail"));
+		System.out.println(cr);
+		
+		User user=userservice.getEntityByEmailId(cr.getShareEmail());
 		System.out.println(user);
-		Collaboration col = new Collaboration();
+		if(user==null){
+			resp=new Response();
+			resp.setMessage("Invalid User email");
+			resp.setStatus(0);
+			return resp;
+		}
+		Collaboration col = new Collaboration();  
 		col.setShared_User(user);
-		System.out.println("fdgfd sdfsdjo");
+		col.setTodo(cr.getTodoObj());
 		
-		return null;
-		
+		toDoService.saveCollaboration(col);
+		Response resp = new Response();
+		resp.setMessage("done");
+		resp.setStatus(1);
+		return resp;
+	
 	}
 }

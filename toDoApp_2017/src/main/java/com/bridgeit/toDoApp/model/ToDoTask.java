@@ -46,6 +46,8 @@ public class ToDoTask  implements Serializable{
 	private boolean archive;
 	private String cardColor;
 	
+
+	
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name="user_Id")
 	private User user;
@@ -123,6 +125,13 @@ public class ToDoTask  implements Serializable{
 
 	public void setArchive(boolean archive) {
 		this.archive = archive;
+	}
+
+	@Override
+	public String toString() {
+		return "ToDoTask [id=" + id + ", title=" + title + ", description=" + description + ", date=" + date
+				+ ", reminder=" + reminder + ", pinCard=" + pinCard + ", archive=" + archive + ", cardColor="
+				+ cardColor + ", user=" + user + "]";
 	}
 
 }
