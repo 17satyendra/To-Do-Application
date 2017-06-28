@@ -1,12 +1,10 @@
 package com.bridgeit.toDoApp.service;
 
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 import org.hibernate.HibernateException;
 
-import com.bridgeit.toDoApp.json.Response;
 import com.bridgeit.toDoApp.model.Collaboration;
 import com.bridgeit.toDoApp.model.ToDoTask;
 
@@ -21,5 +19,7 @@ public interface ToDoService {
 	void deleteTaskByToDoId(int taskId)throws Exception;
 
 	void saveCollaboration(Collaboration col);
+
+	void updateIndex(List<Map<String, Integer>> listOfIndex) throws HibernateException;
 
 }

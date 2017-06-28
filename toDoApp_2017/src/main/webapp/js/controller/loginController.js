@@ -11,8 +11,8 @@ myApp.controller("loginController",function ($scope,  $state, loginService,profi
 			}
 		});
 		
-	}*/
-	$scope.startSpin = function() {
+	}
+*/	$scope.startSpin = function() {
 	      if (!$scope.spinneractive) {
 	        usSpinnerService.spin('spinner-1');
 	       

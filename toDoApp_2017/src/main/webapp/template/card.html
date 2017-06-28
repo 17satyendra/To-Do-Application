@@ -2,7 +2,8 @@
 	<div class="pinTitle" ng-init="initDirective()">Others</div>
 	<div  ng-if="!i.pinCard && !i.archive"  data-ng-class="{'listviewalign':isList,'col-xs-12':!isList, 'col-md-6':!isList, 'col-sm-6':!isList,'col-lg-4':!isList}"
 		data-ng-repeat="i in result | orderBy:'reminder' |filter :searchtext track by $index "
-		data-ng-mouseover="hoverIn()" data-ng-mouseleave="hoverOut()">
+		data-ng-mouseover="hoverIn()" data-ng-mouseleave="hoverOut()" class="myDragItem" id="{{i.id}}">
+		
 		<div class="card card-1 thumbnail " style="width: 100%;margin: 10px; background-color: {{i.cardColor}}">
 			<div class="pin_note colorIcon" data-toggle="tooltip" data-placement="auto" data-ng-click="PinArchive($index,i.id, 1)"
 				title="Pin Card" data-ng-show="hoverEdit">

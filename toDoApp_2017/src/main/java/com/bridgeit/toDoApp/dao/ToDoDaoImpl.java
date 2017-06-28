@@ -1,6 +1,9 @@
 package com.bridgeit.toDoApp.dao;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -127,5 +130,23 @@ public class ToDoDaoImpl implements ToDoDao {
 			return null;
 		}
 
+	}
+
+	@Override
+	public void saveIndex(List<Map<String, Integer>> listOfIndex) throws HibernateException {
+		
+		String hql = "update ToDoTask set cardIndex=:index where id=:todoId";
+		Session session = sessionFactory.getCurrentSession();
+		Iterator<Map<String,Integer>> iterator = listOfIndex.iterator();
+
+		while(iterator.hasNext()){
+			HashMap<String, Integer> map = (HashMap<String, Integer>) iterator.next();
+
+			Query query =session.createQuery(hql);
+			query.setParameter("index", map.get("index"));
+			query.setParameter("todoId", map.get("id"));
+			query.executeUpdate();
+			
+		}
 	}
 }

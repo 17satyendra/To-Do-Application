@@ -255,7 +255,7 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 	 } 
 	
 	$(".slides").sortable({
-	    placeholder: 'slide-placeholder',
+	   placeholder: 'slide-placeholder',
 	   axis: "z",
 	   revert: 150,
 	   
@@ -267,7 +267,6 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 	   
 	   },
 	   change: function(event, ui) {
-	       
 	       ui.placeholder.stop().height(0).animate({
 	           height: ui.item.outerHeight() + 15
 	       }, 300);
@@ -284,8 +283,22 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 	       
 	   },
 	   stop: function(e, ui) {
-	       $(".slide-placeholder-animator").remove();
+		   $(".slide-placeholder-animator").remove();
 	   },
+	   update:function(e, ui) {
+		   var allIndex = [];
+		   $(".myDragItem").each( function( index ){
+			   var ti = {};
+			   ti.id =$(this).attr("id");
+			   ti.index = index;
+			   allIndex.push(ti);
+		   });
+		   console.log( allIndex );
+		   var httpobj = taskService.saveIndex(allIndex).then(function(data){
+			   console.log(data);
+		   });
+	   }
+	   
 	});
 
 	$scope.hoverIn = function(){
@@ -560,6 +573,9 @@ myApp.service('taskService',function($http){
 	
 	this.collaboratorService=function(collaborator_Obj){
 		return $http({url:"http://localhost:8080/toDoApp_2017/share", method:"post", data:collaborator_Obj});
+	}
+	this.saveIndex=function(allIndex){
+		return $http({url:"http://localhost:8080/toDoApp_2017/saveIndex", method:"post", data:allIndex});
 	}
 });
 function jqueryFunction(){

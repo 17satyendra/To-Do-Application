@@ -1,6 +1,6 @@
 <div>others</div>
 <div  class="slides"  ng-class="{list:isList, grid: !isList}" >
-						<div  ng-if="!i.archive && !i.pinCard" class="item" data-ng-class="{'listviewalign':isList,'col-xs-12':!isList, 'col-md-6':!isList, 'col-sm-6':!isList,'col-lg-4':!isList}"
+						<div  ng-if="!i.archive && !i.pinCard" class="" data-ng-class="{'listviewalign':isList,'col-xs-12':!isList, 'col-md-6':!isList, 'col-sm-6':!isList,'col-lg-4':!isList}"
 							data-ng-repeat="i in result | orderBy:'reminder' |filter :searchtext track by $index "
 							data-ng-mouseover="hoverIn()" data-ng-mouseleave="hoverOut()">
 							<div class="card card-1 thumbnail " style="width: 100%;margin: 10px; background-color: {{i.cardColor}}">

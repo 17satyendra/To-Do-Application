@@ -1,7 +1,11 @@
 package com.bridgeit.toDoApp.controller;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -90,7 +94,13 @@ public class ToDoController {
 
 		try {
 			toDoList = toDoService.getToDoList(user.getId());
-
+			Collections.sort(toDoList, new Comparator<ToDoTask>() {
+				@Override
+				public int compare(ToDoTask o1, ToDoTask o2) {
+					return Integer.valueOf(o1.getCardIndex()).compareTo( o2.getCardIndex() ) ;
+				}
+			});
+			
 			TaskResponse tr = new TaskResponse();
 			tr.setStatus(1);
 			tr.setMessage("Data fetched sccessfully");
@@ -156,13 +166,13 @@ public class ToDoController {
 
 		ErrorResponse er = null;
 		TaskResponse tr = null;
+		
 		HttpSession sess = request.getSession();
 		User user = (User) sess.getAttribute("user");
+
 		todo.setUser(user);
 		todo.setId(taskId);
 		todo.setDate(new Date());
-		System.out.println(todo.getReminder());
-		System.out.println("inside update");
 
 		try {
 			toDoService.addToDoTask(todo);
@@ -170,14 +180,35 @@ public class ToDoController {
 			tr.setDoTask(todo);
 			tr.setStatus(1);
 			tr.setMessage("Task updated successfully");
+			
 			return tr;
 		} catch (Exception e) {
 			// logger.error("ToDoTask update exception", e);
 			er = new ErrorResponse();
 			er.setStatus(-1);
 			er.setMessage("Internal server error, please try again.");
+			
 			return er;
 		}
 	}
-
+	@RequestMapping(value = "saveIndex", method = RequestMethod.POST)
+	public @ResponseBody Response saveIndex(@RequestBody List<Map<String, Integer>> listOfIndex){
+		Response resp=null;
+		try{
+			toDoService.updateIndex(listOfIndex);
+			resp.setMessage("index updated successfully");
+			resp.setStatus(1);
+			return resp;
+		}catch (Exception e) {
+			logger.error(e.getMessage());
+			
+			ErrorResponse err= new ErrorResponse();
+			err.setStatus(-1);
+			err.setMessage(e.getMessage()+" index not Updated please try again");
+			
+			return err;
+		}
+		
+	}
+	
 }

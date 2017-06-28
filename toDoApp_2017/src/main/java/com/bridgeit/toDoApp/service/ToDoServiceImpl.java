@@ -1,6 +1,7 @@
 package com.bridgeit.toDoApp.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -46,12 +47,13 @@ public class ToDoServiceImpl implements ToDoService{
 	
 
 	public List<ToDoTask> getToDoList(int id) throws Exception {
-		List<ToDoTask>todoList= tododao.getToDoListByUserId(id);
+		List<ToDoTask> todoList= tododao.getToDoListByUserId(id);
+		
 		List<ToDoTask> shareTodo = tododao.getSharedTodo(id);
 		if(shareTodo!=null){
 			todoList.addAll(shareTodo);
 		}
-		//System.out.println(shareTodo.toString());
+		System.out.println(shareTodo.toString());
 		return todoList;
 	}
 
@@ -68,6 +70,13 @@ public class ToDoServiceImpl implements ToDoService{
 	public void saveCollaboration(Collaboration col) {
 		tododao.saveCollaboration(col);
 		
+		
+	}
+
+
+	@Override
+	public void updateIndex(List<Map<String, Integer>> listOfIndex) throws HibernateException {
+		tododao.saveIndex(listOfIndex);
 		
 	}
 

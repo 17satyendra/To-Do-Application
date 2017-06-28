@@ -1,6 +1,7 @@
 package com.bridgeit.toDoApp.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.HibernateException;
 
@@ -20,5 +21,7 @@ public interface ToDoDao {
 	void saveCollaboration(Collaboration col);
 
 	List<ToDoTask> getSharedTodo(int id)throws Exception;
+
+	void saveIndex(List<Map<String, Integer>> listOfIndex) throws HibernateException;
 
 }
