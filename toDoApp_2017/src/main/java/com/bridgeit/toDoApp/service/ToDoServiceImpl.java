@@ -46,19 +46,20 @@ public class ToDoServiceImpl implements ToDoService{
 	}
 	
 
-	public List<ToDoTask> getToDoList(int id) throws Exception {
-		List<ToDoTask> todoList= tododao.getToDoListByUserId(id);
+	public List<ToDoTask> getToDoList(int userId) throws Exception {
+		List<ToDoTask> todoList= tododao.getToDoListByUserId(userId);
 		
-		List<ToDoTask> shareTodo = tododao.getSharedTodo(id);
+		List<ToDoTask> shareTodo = tododao.getSharedTodo(userId );
 		if(shareTodo!=null){
 			todoList.addAll(shareTodo);
 		}
-		System.out.println(shareTodo.toString());
 		return todoList;
 	}
-
+	@Transactional
 	public void deleteTaskByToDoId(int taskId) throws Exception {
+		tododao.deleteCollaborator(taskId);
 		tododao.deleteTaskByTODoId(taskId);
+		
 	}
 
 	@Override
@@ -78,6 +79,13 @@ public class ToDoServiceImpl implements ToDoService{
 	public void updateIndex(List<Map<String, Integer>> listOfIndex) throws HibernateException {
 		tododao.saveIndex(listOfIndex);
 		
+	}
+
+
+	@Override
+	public List<User> getSharedUserList(User shareBy_user) {
+		
+		return tododao.getSharedUser( shareBy_user );
 	}
 
 }

@@ -1,142 +1,293 @@
-<!DOCTYPE html>
-<div class="slides container" ng-class="{list:isList, grid: !isList}">
-	<div  ng-if="i.archive"  data-ng-class="{'listviewalign':isList,'col-xs-12':!isList, 'col-md-6':!isList, 'col-sm-6':!isList,'col-lg-4':!isList}"
-		data-ng-repeat="i in result | orderBy:'reminder' |filter :searchtext track by $index "
-		data-ng-mouseover="hoverIn()" data-ng-mouseleave="hoverOut()">
-		<div class="card card-1 thumbnail " style="width: 100%;margin: 10px; background-color: {{i.cardColor}}">
-			<div class="pin_note colorIcon" data-toggle="tooltip" data-placement="auto" data-ng-click="PinArchive($index,i.id, 1)"
-				title="Pin Card" data-ng-show="hoverEdit">
-				<i style="padding: 10px;"class="fa fa-thumb-tack" aria-hidden="true"></i>
-			</div>
-			<div class="cardtitle"data-ng-hide="i.update">
-				{{i.title}}
-			</div>
-			
-			<div class="popclick" style=""
-				data-ng-hide="i.update" data-ng-click="load_modal_sms(i, $index)">
-				<p>
-					{{i.description}}
-				</p>
-			</div>
-			<div class="text-box">
-				<!-- <span data-ng-show="hoverEdit" data-ng-style="{bottom:(!i.reminder?'0px':'19px')}"data-toggle="tooltip" data-placement="auto" 
-					title="Edit on" align="left" style="position: absolute; font-style: italic; font-size: 0.85em;">
-					<h6 style="padding: 0px 7px;font-size: 10px;">
-						Edited on {{i.date | date}}
-					</h6>
-				</span>  -->
-				<span  data-ng-style="{bottom:(!i.reminder?'5px':'28px')}"style="left:3px; position: absolute;"
-					 data-toggle="tooltip" data-placement="auto" title="Remind me" data-ng-show="hoverEdit">
-					<button type="button" data-toggle="dropdown" id="d" style="border: none; background-color: transparent;"
-						class="dropdown-toggle colorIcon" >
-						<i class="fa fa-hand-o-up" aria-hidden="true"></i>
-					</button>
-					<div style="width: 273px; height: auto;" class="dropdown-menu">
-						<div style="padding: 13px 0px 10px 10px;">
-							Reminder:
-						</div>
-						
-						<div style="padding: 0px 10px 0px 10px;"data-ng-click="hc.doReminder(i.id,$index,'Today')">
-							<span style="left: 0px;">
-								Later Today
-							</span> 
-							<span style="float: right;">
-								8:00PM
-							</span>
-						</div>
-						<div style="padding: 13px 10px 0px 10px;" data-ng-click="hc.doReminder(i.id,$index,'Tomorrow')">
-							<span style="left: 0px;">
-								Tomorrow
-							</span> 
-							<span style="float: right;">
-							    8:00AM
-							</span>
-						</div>
-						<div style="padding: 13px 10px 0px 10px;"data-ng-click="hc.doReminder(i.id,$index,'Next week')">
-							<span style="left: 0px;">
-								Next Week
-							</span> 
-							<span style="float: right;">
-								8:00AM
-							</span>
-						</div>
-					</div>
-				</span> 
-				<span style="position: absolute; left: 41px;"data-ng-style="{bottom:(!i.reminder?'5px':'28px')}" data-ng-show="hoverEdit"
-					data-toggle="tooltip" data-placement="auto" title="Collaborator">
-						<i class="fa fa-user-plus" aria-hidden="true"></i>
-				</span>
-				<span class="dropup" data-toggle="tooltip"data-placement="auto" title="change color" data-ng-show="hoverEdit"
-					data-ng-style="{bottom:(!i.reminder?'5px':'28px')}"style="left:68px; position: absolute;">
-					<button style="border: none; background-color: transparent;" class="dropdown-toggle" type="button" data-toggle="dropdown">
-						<img style="width: 14px;" src="https://maxcdn.icons8.com/Android_L/PNG/24/Editing/paint_palette-24.png" >
-					</button>
-					<div id="test" style="width: auto;" class="dropdown-menu"role="menu" aria-labelledby="menu1">
-						<ul class="ul" style="padding: 10px 20px 0px 24px;">
-							<li>
-								<div data-toggle="tooltip" data-placement="auto" title="White" data-ng-click="changeColor('#fff',$event, $index,i.id)"
-									style="background-color: transparent;" class="test1">
-								</div>
-								<div data-toggle="tooltip" data-placement="auto"title="Red" data-ng-click="changeColor('#FF8A80',$event,$index,i.id)"
-									style="background-color: #FF8A80;" class="test1">
-								</div>
-								<div data-toggle="tooltip" data-placement="auto"title="Gray" data-ng-click="changeColor('#CFD8DC',$event,$index,i.id)"
-									style="background-color: #CFD8DC;" class="test1">
-								</div>
-							</li>
-							<hr class="hrRem">
-							<li>
-								<div data-toggle="tooltip" data-placement="auto"title="Orange"data-ng-click="changeColor('#FFD180',$event,$index,i.id)"
-									style="background-color: #FFD180;" class="test1">
-								</div>
-								<div data-toggle="tooltip" data-placement="auto" title="Blue" data-ng-click="changeColor('#80D8FF',$event,$index,i.id)"
-									style="background-color: #80D8FF;" class="test1">
-								</div>
+<div data-ng-init="initTask(1)" >
+	<nav class="navbar navbar-inverse, nav" role="navigation" "
+		style="background-color: #607d8b; width: 100%; z-index: 999; position: fixed;">
+		<div class=" navbar-header navbar-text" style="display:inline-flex; cursor: pointer">
+			<span data-toggle="tooltip" data-placement="bottom" title="menu" class="ar_sidebutton notification-
+			icon" style="font-size: 20px; cursor: pointer; " onclick="openNav()">&#9776;
+			</span>
+			<span style="font-size: 19px; display: -webkit-inline-box; color: white; font-weight: bolder;padding-left: 35px;">
+					Archive
+			</span>
+		</div>
+		
+		
+		<div class="icon-addon addon-md ar_searchdiv form-group has-feedback has-clear">
+			<span>
 				
-								<div data-toggle="tooltip" data-placement="auto"title="Green"data-ng-click="changeColor('#CCFF90',$event, $index, i.id)"
-									style="background-color: #CCFF90;" class="test1">
-								</div>
-							</li>
-						</ul>
-
-					</div>
-				</span>
-				<span data-toggle="tooltip" data-placement="auto" title="share" data-ng-click="facebookshare(i)"data-ng-show="hoverEdit"
-					style="position: absolute; left: 111px;"data-ng-style="{bottom:(!i.reminder?'5px':'28px')}">
-					<i class="fa fa-facebook-square colorIcon" aria-hidden="true"></i>
-				</span>
-				<span style="position: absolute; left: 145px;"data-ng-style="{bottom:(!i.reminder?'5px':'28px')}" data-ng-show="hoverEdit"
-					data-toggle="tooltip" data-placement="auto" title="archive" data-ng-click="PinArchive($index, i.id, 2)" >
-					<i class="fa fa-archive colorIcon" aria-hidden="true"></i>
-				</span>
-				<span  data-toggle="tooltip" data-placement="auto" title="more" data-ng-show="hoverEdit"
-					style="position: absolute; left: 166px;"data-ng-style="{bottom:(!i.reminder?'5px':'28px')}">
-					<button id="d" data-toggle="dropdown" style="border: none; background-color: transparent; float: right; 
-						outline: none; padding: 0px 12px;" type="button" class="btn btn-default btn dropdown-toggle colorIcon">
-						<i class="glyphicon glyphicon-option-vertical" aria-hidden="true"></i>
+				<i class="fa fa-search ar_searchIcon" aria-hidden="true" style="color: white;"></i>
+				<input type="search" placeholder="Search" class="form-control ar_search archive"id="search" data-ng-model="searchtext">
+				<span class="form-control-clear form-control-feedback hidden" style="left: 87%;"><i class="fa fa-times fa-3x"></i></span> 
+			</span>
+		</div>
+		<div style="background-color: #607d8b" class="navbar-text listDisplay">
+			
+				<span>
+					<button data-toggle="tooltip" data-placement="bottom"
+					title="Refresh" class="ar_refreshbutton notification-icon" data-ng-click=hc.refresh()>
+						<i class="glyphicon glyphicon-repeat"></i>
 					</button>
-					<div class="dropdown-menu" style=" min-width: 150px; top: 87%; padding: 5px; line-height: 2.5">
-						<div data-ng-click="hc.deleteTask(i.id, $index)">
-						<span>Delete note</span>
+				</span>
+				<span style="margin-left: 25px;">
+					<button data-toggle="tooltip" data-placement="bottom"
+						title="notification" class="notification-icon ar_notification">
+						<i class="fa fa-bell notification-bell" aria-hidden="true"></i>
+					</button>
+				</span>
+				<span class="btn-group btndenger1">
+				
+						<span data-toggle="tooltip" data-placement="bottom" title="{{!isList?'list view':'grid view'}}"
+							class="notification-icon ar_viewList" data-ng-click=" hc.changeView()"
+							data-ng-class="{'fa fa-list': !isList, 'fa fa-th-large': isList}"
+							style="">
+						</span>
+					
+				</span>
+				<span class="top-nav" style="margin-left: 35px;">
+				<a href="" style="background-color: transparent;" class="dropdown-toggle" data-toggle="dropdown">
+					<img id="menu" class="user"src="http://localhost:8080/toDoApp_2017/getImage"  
+						alt="{{userData.firstName.charAt(0).toUpperCase()}}">
+				</a>
+				<div style="min-width: 328px; margin-top: -8px;position: absolute;left: 72%;"class="dropdown-menu ">
+					<div style="margin: 20px; display: flex;">
+						 <a style="margin-right: 20px;position: relative; color: inherit;"> 
+							<div style="display: inline-block;">
+								<img class="user1"  src="http://localhost:8080/toDoApp_2017/getImage"  alt="{{userData.firstName.charAt(0).toUpperCase()}}">
+								<span class="changeImage" data-ng-click="uploadImagePopUp(userData)">Change</span>
+							</div>
+						</a>
+						<div class="naming">
+							<div style="font-weight: bold; margin: -4px 0 -4px 0;">
+								{{userData.firstName}} {{userData.lastName}}</div>
+							<div style=" color: #666;">
+								{{userData.email}}
+							</div>
+							<div>
+								<button class="btn btn-default btn-sm accBtn" type="button"
+									value="My Account" data-ui-sref="profile">My Account
+								</button>
+							</div>					
 						</div>
-						<div data-ng-click="copy(i)">
-							<span>Make a copy</span>
+						<!-- <span style="position: absolute; padding: 14px 0px 0px 32px; font-size: 1.00em; 
+							font-weight: bold;">{{userData.firstName}}{{userData.lastName}}
+						</span>
+						<span style="position: absolute; margin: 34px; font-size: 0.85em;">
+							{{userData.email}}
+						</span>
+						<span>
+							<button class="btn btn-default btn-sm accBtn" type="button"
+									value="My Account" data-ui-sref="profile">My Account
+							</button>
+						</span> -->
+					</div>
+					<hr>
+					<div style="background: #E8E8E8;">
+						<div>
+							<button class="btn btn-default btn-sm"
+								style="margin: -9px 20px 6px 0px; float: right; border: 1px solid #c6c6c6;"
+								type="button" value="signout" data-ng-click="hc.signout()">
+								Sign out
+							</button>
+						</div>
+						<div>
+							<button class="btn btn-default btn-sm"style="margin:-9px 20px 6px 20px; float: left; border: 1px solid #c6c6c6;"
+									type="button" value="Add Account" data-ng-click="hc.signout()">
+									Add account
+							</button>
 						</div>
 					</div>
-				</span>
+				</div>
+			</span>
+		</div>
+				
+			<div class="flyout hidden">
+				<div class="hoverfont1">
+					ToDo Account
+				</div>
+				<div class="hoverfont">
+					{{userData.firstName}} {{userData.lastName}}
+				</div>
+				<div class="hoverfont">
+					{{userData.email}}
+				</div>
 			</div>
-
-			<div data-ng-mouseenter="options=true"data-ng-mouseleave="options=false" style="border-top: dotted 1px;
-				 font-size: small; font-family: 'Roboto',arial,sans-serif;"data-ng-if="i.reminder">
-				<span class="remind">
-					<i style="padding-top: 5px; padding-left: 4px;"class="glyphicon glyphicon-time"></i> 
-					{{i.reminder |date:'EEE MMM, dd hh:mm:ss a'}}
-			</span> 
-				<span data-ng-click="hc.deleteReminder(i.id, $index)"style="float: right; padding: 5px 8px 0px 4px;">
-					<i data-toggle="tooltip" data-placement="auto"title="Delete Reminder" data-ng-show="options" class="glyphicon glyphicon-remove-circle">
-					</i>
-				</span>
+	</nav>
+	<div id="main">
+		<div class="container" style="transition: 0.5s;">
+			<div id="mySidenav" class="sidenav">
+				<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+				<a data-ng-click="getNote()"><i
+					class="glyphicon glyphicon-grain"></i> Notes</a>
+				<hr>
+				<a data-ui-sref="profile"><i class="glyphicon glyphicon-user"></i>
+					Profile</a>
+				<hr>
+				<a data-ui-sref="about"><i class="glyphicon glyphicon-asterisk"></i>
+					About</a>
+				<hr>
+				<a data-ng-click="archive()"><i class="fa fa-archive " aria-hidden="true"></i>
+					Archive</a>
+				<hr>
+				<a data-ng-click="remindfilter()"><i
+					class="glyphicon glyphicon-hand-up"></i> Reminder</a>
+				<hr>
+				<a data-ng-click="hc.signout()"><i
+					class="glyphicon glyphicon-log-out"></i> Logout</a>
+				<hr>
+				<a data-ng-click="hc.signout()"><i class="fa fa-question-circle"
+					aria-hidden="true"></i> Help</a>
+			</div>
+			<div style="margin-top: 30%">
+				<div class="beforeNote" ng-if="result.length===0">
+					<div>
+						<i style="font-size: 80px;" class="fa fa-archive" aria-hidden="true"></i>
+					</div>
+					<div style="margin: 10px;">Your archived notes appear here</div>
+				</div>
+			</div>
+			<div style="margin-top: 10%" class="container">
+				<div ng-class="{list:isList, grid: !isList}">
+					<div data-ng-class="{'listviewalign':isList,'col-xs-12':!isList, 'col-md-6':!isList, 'col-sm-6':!isList,'col-lg-4':!isList}"
+						data-ng-repeat="i in result | orderBy:'reminder' |filter :searchtext track by $index "
+						data-ng-mouseover="hoverIn()" data-ng-mouseleave="hoverOut()" ng-if="i.archive">
+						<div class="card card-1 thumbnail " style="width: 100%;margin: 10px; background-color: {{i.cardColor}}">
+							<div class="pin_note colorIcon" data-toggle="tooltip" data-placement="auto" data-ng-click="PinArchive($index,i.id, 1)"
+								title="Pin archived note" data-ng-show="hoverEdit">
+								<i style="padding: 10px;"class="fa fa-thumb-tack" aria-hidden="true"></i>
+							</div>
+							<div class="cardtitle"data-ng-hide="i.update">
+								{{i.title}}
+							</div>
+							
+							<div class="popclick" style=""
+								data-ng-hide="i.update" data-ng-click="load_modal_sms(i, $index)">
+								<p>
+									{{i.description}}
+								</p>
+							</div>
+							<div class="text-box">
+								<!-- <span data-ng-show="hoverEdit" data-ng-style="{bottom:(!i.reminder?'0px':'19px')}"data-toggle="tooltip" data-placement="auto" 
+									title="Edit on" align="left" style="position: absolute; font-style: italic; font-size: 0.85em;">
+									<h6 style="padding: 0px 7px;font-size: 10px;">
+										Edited on {{i.date | date}}
+									</h6>
+								</span>  -->
+								<span  data-ng-style="{bottom:(!i.reminder?'5px':'28px')}"style="left:3px; position: absolute;"
+									 data-toggle="tooltip" data-placement="auto" title="Remind me" data-ng-show="hoverEdit">
+									<button type="button" data-toggle="dropdown" id="d" style="border: none; background-color: transparent;"
+										class="dropdown-toggle colorIcon" >
+										<i class="fa fa-hand-o-up" aria-hidden="true"></i>
+									</button>
+									<div style="width: 273px; height: auto;" class="dropdown-menu">
+										<div style="padding: 13px 0px 10px 10px;">
+											Reminder:
+										</div>
+										
+										<div style="padding: 0px 10px 0px 10px;"data-ng-click="hc.doReminder(i.id,$index,'Today')">
+											<span style="left: 0px;">
+												Later Today
+											</span> 
+											<span style="float: right;">
+												8:00PM
+											</span>
+										</div>
+										<div style="padding: 13px 10px 0px 10px;" data-ng-click="hc.doReminder(i.id,$index,'Tomorrow')">
+											<span style="left: 0px;">
+												Tomorrow
+											</span> 
+											<span style="float: right;">
+											    8:00AM
+											</span>
+										</div>
+										<div style="padding: 13px 10px 0px 10px;"data-ng-click="hc.doReminder(i.id,$index,'Next week')">
+											<span style="left: 0px;">
+												Next Week
+											</span> 
+											<span style="float: right;">
+												8:00AM
+											</span>
+										</div>
+									</div>
+								</span> 
+								<span style="position: absolute; left: 41px;"data-ng-style="{bottom:(!i.reminder?'5px':'28px')}" data-ng-show="hoverEdit"
+									data-toggle="tooltip" data-placement="auto" title="Collaborator">
+										<i class="fa fa-user-plus" aria-hidden="true"></i>
+								</span>
+								<span class="dropup" data-toggle="tooltip"data-placement="auto" title="change color" data-ng-show="hoverEdit"
+									data-ng-style="{bottom:(!i.reminder?'5px':'28px')}"style="left:68px; position: absolute;">
+									<button style="border: none; background-color: transparent;" class="dropdown-toggle" type="button" data-toggle="dropdown">
+										<img style="width: 14px;" src="https://maxcdn.icons8.com/Android_L/PNG/24/Editing/paint_palette-24.png" >
+									</button>
+									<div id="test" style="width: auto;" class="dropdown-menu"role="menu" aria-labelledby="menu1">
+										<ul class="ul" style="padding: 10px 20px 0px 24px;">
+											<li>
+												<div data-toggle="tooltip" data-placement="auto" title="White" data-ng-click="changeColor('#fff',$event, $index,i.id)"
+													style="background-color: transparent;" class="test1">
+												</div>
+												<div data-toggle="tooltip" data-placement="auto"title="Red" data-ng-click="changeColor('#FF8A80',$event,$index,i.id)"
+													style="background-color: #FF8A80;" class="test1">
+												</div>
+												<div data-toggle="tooltip" data-placement="auto"title="Gray" data-ng-click="changeColor('#CFD8DC',$event,$index,i.id)"
+													style="background-color: #CFD8DC;" class="test1">
+												</div>
+											</li>
+											<hr class="hrRem">
+											<li>
+												<div data-toggle="tooltip" data-placement="auto"title="Orange"data-ng-click="changeColor('#FFD180',$event,$index,i.id)"
+													style="background-color: #FFD180;" class="test1">
+												</div>
+												<div data-toggle="tooltip" data-placement="auto" title="Blue" data-ng-click="changeColor('#80D8FF',$event,$index,i.id)"
+													style="background-color: #80D8FF;" class="test1">
+												</div>
+								
+												<div data-toggle="tooltip" data-placement="auto"title="Green"data-ng-click="changeColor('#CCFF90',$event, $index, i.id)"
+													style="background-color: #CCFF90;" class="test1">
+												</div>
+											</li>
+										</ul>
+				
+									</div>
+								</span>
+								<span data-toggle="tooltip" data-placement="auto" title="share" data-ng-click="facebookshare(i)"data-ng-show="hoverEdit"
+									style="position: absolute; left: 111px;"data-ng-style="{bottom:(!i.reminder?'5px':'28px')}">
+									<i class="fa fa-facebook-square colorIcon" aria-hidden="true"></i>
+								</span>
+								<span style="position: absolute; left: 145px;"data-ng-style="{bottom:(!i.reminder?'5px':'28px')}" data-ng-show="hoverEdit"
+									data-toggle="tooltip" data-placement="auto" title="unarchive" data-ng-click="PinArchive($index, i.id, 2)" >
+									<i class="fa fa-archive colorIcon" aria-hidden="true"></i>
+								</span>
+								<span  data-toggle="tooltip" data-placement="auto" title="more" data-ng-show="hoverEdit"
+									style="position: absolute; left: 166px;"data-ng-style="{bottom:(!i.reminder?'5px':'28px')}">
+									<button id="d" data-toggle="dropdown" style="border: none; background-color: transparent; float: right; 
+										outline: none; padding: 0px 12px;" type="button" class="btn btn-default btn dropdown-toggle colorIcon">
+										<i class="glyphicon glyphicon-option-vertical" aria-hidden="true"></i>
+									</button>
+									<div class="dropdown-menu" style=" min-width: 150px; top: 87%; padding: 5px; line-height: 2.5">
+										<div data-ng-click="hc.deleteTask(i.id, $index)">
+										<span>Delete note</span>
+										</div>
+										<div data-ng-click="copy(i)">
+											<span>Make a copy</span>
+										</div>
+									</div>
+								</span>
+							</div>
+				
+							<div data-ng-mouseenter="options=true"data-ng-mouseleave="options=false" style="border-top: dotted 1px;
+								 font-size: small; font-family: 'Roboto',arial,sans-serif;"data-ng-if="i.reminder">
+								<span class="remind">
+									<i style="padding-top: 5px; padding-left: 4px;"class="glyphicon glyphicon-time"></i> 
+									{{i.reminder |date:'EEE MMM, dd hh:mm:ss a'}}
+							</span> 
+								<span data-ng-click="hc.deleteReminder(i.id, $index)"style="float: right; padding: 5px 8px 0px 4px;">
+									<i data-toggle="tooltip" data-placement="auto"title="Delete Reminder" data-ng-show="options" class="glyphicon glyphicon-remove-circle">
+									</i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+

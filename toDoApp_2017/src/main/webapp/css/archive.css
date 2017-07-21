@@ -1,0 +1,58 @@
+@CHARSET "UTF-8";
+
+.ar_searchdiv {
+	border-radius: 5px;
+	margin-top: 5px;
+	margin-left: 5%;
+	border: none;
+	background-color: #79919d;
+    display: -webkit-inline-box;
+}
+.ar_search{
+	background-color: #79919d;
+}
+.ar_search:focus{
+	background-color: white;
+	
+}
+.ar_searchIcon{
+	color: white;
+}
+.ar_searchIcon:focus{
+	color: black;
+}
+.ar_sidebutton{
+	color: white;
+	margin-left: 11px;
+}
+/* .archive input::-webkit-input-placeholder {
+  color: blue;
+}
+.archive input:-moz-placeholder {
+  color: blue;
+}
+.archive input:-ms-input-placeholder{
+  color: blue;
+} */
+
+.archive::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: white;
+}
+
+.ar_notification{
+	border-radius: 50%;
+    border: none;
+   	background-color: white;
+   	color: #607d8b;
+}
+.ar_viewList{
+	border: none; 
+	margin-left: 25px;
+	color:white;
+}
+.ar_refreshbutton {
+	background-color: transparent;
+	border: none;
+	color: white;
+}

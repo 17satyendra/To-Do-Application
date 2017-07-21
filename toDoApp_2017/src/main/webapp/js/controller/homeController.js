@@ -1,6 +1,7 @@
 myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state, taskService,$timeout, toaster, Upload){
 	$scope.result = [];
 	var cont = this;
+	
 	$scope.initDirective = function(){
 
 		$rootScope.$watch("isList",function(oldvale,newVal){
@@ -10,22 +11,29 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 	$scope.archive=function(){
 		var httpObj=taskService.getArchive().then(function(data){
 			if(data.data.status==1){
-				console.log($scope.result);
-				$scope.result=null;
+				//console.log($scope.result);
+				//$scope.result=[];
 				$scope.result = data.data.list;
-				console.log($scope.result);
+				$state.go("archive");
 			}
-		})
+		});
+	}
+	$scope.hidePinned = function(){
+		return $scope.result.some(function(someData){
+			return someData.pinCard;
+		});
+	}
+	$scope.hideOther = function(){
+		return $scope.result.some(function(someData){
+			return !someData.pinCard;
+		});
 	}
 	
 	$scope.PinArchive=function(index, id, type){
-		console.log(index+" "+id+" "+type);
 		var obj = null;
 		var ind = 0;
-		console.log($scope.result.length);
 		for(var i=0; i< $scope.result.length;i++)
 		{
-		console.log($scope.result[i].id)
 			if($scope.result[i].id==id)
 			{
 				obj=$scope.result[i];
@@ -34,16 +42,14 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 			}
 		}
 		if(type===1){
-			console.log(obj);
 			obj.pinCard=!obj.pinCard || false
-			//console.log(obj.pinCard);
 		}else if(type===2){
-			//console.log(obj.archive);
 			obj.archive = !obj.archive;
-			
+			$scope.result.splice(index, 1);
+			console.log($scope.result);
 		}
 		taskService.updateToDo(id, obj).then(function(data){
-			console.log(data);
+			//console.log(data);
 		});
 	}
 	/*Collaborator*/
@@ -67,9 +73,7 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 			 controllerAs:"$coll"
 		});
 		modal.result.catch(function(error){
-        	console.log("error::",error);   	
 		}).then( function( collaborator_Obj ) {
-			console.log(collaborator_Obj);
 			var httpObj=taskService.collaboratorService( collaborator_Obj ).then(function(data){
 				console.log(data);
 			});
@@ -103,7 +107,7 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 	        	console.log("error::",error);   	
 		 })
 	 	 .then( function(data) {
-	 		console.log(data);
+	 		//console.log(data);
 	 		//console.log();
 	 		
 	 		Upload.upload({
@@ -111,7 +115,7 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
         	 	data: {file:data}
         	 })
         	 .then(function (response) {
-        		 console.log("picture");
+        		 //console.log("picture");
         		 var d = new Date();
         		 document.getElementById("menu").src="http://localhost:8080/toDoApp_2017/getImage?t="+d.getTime();
  			 });
@@ -131,7 +135,7 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 		 });
 	}*/
 	$scope.facebookshare=function(todo){
-		console.log("facebook share")
+		//console.log("facebook share")
 		FB.init({
 			appId : '1639081702785828',
 			status: true,
@@ -179,7 +183,7 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 	
 	
 	$scope.getNote=function(){
-		$state.reload();
+		$state.go("home");
 	};
 	$scope.remindfilter=function(){
 		var date = new Date();
@@ -194,8 +198,6 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 	var accessData = window.localStorage['user'];
 	var userjson=JSON.parse(accessData);
 	$rootScope.userData=userjson.data;
-	 console.log(userjson);
-	 console.log(userjson.data.email);
 	
 	$("#menu").hover(function(){// selector
 	    $('.flyout').removeClass('hidden');
@@ -293,9 +295,8 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 			   ti.index = index;
 			   allIndex.push(ti);
 		   });
-		   console.log( allIndex );
 		   var httpobj = taskService.saveIndex(allIndex).then(function(data){
-			   console.log(data);
+			   //console.log(data);
 		   });
 	   }
 	   
@@ -315,7 +316,7 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 	
 
 	$scope.load_modal_sms = function (data, index) {
-		console.log(data);
+		//console.log(data);
 	       var modal = $uibModal.open({
 	         templateUrl: "template/popup.html",
 	         ariaLabelledBy: 'modal-title-bottom',
@@ -363,13 +364,8 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 	        	console.log("error::",error);   	
 	         }).then(function(data){
 	        	 console.log(data);
-//	        	$state.reload();
 	        	if(data) {
-	        		
-	        		console.log(data);
 	        		$scope.result.splice(index, 1, data);
-	        		console.log(data)
-	        		
 	        		cont.updateTask(index, data.id,data.reminder);
 	        	}
 	        })
@@ -377,7 +373,6 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 	 };
 
 	 this.signout=function(){
-		console.log("signout");
 		var httpobj=taskService.signoutUser().then(function(data){
 			if(data.data.status==1){
 				$state.go("login");
@@ -425,35 +420,29 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 	}
 	
 	this.deleteReminder=function(id, index){
-		
 		var object = $scope.result[index];
 		object.reminder=null;
-		console.log(object);
 		var httpobj =taskService.updateToDo(id,object).then(function (data) {
-			
 			if(data.data.status==1){
-				
-				//$state.reload();
 				toaster.success('Reminder Deleted successfully');
 			}
 		});
-		}
-		this.doReminder=function(id,index,day){
-		// console.log(id,index,day,time);
-		var obj = $scope.result[index];
+	}
+	this.doReminder=function(id,index,day){
+	var obj = $scope.result[index];
 		if(day== "Today"){
-		var date = new Date();
-		date.setHours(20, 0, 0);
-		cont.updateTask(index,id,date);
-		// console.log(date);
+			var date = new Date();
+			date.setHours(20, 0, 0);
+			cont.updateTask(index,id,date);
+			// console.log(date);
 		}
 		else{
-		if(day== "Tomorrow"){
-			var tomorrow = new Date();
-			tomorrow.setDate(tomorrow.getDate() + 1);
-			tomorrow.setHours(08, 0, 0);
-			cont.updateTask(index,id,tomorrow);
-			// console.log(tomorrow);
+			if(day== "Tomorrow"){
+				var tomorrow = new Date();
+				tomorrow.setDate(tomorrow.getDate() + 1);
+				tomorrow.setHours(08, 0, 0);
+				cont.updateTask(index,id,tomorrow);
+				// console.log(tomorrow);
 			}else{
 				var nextweek = new Date();
 				nextweek.setDate(nextweek.getDate() + 7);
@@ -462,36 +451,47 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 				console.log(nextweek);
 			}
 		}
-		
 	}
-	$scope.initTask =function(){
-	taskService.getAllTask().then(function(data){
-		
-		// console.log(data);
-		if(data.data.status == 1)
-		{	
-			/*$TIMEOUT(FUNCTION(){
-				
-			},1000);*/
-			$scope.result = data.data.list;
-			console.log($scope.result);
-			/*$scope.archiveList= data.data.list.filter(function(data){
-				return(data.archive);
+	$scope.initTask =function(action){
+		console.log('initTask');
+		console.log(action);
+		if( action == 1){
+			var httpObj=taskService.getArchive().then(function(data){
+				if(data.data.status==1){
+					$scope.result = data.data.list;
+				}
 			});
-			$scope.pinList= data.data.list.filter(function(data){
-				return(data.pinCard);
-			})*/
 		}
-		else{
-			$state.go("login");
+		else
+		{
+			taskService.getAllTask().then(function(data){
+			 console.log(data);
+				if(data.data.status == 1)
+				{	
+				/*$TIMEOUT(FUNCTION(){
+				},1000);*/
+				$scope.result = data.data.list;
+				/*for(var i=0; i<result.length; i++){
+					if(result.pinCard)
+				}*/
+				/*$scope.archiveList= data.data.list.filter(function(data){
+					return(data.archive);
+				});
+				$scope.pinList= data.data.list.filter(function(data){
+					return(data.pinCard);
+				})*/
+				}
+				else{
+					$state.go("login");
+				}
+			}).catch(function(err){
+				console.log(err);
+			});
 		}
-	}).catch(function(err){
-		console.log(err);
-	});
-}
+	}
 	
-	  	$scope.copy=function(todo){
-		console.log(todo);
+	$scope.copy=function(todo){
+	//	console.log(todo);
 		todo.id=null;
 		
 		taskService.createTask(todo).then(function(data){
@@ -508,22 +508,21 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 		if($scope.todo.reminder!=null){
 			$scope.todo.reminder=new Date($scope.todo.reminder);
 		}
-		 //$scope.result.push( $scope.todo );
-		 $("#ToggleToDoSection").hide();
-         $('#OpenToDoSecton').show();
-		 var httpObj = taskService.createTask($scope.todo).then(function(data){
-			 
-			 console.log(data);
-			 $scope.todoDisplay= false;
-			 if(data.data.status==1)
-			 {
-				 $scope.result.push( data.data.doTask );
+		//$scope.result.push( $scope.todo );
+		$("#ToggleToDoSection").hide();
+        $('#OpenToDoSecton').show();
+		var httpObj = taskService.createTask($scope.todo).then(function(data){
+			 //console.log(data);
+			$scope.todoDisplay= false;
+			if(data.data.status==1)
+			{
+				$scope.result.unshift( data.data.doTask );
 				
-				 $scope.todo.title=null;
-				 $scope.todo.reminder=null;
-				 $scope.todo.description=null;
+				$scope.todo.title=null;
+				$scope.todo.reminder=null;
+				$scope.todo.description=null;
 				 
-				 toaster.success('ToDo created successfully');
+				toaster.success('ToDo created successfully');
 			 }
 			 else{
 				 $state.go("login"); // Nothidden action Remain in same page or error page
@@ -531,9 +530,6 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 			 console.log($scope.result);
 		 }).catch(function(){});
 	}
-	
-	
-	
 	
 	this.ShowHide = function(){
 		$scope.todoDisplay= true;
@@ -578,13 +574,25 @@ myApp.service('taskService',function($http){
 		return $http({url:"http://localhost:8080/toDoApp_2017/saveIndex", method:"post", data:allIndex});
 	}
 });
-function jqueryFunction(){
-	/*
-	 * $('#products').mouseenter(function() { $('#products')
-	 * $('#ButtonChange').show(); }).mouseout(function() {
-	 * $('#ButtonChange').hide(); })
-	 */
+
+
+
+
+
+function openNav() {
+	document.getElementById("mySidenav").style.width = "225px";
+	document.getElementById("main").style.marginLeft = "225px";
 }
+
+function closeNav() {
+	document.getElementById("mySidenav").style.width = "0";
+	document.getElementById("main").style.marginLeft = "0";
+}
+
+
+
+
+
 
 /*
  * When the user clicks on the button, toggle between hiding and showing the

@@ -41,8 +41,14 @@ public class ToDoDaoImpl implements ToDoDao {
 	SessionFactory sessionFactory;
 
 	public void addToDoTask(ToDoTask todo) throws HibernateException {
-
+		
 		Session session = sessionFactory.getCurrentSession();
+		
+		/*String hql ="update ToDoTask set cardIndex=cardIndex+1";
+		Query qry = session.createQuery(hql);
+		qry.executeUpdate();
+		*/
+		
 		session.saveOrUpdate(todo);
 	}
 
@@ -109,7 +115,6 @@ public class ToDoDaoImpl implements ToDoDao {
 			List<ToDoTask> sharedNotes = null;
 			User user = new User();
 			user.setId(userId);
-			System.out.println("ggggggggggggggggggggggggggggggg");
 			Criteria criteria = session.createCriteria(Collaboration.class);
 
 			ProjectionList projectionList = Projections.projectionList();
@@ -148,5 +153,48 @@ public class ToDoDaoImpl implements ToDoDao {
 			query.executeUpdate();
 			
 		}
+	}
+
+	@Override
+	public List<User> getSharedUser(User shareBy_user) throws HibernateException {
+		try{
+			Session session = sessionFactory.getCurrentSession();
+
+			List<User> sharedUser = null;
+			;
+			Criteria criteria = session.createCriteria(Collaboration.class);
+
+			ProjectionList projectionList = Projections.projectionList();
+			projectionList.add(Projections.property("shared_User"));
+			criteria.setProjection(projectionList);
+
+			criteria.add(Restrictions.eq("shared_by", shareBy_user));
+
+			//System.out.println(criteria.list());
+
+			sharedUser = criteria.list();
+
+			return sharedUser;
+		}
+		catch (Exception e) {
+
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public void deleteCollaborator(int taskId) {
+		
+		ToDoTask todo = new ToDoTask();
+		todo.setId(taskId);
+		
+		String query = "DELETE FROM Collaboration WHERE todo =:todo";
+		Session session = sessionFactory.getCurrentSession();
+        Query q = session.createQuery(query);
+        q.setParameter("todo", todo);
+        q.executeUpdate();
+		
+		
 	}
 }

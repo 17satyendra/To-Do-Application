@@ -44,12 +44,14 @@ public class ToDoTask  implements Serializable{
 	private Date reminder;
 	private boolean pinCard;
 	private boolean archive;
+	private Boolean isShare;
 	private String cardColor;
 	private int cardIndex;
 	
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name="user_Id")
 	private User user;
+	
 	
 	public ToDoTask() {	}
 
@@ -69,14 +71,7 @@ public class ToDoTask  implements Serializable{
 		this.title = title;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
+	
 	public Date getDate() {
 		return date;
 	}
@@ -132,17 +127,30 @@ public class ToDoTask  implements Serializable{
 	public void setCardIndex(int cardIndex) {
 		this.cardIndex = cardIndex;
 	}
+	
+	public Boolean getIsShare() {
+		return isShare;
+	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+	
+	public void setIsShare(Boolean isShare) {
+		this.isShare = isShare;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
 		return "ToDoTask [id=" + id + ", title=" + title + ", description=" + description + ", date=" + date
-				+ ", reminder=" + reminder + ", pinCard=" + pinCard + ", archive=" + archive + ", cardColor="
-				+ cardColor + ", index=" + cardIndex + ", user=" + user + "]";
+				+ ", reminder=" + reminder + ", pinCard=" + pinCard + ", archive=" + archive + ", isShare=" + isShare
+				+ ", cardColor=" + cardColor + ", cardIndex=" + cardIndex + ", user=" + user + "]";
 	}
-	
 	
 
 }

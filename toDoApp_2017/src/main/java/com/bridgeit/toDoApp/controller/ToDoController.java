@@ -91,7 +91,7 @@ public class ToDoController {
 		User user = (User) sess.getAttribute("user");
 		ErrorResponse er = null;
 		List<ToDoTask> toDoList = null;
-
+		List<User> sharedUser=null;
 		try {
 			toDoList = toDoService.getToDoList(user.getId());
 			Collections.sort(toDoList, new Comparator<ToDoTask>() {
@@ -100,11 +100,13 @@ public class ToDoController {
 					return Integer.valueOf(o1.getCardIndex()).compareTo( o2.getCardIndex() ) ;
 				}
 			});
-			
+			sharedUser = toDoService.getSharedUserList(user);
 			TaskResponse tr = new TaskResponse();
 			tr.setStatus(1);
 			tr.setMessage("Data fetched sccessfully");
 			tr.setList(toDoList);
+			tr.setSharedUser(sharedUser);
+			System.out.println(tr);
 			return tr;
 		} catch (Exception e) {
 			e.printStackTrace();

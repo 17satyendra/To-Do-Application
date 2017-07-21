@@ -165,11 +165,12 @@ input, textarea {
 }
 
 .refreshbutton {
-	background-color: #FFBB00;
+	background-color: transparent;
 	border: none;
 }
 
 .searchdiv {
+	border-radius: 5px;
 	margin-top: 5px;
 	margin-left: 5%;
 	border: none;
@@ -303,6 +304,7 @@ body {
     font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
     color: #767676;
     padding-left: 16px;
+    margin-left: 10px;
     
 }
 .sidenav a i{
@@ -329,7 +331,7 @@ hr {
 }
 
 #main {
-	transition: margin-left .1s;
+	transition: margin-left .5s;
 	padding: 16px;
 }
 

@@ -7,6 +7,7 @@ import org.hibernate.HibernateException;
 
 import com.bridgeit.toDoApp.model.Collaboration;
 import com.bridgeit.toDoApp.model.ToDoTask;
+import com.bridgeit.toDoApp.model.User;
 
 public interface ToDoService {
 
@@ -21,5 +22,7 @@ public interface ToDoService {
 	void saveCollaboration(Collaboration col);
 
 	void updateIndex(List<Map<String, Integer>> listOfIndex) throws HibernateException;
+
+	List<User> getSharedUserList(User shareBy_user);
 
 }

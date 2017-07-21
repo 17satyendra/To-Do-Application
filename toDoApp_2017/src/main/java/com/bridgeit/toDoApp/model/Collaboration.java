@@ -24,6 +24,9 @@ public class Collaboration implements Serializable {
 	@ManyToOne(cascade=CascadeType.ALL)
 	private ToDoTask todo;
 	
+	@ManyToOne(cascade=CascadeType.ALL)
+	private User shared_by;
+	
 	@ManyToOne(cascade=CascadeType.DETACH)
 	private User shared_User;
 	
@@ -46,10 +49,17 @@ public class Collaboration implements Serializable {
 	public void setShared_User(User shared_User) {
 		this.shared_User = shared_User;
 	}
+	
+	public User getShared_by() {
+		return shared_by;
+	}
+	public void setShared_by(User shared_by) {
+		this.shared_by = shared_by;
+	}
 	@Override
 	public String toString() {
-		return "Collaboration [coll_id=" + coll_id + ", todo=" + todo + ", shared_User=" + shared_User + "]";
+		return "Collaboration [coll_id=" + coll_id + ", todo=" + todo + ", shared_by=" + shared_by + ", shared_User="
+				+ shared_User + "]";
 	}
-	
 	
 }

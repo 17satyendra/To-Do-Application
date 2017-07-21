@@ -7,6 +7,21 @@
     margin: 15px 70px;
     
 }
+.titleList{
+	color: rgba(0,0,0,.54);
+    font-family: 'Roboto',arial,sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0px 80px;
+}
+.titleGrid{
+	color: rgba(0,0,0,.54);
+    font-family: 'Roboto',arial,sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0px 26px;
+    
+}
 .cardView{
 	width: 100%;
 	padding: 20px;
@@ -56,6 +71,8 @@
 	word-break: break-word;
 }
 p {
+	
+    margin: 0 0 15px;
 	width: 96%;
 	min-height: 38px;
 	overflow: hidden;
@@ -78,8 +95,8 @@ p {
   
 }
 .listviewalign{
-	width: 84%;
-    margin-left: 7%;
+	width: 80%;
+    margin-left: 9%;
 }
 
 

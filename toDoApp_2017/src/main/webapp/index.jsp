@@ -31,6 +31,7 @@
 <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
 <link rel="stylesheet" href="bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css">
 <link rel="stylesheet" href="bower_components/gridly/stylesheets/jquery.gridly.css">
+
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <link rel="stylesheet" type="text/css" href="css/displaycard.css">
 <link rel="stylesheet" type="text/css" href="css/loading.css">
@@ -38,6 +39,7 @@
 <link rel="stylesheet" type="text/css" href="css/login.css">
 <link rel="stylesheet" type="text/css" href="css/Registration.css">
 <link rel="stylesheet" type="text/css" href="css/collaborator.css">
+<link rel="stylesheet" type="text/css" href="css/archive.css">
 
 <style>
 /* @media (min-width: 1200px) {

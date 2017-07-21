@@ -74,7 +74,7 @@ app.controller('MyController', function($scope) {
 	}
 });
 
-function openNav() {
+/*function openNav() {
 	document.getElementById("mySidenav").style.width = "225px";
 	document.getElementById("main").style.marginLeft = "225px";
 }
@@ -82,5 +82,5 @@ function openNav() {
 function closeNav() {
 	document.getElementById("mySidenav").style.width = "0";
 	document.getElementById("main").style.marginLeft = "0";
-}
+}*/
 var doubleClick = true;

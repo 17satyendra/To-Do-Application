@@ -12,6 +12,12 @@ var myApp = angular.module('todoApp', ['ui.router','ui.bootstrap','ngSanitize','
     controller:"homeController",
     controllerAs:"hc"
   })
+  .state("archive",{
+    url:"/archive",
+    templateUrl:"template/archive.html",
+    controller:"homeController",
+    controllerAs:"hc"
+  })
   .state("about",{
     url:"/about",
     templateUrl:"template/about.html"

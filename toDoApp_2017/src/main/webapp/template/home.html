@@ -6,7 +6,7 @@
 			icon" style="font-size: 20px; cursor: pointer;" onclick="openNav()">&#9776;
 			</span>
 			<span style="font-size: 19px; display: -webkit-inline-box; color: black; font-weight: bolder;padding-left: 35px;">
-					To Do Manager
+					Fundoo Note
 			</span>
 		</div>
 		
@@ -113,7 +113,7 @@
 	
 	<div id="main">
 		<div class="container">
-			<div id="mySidenav" class="sidenav">
+			<div id="mySidenav" class="sidenav" style="margin-top: 63px;">
 				<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 				<a data-ng-click="getNote()"><i
 					class="glyphicon glyphicon-grain"></i> Notes</a>
@@ -238,19 +238,20 @@
 					<div>
 						<div class="beforeNote" ng-if="result.length===0">
 							<div>
-								<i style="font-size: 80px;" class="fa fa-check-square-o" aria-hidden="true">todo</i>
+								<i style="font-size: 80px;" class="fa fa-check-square-o" aria-hidden="true">fundoo</i>
 							</div>
 							<div style="margin: 10px;">Notes you add appear here</div>
 						</div>
 					
 					</div>
-			
-						<div >
-						<div ng-include></div>
-						<my-pinned isList="isList" result="result"></my-pinned>
-						<!-- <div data-ng-include="'template/pinUp.html'"></div> -->
-						<my-card isList="isList" result="result"></my-card>
+					<div>
+						<div>
+							<my-pinned isList="isList" result="result"></my-pinned>
 						</div>
+						<div style="margin-top: 5%;">
+							<my-card isList="isList" result="result"></my-card>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

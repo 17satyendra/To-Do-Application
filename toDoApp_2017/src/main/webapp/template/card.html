@@ -1,5 +1,6 @@
+<div data-ng-class="{titleList: isList, titleGrid:!isList}" ng-init="initDirective()" data-ng-show="hideOther() && hidePinned()">Others</div>
 <div class="slides container" ng-class="{list:isList, grid: !isList}">
-	<div class="pinTitle" ng-init="initDirective()">Others</div>
+	
 	<div  ng-if="!i.pinCard && !i.archive"  data-ng-class="{'listviewalign':isList,'col-xs-12':!isList, 'col-md-6':!isList, 'col-sm-6':!isList,'col-lg-4':!isList}"
 		data-ng-repeat="i in result | orderBy:'reminder' |filter :searchtext track by $index "
 		data-ng-mouseover="hoverIn()" data-ng-mouseleave="hoverOut()" class="myDragItem" id="{{i.id}}">
@@ -137,6 +138,9 @@
 					<i data-toggle="tooltip" data-placement="auto"title="Delete Reminder" data-ng-show="options" class="glyphicon glyphicon-remove-circle">
 					</i>
 				</span>
+			</div>
+			<div style="border-top:solid 1px;">
+				share todo
 			</div>
 		</div>
 	</div>

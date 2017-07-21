@@ -3,6 +3,7 @@ package com.bridgeit.toDoApp.controller;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,30 +37,34 @@ public class CollaboratorController {
 	private UserService userservice;
 	
 	static final Logger logger = Logger.getLogger(CollaboratorController.class);
-	
+	 
 	static Response resp=null;
 	
 	@RequestMapping(value = "share", method = RequestMethod.POST)
-	public @ResponseBody Response addTask(@RequestBody CollaboratorRequest cr) {
+	public @ResponseBody Response addTask(@RequestBody CollaboratorRequest cr, HttpServletRequest request) {
 		
-		System.out.println(cr);
+		HttpSession sess=request.getSession();
+		User sharedBy=(User)sess.getAttribute("user");
 		
-		User user=userservice.getEntityByEmailId(cr.getShareEmail());
-		System.out.println(user);
-		if(user==null){
+		User sharedUser=userservice.getEntityByEmailId(cr.getShareEmail());
+		if(sharedUser==null){
 			resp=new Response();
 			resp.setMessage("Invalid User email");
 			resp.setStatus(0);
 			return resp;
 		}
-		Collaboration col = new Collaboration();  
-		col.setShared_User(user);
+		Collaboration col = new Collaboration();
+		
+		col.setShared_User(sharedUser);
 		col.setTodo(cr.getTodoObj());
+		col.setShared_by(sharedBy);
 		
 		toDoService.saveCollaboration(col);
+		
 		Response resp = new Response();
 		resp.setMessage("done");
 		resp.setStatus(1);
+		
 		return resp;
 	
 	}

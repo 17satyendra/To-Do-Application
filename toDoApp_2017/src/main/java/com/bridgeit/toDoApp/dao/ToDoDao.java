@@ -7,6 +7,7 @@ import org.hibernate.HibernateException;
 
 import com.bridgeit.toDoApp.model.Collaboration;
 import com.bridgeit.toDoApp.model.ToDoTask;
+import com.bridgeit.toDoApp.model.User;
 
 public interface ToDoDao {
 
@@ -23,5 +24,9 @@ public interface ToDoDao {
 	List<ToDoTask> getSharedTodo(int id)throws Exception;
 
 	void saveIndex(List<Map<String, Integer>> listOfIndex) throws HibernateException;
+
+	List<User> getSharedUser(User shareBy_user) throws HibernateException;
+
+	void deleteCollaborator(int taskId);
 
 }

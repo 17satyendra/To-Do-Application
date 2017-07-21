@@ -1,23 +1,24 @@
-<div style="margin-bottom: 65px; margin-top: 42px;" class="slides container" ng-class="{list:isList, grid: !isList}">
-    <div class="pinTitle">Pinned</div>	
+<div data-ng-class="{titleList: isList, titleGrid:!isList}" data-ng-show="hidePinned()">Pinned</div>
+<div class="slides container" ng-class="{list:isList, grid: !isList}">
 	<div  ng-if="i.pinCard && !i.archive" ng-init="initDirective()" data-ng-class="{'listviewalign':isList,'col-xs-12':!isList, 'col-md-6':!isList, 'col-sm-6':!isList,'col-lg-4':!isList}"
 		data-ng-repeat="i in result | orderBy:'reminder' |filter :searchtext track by $index "
-		data-ng-mouseover="hoverIn()" data-ng-mouseleave="hoverOut()">
+		data-ng-mouseover="hoverIn()" data-ng-mouseleave="hoverOut()" class="myDragItem" id="{{i.id}}">
 		<div class="card card-1 thumbnail " style="width: 100%;margin: 10px; background-color: {{i.cardColor}}">
 			<div class="pin_note " data-toggle="tooltip" data-placement="auto" data-ng-click="PinArchive($index,i.id, 1)"
 				title="Pin Card" >
 				<i style="padding: 10px;color: #4285f4"class="fa fa-thumb-tack" aria-hidden="true"></i>
 			</div>
-			
-			<div class="cardtitle"data-ng-hide="i.update">
-				{{i.title}}
-			</div>
-			
-			<div class="popclick" style=""
-				 data-ng-click="load_modal_sms(i, $index)">
-				<p>
-					{{i.description}}
-				</p>
+			<div data-ng-click="load_modal_sms(i, $index)">
+				<div class="cardtitle"data-ng-hide="i.update">
+					{{i.title}}
+				</div>
+				
+				<div class="popclick">
+					 
+					<p>
+						{{i.description}}
+					</p>
+				</div>
 			</div>
 			<div class="text-box">
 				<!-- <span data-ng-show="hoverEdit" data-ng-style="{bottom:(!i.reminder?'0px':'19px')}"data-toggle="tooltip" data-placement="auto" 

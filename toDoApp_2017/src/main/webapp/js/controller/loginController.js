@@ -2,7 +2,7 @@
 
 myApp.controller("loginController",function ($scope,  $state, loginService,profileService, usSpinnerService ) {	
 	
-	/*$scope.isLogin=function(){
+	$scope.isLogin=function(){
 		console.log("true");
 		var httpObje = loginService.checkLogin();
 		httpObje.then(function (data) {
@@ -12,7 +12,7 @@ myApp.controller("loginController",function ($scope,  $state, loginService,profi
 		});
 		
 	}
-*/	$scope.startSpin = function() {
+	$scope.startSpin = function() {
 	      if (!$scope.spinneractive) {
 	        usSpinnerService.spin('spinner-1');
 	       
@@ -30,7 +30,7 @@ myApp.controller("loginController",function ($scope,  $state, loginService,profi
 			
 			if( data.data.status == 1 ){
 				var httpobj=profileService.profile().then(function(data1){
-					console.log(data1);
+					//console.log(data1);
 					window.localStorage['user'] = angular.toJson(data1);
 					$state.go("home");
 				});

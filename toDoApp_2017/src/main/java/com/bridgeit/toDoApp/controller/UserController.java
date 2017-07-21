@@ -167,7 +167,7 @@ public class UserController {
 
 	/* Getting List of objects in Json format in Spring Restful Services */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public @ResponseBody Response getEmployee() {
+	public @ResponseBody Response getListOfUser() {
 		ErrorResponse er = null;
 		List<User> userList = null;
 		try {
