@@ -8,15 +8,45 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 			$scope.isList=$rootScope.isList;
 		})
 	}
+	$scope.trash_state=function(){
+		$state.go("trash");
+	}
+	$scope.trash=function(id, index){
+		var obj = null;
+		for(var i=0; i< $scope.result.length;i++)
+		{
+			if($scope.result[i].id===id)
+			{
+				obj=$scope.result[i];
+				ind=i;
+				break;
+			}
+		}
+		/*obj=$scope.result[ind];*/
+		obj.trash = !obj.trash
+		
+		taskService.updateToDo(id, obj).then(function(data)
+		{
+			if(data.status===1){
+				$scope.result.splice(index, 1);
+				
+			}
+			
+		}).catch(function(error){
+			console.log(error);
+		});
+	}
+	
 	$scope.archive=function(){
-		var httpObj=taskService.getArchive().then(function(data){
+		/*var httpObj=taskService.getArchive().then(function(data){
 			if(data.data.status==1){
 				//console.log($scope.result);
 				//$scope.result=[];
 				$scope.result = data.data.list;
 				$state.go("archive");
 			}
-		});
+		});*/
+		$state.go("archive")
 	}
 	$scope.hidePinned = function(){
 		return $scope.result.some(function(someData){
@@ -166,7 +196,7 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 	};
 	
 	
-	$scope.changeColor=function(color, e, index, id){
+	$scope.changeColor=function(color,col, e, index, id){
 		var obj = null;
 		for(var i=0; i< $scope.result.length;i++){
 			if($scope.result[i].id==id)
@@ -177,7 +207,9 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 		obj.cardColor=color;
 		taskService.updateToDo(id, obj);
 		
-		$(e.target).closest( ".card" ).css( "background-color", color);
+		$(e.target).closest( ".card" ).css( "background-color", color).find(".display_coll").css("background-color",col);
+//		$($(e.target).closest( ".card" ));
+//		$(e.target).find(".display_coll").css("background-color", col);
 	};
 	
 	
@@ -422,7 +454,7 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 	this.deleteReminder=function(id, index){
 		var object = $scope.result[index];
 		object.reminder=null;
-		var httpobj =taskService.updateToDo(id,object).then(function (data) {
+		var httpobj =taskService.updateToDo(id, object).then(function (data) {
 			if(data.data.status==1){
 				toaster.success('Reminder Deleted successfully');
 			}
@@ -452,11 +484,23 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 			}
 		}
 	}
+	$scope.spacing = function(tempData){
+		if(tempData.reminder && (tempData.sharedUser && tempData.sharedUser.length!==0)){
+			return "52px";
+		}else
+		if(tempData.reminder || (tempData.sharedUser && tempData.sharedUser.length!==0)){
+			return "28px";
+		}else{
+			return "5px";
+		}
+		//(!i.reminder?'5px':'') &&(i.sharedUser.length!==0?'48px':'5px')	
+	}
+	
 	$scope.initTask =function(action){
 		console.log('initTask');
 		console.log(action);
-		if( action == 1){
-			var httpObj=taskService.getArchive().then(function(data){
+		if( action == 1 || action==2){
+			var httpObj=taskService.getDynamicList(action).then(function(data){
 				if(data.data.status==1){
 					$scope.result = data.data.list;
 				}
@@ -465,25 +509,15 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 		else
 		{
 			taskService.getAllTask().then(function(data){
-			 console.log(data);
-				if(data.data.status == 1)
-				{	
-				/*$TIMEOUT(FUNCTION(){
-				},1000);*/
+			console.log(data);
+			if(data.data.status == 1)
+			{	
 				$scope.result = data.data.list;
-				/*for(var i=0; i<result.length; i++){
-					if(result.pinCard)
-				}*/
-				/*$scope.archiveList= data.data.list.filter(function(data){
-					return(data.archive);
-				});
-				$scope.pinList= data.data.list.filter(function(data){
-					return(data.pinCard);
-				})*/
-				}
-				else{
-					$state.go("login");
-				}
+				
+			}
+			else{
+				$state.go("login");
+			}
 			}).catch(function(err){
 				console.log(err);
 			});
@@ -563,8 +597,8 @@ myApp.service('taskService',function($http){
 		return $http({url:"http://localhost:8080/toDoApp_2017/signout"});
 	}
 	
-	this.getArchive=function(){
-		return $http({url:"http://localhost:8080/toDoApp_2017/archiveList"});
+	this.getDynamicList=function(action){
+		return $http({url:"http://localhost:8080/toDoApp_2017/dynamicList/"+action});
 	}
 	
 	this.collaboratorService=function(collaborator_Obj){
@@ -579,26 +613,23 @@ myApp.service('taskService',function($http){
 
 
 
-function openNav() {
-	document.getElementById("mySidenav").style.width = "225px";
-	document.getElementById("main").style.marginLeft = "225px";
+function toggleSide() {
+	//alert("Width of div: " + $("#mySidenav").width());
+	if($("#mySidenav").width()===0){
+		document.getElementById("mySidenav").style.width = "280px";
+		document.getElementById("main").style.marginLeft = "280px";
+	}else{
+		document.getElementById("mySidenav").style.width = "0";
+		document.getElementById("main").style.marginLeft = "0";
+	}
 }
-
-function closeNav() {
-	document.getElementById("mySidenav").style.width = "0";
-	document.getElementById("main").style.marginLeft = "0";
-}
-
-
-
-
 
 
 /*
  * When the user clicks on the button, toggle between hiding and showing the
  * dropdown content
  */
-function myFunction() {
+/*function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
 
@@ -615,4 +646,4 @@ window.onclick = function(event) {
       }
     }
   }
-}
+}*/

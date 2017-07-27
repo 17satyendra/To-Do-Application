@@ -125,3 +125,16 @@
     display: inline-block;
     outline: none!important;
 }
+.Share_char{
+	background-image: url();
+	margin: 0px 0px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 17px;
+    font-family: Times New Roman, Times, serif;
+}
+.display_coll{
+	width: 103%;
+    margin-left: -3px;
+    margin-bottom: -4px;
+}

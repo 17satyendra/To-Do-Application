@@ -24,7 +24,7 @@ public class Collaboration implements Serializable {
 	@ManyToOne(cascade=CascadeType.ALL)
 	private ToDoTask todo;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.DETACH)
 	private User shared_by;
 	
 	@ManyToOne(cascade=CascadeType.DETACH)

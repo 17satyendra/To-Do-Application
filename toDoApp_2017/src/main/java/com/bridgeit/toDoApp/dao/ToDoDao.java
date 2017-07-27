@@ -15,8 +15,6 @@ public interface ToDoDao {
 
 	List<ToDoTask> getToDoListByUserId(int id) throws Exception;
 	
-	List<ToDoTask> getArchivedTOdoTask(int userId) throws Exception;
-
 	void deleteTaskByTODoId(int taskId) throws Exception;
 
 	void saveCollaboration(Collaboration col);
@@ -25,8 +23,10 @@ public interface ToDoDao {
 
 	void saveIndex(List<Map<String, Integer>> listOfIndex) throws HibernateException;
 
-	List<User> getSharedUser(User shareBy_user) throws HibernateException;
+	List<User> getSharedUser(ToDoTask todo) throws HibernateException;
 
 	void deleteCollaborator(int taskId);
+
+	List<ToDoTask> getDynamicList(int userId, int option) throws HibernateException;
 
 }

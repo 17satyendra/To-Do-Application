@@ -13,6 +13,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.AliasToBeanResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,12 +80,15 @@ public class ToDoDaoImpl implements ToDoDao {
 		System.out.println(rowCount + " Data Deleted");
 	}
 	
-	public List<ToDoTask> getArchivedTOdoTask(int userId) throws Exception {
+	public List<ToDoTask> getDynamicList(int userId, int option) throws HibernateException {
 		
 		Session session = sessionFactory.openSession();
 		Criteria ctr = session.createCriteria(ToDoTask.class);
-		List<ToDoTask> list = ctr.add(Restrictions.eq("user.id", userId)).add(Restrictions.eq("archive", true)).list();
-		session.close();
+		List<ToDoTask> list=null;
+		if(option==1)
+			list = ctr.add(Restrictions.eq("user.id", userId)).add(Restrictions.eq("archive", true)).list();
+		else if(option==2)
+			list = ctr.add(Restrictions.eq("user.id", userId)).add(Restrictions.eq("trash", true)).list();
 		
 		if( list != null)
 		{
@@ -94,6 +98,7 @@ public class ToDoDaoImpl implements ToDoDao {
 				}
 			}
 		}
+		session.close();
 		
 		return list;
 	}
@@ -156,24 +161,28 @@ public class ToDoDaoImpl implements ToDoDao {
 	}
 
 	@Override
-	public List<User> getSharedUser(User shareBy_user) throws HibernateException {
+	public List<User> getSharedUser(ToDoTask todo) throws HibernateException {
 		try{
 			Session session = sessionFactory.getCurrentSession();
 
 			List<User> sharedUser = null;
 			;
 			Criteria criteria = session.createCriteria(Collaboration.class);
-
+			criteria.createAlias("shared_User", "s_user");
 			ProjectionList projectionList = Projections.projectionList();
-			projectionList.add(Projections.property("shared_User"));
+			//projectionList.add(Projections.property("shared_User"));
+			projectionList.add(Projections.property("s_user.firstName"),"firstName");
+			projectionList.add(Projections.property("s_user.lastName"),"lastName");
+			projectionList.add(Projections.property("s_user.email"),"email");
+			projectionList.add(Projections.property("s_user.id"),"id");
+			
 			criteria.setProjection(projectionList);
 
-			criteria.add(Restrictions.eq("shared_by", shareBy_user));
-
-			//System.out.println(criteria.list());
+			criteria.add(Restrictions.eq("todo", todo));
+			criteria.setResultTransformer( new AliasToBeanResultTransformer(User.class));
 
 			sharedUser = criteria.list();
-
+			//List<User> // List<Object[]>
 			return sharedUser;
 		}
 		catch (Exception e) {

@@ -63,8 +63,9 @@ public class ToDoServiceImpl implements ToDoService{
 	}
 
 	@Override
-	public List<ToDoTask> getArchivedTOdoTask(int userId) throws Exception {
-		return tododao.getArchivedTOdoTask(userId);
+	public List<ToDoTask> getDynamicList(int userId, int option) throws Exception {
+		
+			return tododao.getDynamicList(userId, option);
 	}
 
 	@Override
@@ -83,9 +84,9 @@ public class ToDoServiceImpl implements ToDoService{
 
 
 	@Override
-	public List<User> getSharedUserList(User shareBy_user) {
+	public List<User> getSharedUserList(ToDoTask todo) {
 		
-		return tododao.getSharedUser( shareBy_user );
+		return tododao.getSharedUser( todo );
 	}
 
 }

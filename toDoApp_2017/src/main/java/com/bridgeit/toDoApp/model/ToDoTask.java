@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
@@ -44,9 +45,12 @@ public class ToDoTask  implements Serializable{
 	private Date reminder;
 	private boolean pinCard;
 	private boolean archive;
-	private Boolean isShare;
 	private String cardColor;
 	private int cardIndex;
+	private Boolean trash;
+	
+	@Transient
+	private List<User> sharedUser;
 	
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name="user_Id")
@@ -128,15 +132,6 @@ public class ToDoTask  implements Serializable{
 		this.cardIndex = cardIndex;
 	}
 	
-	public Boolean getIsShare() {
-		return isShare;
-	}
-
-	
-	public void setIsShare(Boolean isShare) {
-		this.isShare = isShare;
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -145,12 +140,29 @@ public class ToDoTask  implements Serializable{
 		this.user = user;
 	}
 
+	public List<User> getSharedUser() {
+		return sharedUser;
+	}
+
+	public void setSharedUser(List<User> sharedUser) {
+		this.sharedUser = sharedUser;
+	}
+	
+	public Boolean getTrash() {
+		return trash;
+	}
+
+	public void setTrash(Boolean trash) {
+		this.trash = trash;
+	} 
+	
 	@Override
 	public String toString() {
 		return "ToDoTask [id=" + id + ", title=" + title + ", description=" + description + ", date=" + date
-				+ ", reminder=" + reminder + ", pinCard=" + pinCard + ", archive=" + archive + ", isShare=" + isShare
-				+ ", cardColor=" + cardColor + ", cardIndex=" + cardIndex + ", user=" + user + "]";
+				+ ", reminder=" + reminder + ", pinCard=" + pinCard + ", archive=" + archive + ", cardColor="
+				+ cardColor + ", cardIndex=" + cardIndex + ", sharedUser=" + sharedUser + ", user=" + user + "]";
 	}
-	
 
+	
+	
 }

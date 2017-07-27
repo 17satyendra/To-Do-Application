@@ -18,6 +18,12 @@ var myApp = angular.module('todoApp', ['ui.router','ui.bootstrap','ngSanitize','
     controller:"homeController",
     controllerAs:"hc"
   })
+  .state("trash",{
+    url:"/trash",
+    templateUrl:"template/trash.html",
+    controller:"homeController",
+    controllerAs:"hc"
+  })
   .state("about",{
     url:"/about",
     templateUrl:"template/about.html"

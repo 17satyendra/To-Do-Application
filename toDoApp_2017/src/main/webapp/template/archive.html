@@ -3,7 +3,7 @@
 		style="background-color: #607d8b; width: 100%; z-index: 999; position: fixed;">
 		<div class=" navbar-header navbar-text" style="display:inline-flex; cursor: pointer">
 			<span data-toggle="tooltip" data-placement="bottom" title="menu" class="ar_sidebutton notification-
-			icon" style="font-size: 20px; cursor: pointer; " onclick="openNav()">&#9776;
+			icon" style="font-size: 20px; cursor: pointer; " onclick="toggleSide()">&#9776;
 			</span>
 			<span style="font-size: 19px; display: -webkit-inline-box; color: white; font-weight: bolder;padding-left: 35px;">
 					Archive
@@ -114,7 +114,6 @@
 	<div id="main">
 		<div class="container" style="transition: 0.5s;">
 			<div id="mySidenav" class="sidenav">
-				<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 				<a data-ng-click="getNote()"><i
 					class="glyphicon glyphicon-grain"></i> Notes</a>
 				<hr>
@@ -261,9 +260,9 @@
 										outline: none; padding: 0px 12px;" type="button" class="btn btn-default btn dropdown-toggle colorIcon">
 										<i class="glyphicon glyphicon-option-vertical" aria-hidden="true"></i>
 									</button>
-									<div class="dropdown-menu" style=" min-width: 150px; top: 87%; padding: 5px; line-height: 2.5">
+									<div class="dropdown-menu" style="cursor: pointer; min-width: 150px; top: 87%; padding: 5px; line-height: 2.5">
 										<div data-ng-click="hc.deleteTask(i.id, $index)">
-										<span>Delete note</span>
+											<span>Delete note</span>
 										</div>
 										<div data-ng-click="copy(i)">
 											<span>Make a copy</span>

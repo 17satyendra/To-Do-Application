@@ -1,0 +1,35 @@
+.sideList{
+	padding-left: 32px;
+    display: inline-block;
+    line-height: 40px;
+    vertical-align: top;
+    width: 176px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+    color: #767676;
+}
+.sidenav {
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	background-color: #E8E8E8;
+	overflow-x: hidden;
+	padding-top: 15px;
+	margin-top: 52px;
+}
+.sideIcon{
+	background: transparent;
+	text-decoration: none;
+	display: inline-block; 
+	width: 92%;
+}
+.sideIconList:hover{
+	background: #e0e0e0;
+}
+.sideIconList{
+	background: transparent;
+}

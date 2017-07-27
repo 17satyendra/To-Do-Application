@@ -15,17 +15,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.bridgeit.toDoApp.json.ErrorResponse;
 import com.bridgeit.toDoApp.model.Token;
 import com.bridgeit.toDoApp.service.TokenService;
 
+
+
 public class TokenBasedAuthFilter implements Filter
 {
 
 	
-	@Autowired 
 	TokenService tokenservice;
+	
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
@@ -87,7 +91,11 @@ public class TokenBasedAuthFilter implements Filter
 	}
 	
 	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {}
+	public void init(FilterConfig filterConfig) throws ServletException {
+		 WebApplicationContext ctx =  WebApplicationContextUtils
+			      .getRequiredWebApplicationContext(filterConfig.getServletContext());
+			 tokenservice= ctx.getBean("tokenservice", TokenService.class);
+	}
 	
 	@Override
 	public void destroy() {}

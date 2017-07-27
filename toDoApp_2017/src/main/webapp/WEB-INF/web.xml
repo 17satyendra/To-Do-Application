@@ -21,7 +21,21 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
-	
+	<!-- <filter>  
+  		<filter-name>myFilter</filter-name>  
+  		<filter-class>com.bridgeit.toDoApp.filter.TokenBasedAuthFilter</filter-class>  
+  	</filter>  
+  	
+  	<filter-mapping>  
+  		<filter-name>myFilter</filter-name>  
+ 		<url-pattern>/todoList</url-pattern>
+ 		<url-pattern>/archiveList</url-pattern>
+ 		<url-pattern>/delete/*</url-pattern>
+ 		<url-pattern>/archiveList</url-pattern>
+ 		<url-pattern>/delete/*</url-pattern>
+ 		<url-pattern>/update/*</url-pattern>
+ 		<url-pattern>/share</url-pattern>  
+  	</filter-mapping> --> 
 	
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

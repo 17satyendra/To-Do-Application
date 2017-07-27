@@ -15,7 +15,7 @@ public interface ToDoService {
 
 	List<ToDoTask> getToDoList(int id)throws Exception;
 	
-	List<ToDoTask> getArchivedTOdoTask(int userId) throws Exception; 
+	List<ToDoTask> getDynamicList(int userId, int option) throws Exception; 
 
 	void deleteTaskByToDoId(int taskId)throws Exception;
 
@@ -23,6 +23,6 @@ public interface ToDoService {
 
 	void updateIndex(List<Map<String, Integer>> listOfIndex) throws HibernateException;
 
-	List<User> getSharedUserList(User shareBy_user);
+	List<User> getSharedUserList(ToDoTask todo);
 
 }

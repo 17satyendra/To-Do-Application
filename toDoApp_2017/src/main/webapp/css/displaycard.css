@@ -101,3 +101,12 @@ p {
 
 
 /*Ends*/
+.s_userIcon{
+  	background-size: 50%;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 100%;
+	margin: -1px 0px 0px -1px;
+}
+

@@ -276,19 +276,7 @@ body {
 }
 /*PopUp Css Ends*/
 /*Side Menu Start*/
-.sidenav {
-	height: 100%;
-	width: 0;
-	position: fixed;
-	z-index: 1;
-	top: 0;
-	left: 0;
-	background-color: #E8E8E8;
-	overflow-x: hidden;
-	transition: 0.5s;
-	/*padding-top: 60px;*/
-	margin-top: 52px;
-}
+
 
 .sidenav:hover {
 	overflow-y: scroll;
@@ -306,12 +294,6 @@ body {
     padding-left: 16px;
     margin-left: 10px;
     
-}
-.sidenav a i{
-	    height: 24px;
-    width: 24px;
-    float: left;
-    vertical-align: middle;
 }
 
 hr {
@@ -335,14 +317,14 @@ hr {
 	padding: 16px;
 }
 
-@media screen and (max-height: 450px) {
+/* @media screen and (max-height: 450px) {
 	.sidenav {
 		padding-top: 15px;
 	}
 	.sidenav a {
 		font-size: 18px;
 	}
-}
+} */
 /*Side Menu End*/
 
 /*POPUP BOX START*/
