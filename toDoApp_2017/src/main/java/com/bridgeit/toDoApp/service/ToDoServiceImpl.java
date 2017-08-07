@@ -89,4 +89,12 @@ public class ToDoServiceImpl implements ToDoService{
 		return tododao.getSharedUser( todo );
 	}
 
+
+	@Override
+	public Integer deleteTaskFromTrash() throws Exception {
+		
+		return tododao.deleteAllTaskFromTrash();
+		
+	}
+
 }

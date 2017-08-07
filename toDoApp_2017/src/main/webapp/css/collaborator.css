@@ -137,4 +137,6 @@
 	width: 103%;
     margin-left: -3px;
     margin-bottom: -4px;
+    padding: 2px;
+    display: flex;
 }

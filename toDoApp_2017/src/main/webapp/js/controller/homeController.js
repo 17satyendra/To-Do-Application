@@ -8,6 +8,15 @@ myApp.controller('homeController', function($scope,$rootScope,$uibModal, $state,
 			$scope.isList=$rootScope.isList;
 		})
 	}
+	$scope.deleteAllFromTrash=function(){
+		console.log("inside trasj");
+		taskService.deleteAllTaskFromTrash().then(function(data){
+			if(data.status===1){
+				console.log(data);
+				$scope.result=null;
+			}
+		})
+	}
 	$scope.trash_state=function(){
 		$state.go("trash");
 	}
@@ -606,6 +615,9 @@ myApp.service('taskService',function($http){
 	}
 	this.saveIndex=function(allIndex){
 		return $http({url:"http://localhost:8080/toDoApp_2017/saveIndex", method:"post", data:allIndex});
+	}
+	this.deleteAllTaskFromTrash=function(){
+		return $http({url:"http://localhost:8080/toDoApp_2017/deleteAllTaskFromTrash", method:"post"});
 	}
 });
 

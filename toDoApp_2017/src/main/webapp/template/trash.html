@@ -143,7 +143,7 @@
 					<span class="tr_head_text">
 						Notes in Trash are deleted after 7 days.
 					</span>
-					<span role="button" class="tr_empty tr_empty_button" aria-hidden="false" style="user-select: none;" tabindex="0">
+					<span  data-ng-click="deleteAllFromTrash()"data-ng-if="result.length!==0"role="button" class="tr_empty tr_empty_button" aria-hidden="false" style="user-select: none;" tabindex="0">
 						Empty Trash now
 					</span>
 				</div>
@@ -151,7 +151,7 @@
 			<div style="margin-top: 20%">
 				<div class="beforeNote" ng-if="result.length===0">
 					<div>
-						<i style="font-size: 80px;" class="fa fa-trash-o" aria-hidden="true"></i>
+						<i style="font-size: 90px;" class="fa fa-trash-o" aria-hidden="true"></i>
 					</div>
 					<div style="margin: 10px;">No notes in Trash</div>
 				</div>

@@ -22,6 +22,7 @@
 <link rel="stylesheet" type="text/css" href="css/collaborator.css">
 <link rel="stylesheet" type="text/css" href="css/archive.css">
 <link rel="stylesheet" type="text/css" href="css/sideNavigation.css">
+<link rel="stylesheet" type="text/css" href="css/trash.css">
 
 <style>
 /* @media (min-width: 1200px) {

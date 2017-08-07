@@ -206,4 +206,14 @@ public class ToDoDaoImpl implements ToDoDao {
 		
 		
 	}
+
+	@Override
+	public Integer deleteAllTaskFromTrash() throws Exception {
+		String query = "DELETE FROM ToDoTask WHERE trash =:trash";
+		Session session = sessionFactory.getCurrentSession();
+		Query q = session.createQuery(query);
+        q.setParameter("trash", true);
+        Integer value=q.executeUpdate();
+        return value;
+	}
 }

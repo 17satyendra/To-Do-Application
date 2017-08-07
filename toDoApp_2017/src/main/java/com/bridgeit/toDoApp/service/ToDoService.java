@@ -25,4 +25,6 @@ public interface ToDoService {
 
 	List<User> getSharedUserList(ToDoTask todo);
 
+	Integer deleteTaskFromTrash()throws Exception;
+
 }

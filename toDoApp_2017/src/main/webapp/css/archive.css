@@ -70,33 +70,4 @@
 	border: none;
 	color: white;
 }
-.tr_head{
-	margin-top: 65px;
-	display: table;
-    height: 100%;
-    width: 100%;
-}
-.tr_subHead{
-	display: table-cell;
-    text-align: center;
-    vertical-align: middle;
-}
-.tr_head_text{
-	cursor: default;
-    font-size: 17px;
-    font-style: italic;
-    padding-top: 24px;
-    padding-bottom: 8px;
-}
-.tr_empty{
-	color: #4081f5;
-	font-style: normal;
-    margin-left: 16px;
-    position: relative;
-    bottom: 2px;
-    cursor: pointer;
-    outline: none!important;
-}
-.tr_empty_button{
-	
-}
+

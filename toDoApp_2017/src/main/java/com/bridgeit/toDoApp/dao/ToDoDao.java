@@ -29,4 +29,6 @@ public interface ToDoDao {
 
 	List<ToDoTask> getDynamicList(int userId, int option) throws HibernateException;
 
+	Integer deleteAllTaskFromTrash()throws Exception;
+
 }

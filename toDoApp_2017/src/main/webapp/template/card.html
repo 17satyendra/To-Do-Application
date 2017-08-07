@@ -140,9 +140,9 @@
 					</i>
 				</span>
 			</div>
-			<div class="display_coll" ng-if="i.sharedUser!==0">
+			<div class="display_coll" ng-if="i.sharedUser!==0" style="display: flex;">
 				<span data-ng-repeat="list in i.sharedUser">
-				<div class=" sharerImg" style="margin-left: 4px; background-color:#53c68c; border:1px solid #fff; height: 24px; width: 24px;">
+				<div class=" sharerImg" style="margin-left: 4px; background-color: rgba(83, 198, 140, 0.55); border:1px solid #fff; height: 24px; width: 24px;">
 	       	  		<div class="peopleimage Share_char" data-toggle="tooltip" data-placement="auto" title='{{list.firstName}}({{list.email}})'>
 	       	  			{{list.firstName.charAt(0).toUpperCase()}}
 	       	  		</div>

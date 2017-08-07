@@ -215,4 +215,29 @@ public class ToDoController {
 		
 	}
 	
+	@RequestMapping(value="/deleteAllTaskFromTrash", method=RequestMethod.POST)
+	public @ResponseBody Response deleteAllTrashTask(){
+		Response resp = null;
+		ErrorResponse err = null;
+		try{
+			Integer value=toDoService.deleteTaskFromTrash();
+			if(value!=0){
+				resp=new Response();
+				resp.setStatus(1);
+				resp.setMessage("All Task Deleted");
+				return resp;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+			err.setStatus(-1);
+			err.setMessage("internal server error");
+			return err;
+		}
+		resp= new Response();
+		resp.setStatus(-1);
+		resp.setMessage("Trash is empty");
+		
+		return resp;
+	}
 }
